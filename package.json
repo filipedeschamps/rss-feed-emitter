@@ -1,0 +1,27 @@
+{
+  "name": "rss-feed-emitter",
+  "version": "0.0.1",
+  "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filipedeschamps/rss-feed-emitter.git"
+  },
+  "keywords": [
+    "rss",
+    "feed",
+    "emitter",
+    "aggregator",
+    "news",
+    "atom"
+  ],
+  "author": "Filipe Deschamps",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filipedeschamps/rss-feed-emitter/issues"
+  },
+  "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme"
+}
