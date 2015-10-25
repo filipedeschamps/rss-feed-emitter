@@ -8,7 +8,7 @@ describe('Primeiro teste do Travis', function() {
 		expect(true).to.be.equal(true);
 	});
 
-	it('deve falhar', function() {
-		expect(false).to.be.equal(true);
+	it('antes falhava, mas agora deve passar', function() {
+		expect(1).to.be.equal(1);
 	});
 })
