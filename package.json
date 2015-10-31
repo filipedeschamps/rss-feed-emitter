@@ -4,7 +4,8 @@
   "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
   "main": "index.js",
   "scripts": {
-    "test": "gulp run:unit-test"
+    "test": "mocha",
+    "test-watch": "mocha --watch"
   },
   "repository": {
     "type": "git",
