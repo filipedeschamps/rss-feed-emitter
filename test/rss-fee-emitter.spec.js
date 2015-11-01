@@ -13,6 +13,22 @@ describe('RssFeedEmitter', () => {
 		it('deve retornar um objeto', () => {
 			expect(feeder).to.be.an('object');
 		});
+
+		it('#add deve ser uma função', () => {
+			expect(feeder.add).to.be.a('function');
+		});
+
+		it('#remove deve ser uma função', () => {
+			expect(feeder.remove).to.be.a('function');
+		});
+
+		it('#on deve ser uma função', () => {
+			expect(feeder.on).to.be.a('function');
+		});
+
+		it('#emit deve ser uma função', () => {
+			expect(feeder.emit).to.be.a('function');
+		});
 	})
 
 })
