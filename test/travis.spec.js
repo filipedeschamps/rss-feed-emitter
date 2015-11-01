@@ -1,6 +1,6 @@
 'use strict';
 
-let chai = require('chai');
+import chai from 'chai';
 let expect = chai.expect;
 
 describe('Primeiro teste do Travis', function() {
