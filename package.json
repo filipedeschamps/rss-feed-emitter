@@ -4,8 +4,8 @@
   "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test-watch": "mocha --watch"
+    "test": "mocha --compilers js:babel/register test/**/*.spec.js",
+    "test-watch": "mocha --watch --compilers js:babel/register test/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
+    "babel": "5.8.29",
     "chai": "3.4.0",
     "mocha": "2.3.3"
   }
