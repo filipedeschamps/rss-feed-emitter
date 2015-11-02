@@ -27,10 +27,6 @@ describe('RssFeedEmitter', () => {
 			expect(feeder.emit).to.be.a('function');
 		});
 		
-		it('#list deve ser uma função', () => {
-			expect(feeder.list).to.be.a('function');
-		});
-		
 		it('#destroy deve ser uma função', () => {
 			expect(feeder.destroy).to.be.a('function');
 		});
@@ -138,6 +134,36 @@ describe('RssFeedEmitter', () => {
 			expect( feeder.list() ).to.have.property('length', 1);
 			expect( feeder.list()[0] ).to.have.property('refresh', 240000);
 		});
+
+	})
+
+	describe('#list', () => {
+
+		it('deve listar todos os feeds cadastrados', () => {
+			let feeder = new RssFeedEmitter();
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 2000
+			});
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/news',
+				refresh: 5000
+			});
+
+			let list = feeder.list();
+
+			expect( list ).to.have.property('length', 2);
+
+			expect( list[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/latest');
+			expect( list[0] ).to.have.property('refresh', 2000);
+			expect( list[0] ).to.have.property('setInterval');
+
+			expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
+			expect( list[1] ).to.have.property('refresh', 5000);
+			expect( list[1] ).to.have.property('setInterval');
+		})
 
 	})
 
