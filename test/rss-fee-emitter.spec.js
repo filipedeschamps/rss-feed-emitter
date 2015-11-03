@@ -27,10 +27,6 @@ describe('RssFeedEmitter', () => {
 			expect( feeder.emit ).to.be.a('function');
 		});
 		
-		it('#destroy deve ser uma função', () => {
-			expect( feeder.destroy ).to.be.a('function');
-		});
-		
 	})
 
 	describe('#add', () => {
@@ -188,6 +184,15 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+	})
+
+	describe('#destroy', () => {
+
+		it('#deve ser uma função', () => {
+			let feeder = new RssFeedEmitter();
+			expect( feeder.destroy ).to.be.a('function');
+		});
+		
 	})
 
 })
