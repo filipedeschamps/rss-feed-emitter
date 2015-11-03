@@ -12,23 +12,23 @@ describe('RssFeedEmitter', () => {
 		let feeder = new RssFeedEmitter();
 
 		it('deve retornar um objeto', () => {
-			expect(feeder).to.be.an('object');
+			expect( feeder ).to.be.an('object');
 		});
 
 		it('#remove deve ser uma função', () => {
-			expect(feeder.remove).to.be.a('function');
+			expect( feeder.remove ).to.be.a('function');
 		});
 
 		it('#on deve ser uma função', () => {
-			expect(feeder.on).to.be.a('function');
+			expect( feeder.on ).to.be.a('function');
 		});
 
 		it('#emit deve ser uma função', () => {
-			expect(feeder.emit).to.be.a('function');
+			expect( feeder.emit ).to.be.a('function');
 		});
 		
 		it('#destroy deve ser uma função', () => {
-			expect(feeder.destroy).to.be.a('function');
+			expect( feeder.destroy ).to.be.a('function');
 		});
 		
 	})
@@ -38,7 +38,7 @@ describe('RssFeedEmitter', () => {
 		it('deve ser uma função', () => {
 
 			let feeder = new RssFeedEmitter();
-			expect(feeder.add).to.be.a('function');
+			expect( feeder.add ).to.be.a('function');
 
 		});
 
@@ -100,6 +100,7 @@ describe('RssFeedEmitter', () => {
 			expect( feeder.list() ).to.have.property('length', 2);
 			expect( feeder.list()[0] ).to.have.property('refresh', 60000);
 			expect( feeder.list()[1] ).to.have.property('refresh', 60000);
+
 		});
 
 		it('deve substituir a taxa de atualização padrão quando possuir "refresh"', () => {
@@ -112,6 +113,7 @@ describe('RssFeedEmitter', () => {
 			});
 
 			expect( feeder.list()[0] ).to.have.property('refresh', 120000);
+
 		});
 
 		it('deve atualizar o feed quando "url" já existir na lista de feeds', () => {
@@ -133,13 +135,33 @@ describe('RssFeedEmitter', () => {
 
 			expect( feeder.list() ).to.have.property('length', 1);
 			expect( feeder.list()[0] ).to.have.property('refresh', 240000);
+
 		});
 
 	})
 
 	describe('#list', () => {
 
+		it('deve ser uma função', () => {
+
+			let feeder = new RssFeedEmitter();
+			expect( feeder.list ).to.be.a('function');
+
+		});
+
+		it('deve retornar um array em branco por default', () => {
+
+			let feeder = new RssFeedEmitter();
+			let list = feeder.list();
+
+			expect( list ).to.be.an('array');
+			expect( list ).to.have.property('length', 0);
+
+		});
+
+
 		it('deve listar todos os feeds cadastrados', () => {
+
 			let feeder = new RssFeedEmitter();
 
 			feeder.add({
@@ -163,6 +185,7 @@ describe('RssFeedEmitter', () => {
 			expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
 			expect( list[1] ).to.have.property('refresh', 5000);
 			expect( list[1] ).to.have.property('setInterval');
+
 		})
 
 	})
