@@ -27,10 +27,6 @@ describe('RssFeedEmitter', () => {
 			expect( feeder.emit ).to.be.a('function');
 		});
 		
-		it('#destroy deve ser uma função', () => {
-			expect( feeder.destroy ).to.be.a('function');
-		});
-		
 	})
 
 	describe('#add', () => {
@@ -188,6 +184,36 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+	})
+
+	describe('#destroy', () => {
+
+		it('deve ser uma função', () => {
+			let feeder = new RssFeedEmitter();
+			expect( feeder.destroy ).to.be.a('function');
+		});
+
+		it('deve limpar todos os feeds da instância', () => {
+			let feeder = new RssFeedEmitter();
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 2000
+			});
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/news',
+				refresh: 5000
+			});
+
+			expect( feeder.list() ).to.have.property('length', 2);
+
+			feeder.destroy();
+
+			expect( feeder.list() ).to.have.property('length', 0);
+
+		});
+		
 	})
 
 })
