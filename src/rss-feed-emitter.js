@@ -27,7 +27,7 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	remove() {
-	
+		this._removeFromFeedList(feed);
 	}
 
 	list() {
@@ -35,7 +35,9 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	destroy() {
-
+		this._feedList = this._feedList.filter( (feed) => {
+			this._removeFromFeedList(feed);
+		});
 	}
 
 
