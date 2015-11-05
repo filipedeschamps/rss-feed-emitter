@@ -35,9 +35,10 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	destroy() {
-		this._feedList = this._feedList.filter( (feed) => {
+		for (let i = this._feedList.length -1; i >=0; i--) {
+			let feed = this._feedList[i];
 			this._removeFromFeedList(feed);
-		});
+		}
 	}
 
 
@@ -90,7 +91,7 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	_getFeedContent(feed) {
-		console.log('Getting content in rate of: ' + feed.refresh)
+		console.log(`Every ${feed.refresh} get ${feed.url}`);
 	}
 
 
