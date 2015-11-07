@@ -15,10 +15,6 @@ describe('RssFeedEmitter', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
-		it('#remove deve ser uma função', () => {
-			expect( feeder.remove ).to.be.a('function');
-		});
-
 		it('#on deve ser uma função', () => {
 			expect( feeder.on ).to.be.a('function');
 		});
@@ -28,6 +24,7 @@ describe('RssFeedEmitter', () => {
 		});
 		
 	})
+
 
 	describe('#add', () => {
 
@@ -133,6 +130,7 @@ describe('RssFeedEmitter', () => {
 
 	})
 
+
 	describe('#list', () => {
 
 		let feeder;
@@ -188,6 +186,98 @@ describe('RssFeedEmitter', () => {
 		})
 
 	})
+
+
+	describe('#remove', () => {
+
+		let feeder;
+
+		beforeEach( () => {
+			feeder = new RssFeedEmitter();
+		})
+
+
+		it('#remove deve ser uma função', () => {
+			expect( feeder.remove ).to.be.a('function');
+		});
+
+		it('deve remover um feed da lista utilizando uma "string" contendo a url do feed', () => {
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/yoshi',
+				refresh: 2000
+			});
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/wario',
+				refresh: 5000
+			});
+
+			expect( feeder.list() ).to.have.property('length', 2);
+
+			feeder.remove('http://www.nintendolife.com/feeds/yoshi');
+
+			expect( feeder.list() ).to.have.property('length', 1);
+			expect( feeder.list()[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/wario');
+
+		});
+		
+		it('deve retornar erro quando o método é invocado com um "number"', () => {
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest'
+			});
+
+			expect( () => { 
+				feeder.remove(1000);
+			}).to.throw(Error);
+
+		});
+
+		it('deve retornar erro quando o método é invocado com um "array"', () => {
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest'
+			});
+
+			expect( () => { 
+				feeder.remove(['http://www.nintendolife.com/feeds/latest']);
+			}).to.throw(Error);
+
+		});
+
+		it('deve retornar erro quando o método é invocado com um "object"', () => {
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest'
+			});
+
+			expect( () => { 
+				feeder.remove({
+					url: 'http://www.nintendolife.com/feeds/latest'
+				});
+			}).to.throw(Error);
+
+		});
+
+		it('não deve retornar um erro quando não encontrar o feed', () => {
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest'
+			});
+
+			expect( () => { 
+				feeder.remove('http://www.nintendolife.com/feeds/zelda');
+			}).not.to.throw(Error);
+
+		});
+
+		afterEach( () => {
+			feeder.destroy();
+		})
+
+	})
+
 
 	describe('#destroy', () => {
 
