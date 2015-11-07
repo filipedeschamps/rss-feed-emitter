@@ -26,8 +26,18 @@ class RssFeedEmitter extends TinyEmitter {
 		return this._feedList;
 	}
 
-	remove() {
-		this._removeFromFeedList(feed);
+	remove(url) {
+
+		if ( typeof url !== 'string' ) {
+			throw new Error('You must call #remove with a string containing the feed url');
+		}
+
+		let feed = this._findFeed({
+			url: url
+		});
+
+		return this._removeFromFeedList(feed);
+
 	}
 
 	list() {
@@ -82,8 +92,14 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	_removeFromFeedList(feed) {
+
+		if ( !feed || !feed.setInterval ) {
+			return;
+		}
+
 		clearInterval(feed.setInterval);
 		_.remove(this._feedList, { url: feed.url } );
+
 	}
 
 	_createSetInterval(feed) {
