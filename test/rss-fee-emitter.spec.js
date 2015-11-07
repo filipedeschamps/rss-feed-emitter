@@ -49,7 +49,7 @@ describe('RssFeedEmitter', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração não possui "url"', () => {
+		it('deve retornar erro quando objeto de configuração não possuir "url"', () => {
 
 			expect( () => {
 				feeder.add({
@@ -59,7 +59,7 @@ describe('RssFeedEmitter', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração possui "url" mas não é uma string', () => {
+		it('deve retornar erro quando objeto de configuração possuir "url" mas não é uma string', () => {
 
 			expect( () => { 
 				feeder.add({
@@ -69,7 +69,7 @@ describe('RssFeedEmitter', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração possui "refresh" mas não um número', () => {
+		it('deve retornar erro quando objeto de configuração possuir "refresh" mas não é um número', () => {
 
 			expect( () => { 
 				feeder.add({
