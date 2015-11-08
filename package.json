@@ -33,6 +33,7 @@
     "mocha": "2.3.3"
   },
   "dependencies": {
+    "bluebird": "3.0.5",
     "feedparser": "1.1.4",
     "request": "2.65.0",
     "tiny-emitter": "1.0.1"
