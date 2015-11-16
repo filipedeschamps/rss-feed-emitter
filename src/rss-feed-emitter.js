@@ -2,6 +2,9 @@
 
 import TinyEmitter from 'tiny-emitter';
 import * as _ from 'lodash';
+import request from 'request';
+import FeedParser from 'feedparser';
+import Promise from 'bluebird';
 
 class RssFeedEmitter extends TinyEmitter {
 
@@ -84,7 +87,20 @@ class RssFeedEmitter extends TinyEmitter {
 		return _.find(this._feedList, { url: feed.url });
 	}
 
+	_findItem(feed, item) {
+		if (!feed) {
+			return;
+		}
+
+		return _.find(feed.items, { url: item.url });
+	}
+
 	_addToFeedList(feed) {
+
+		if (!feed.items) {
+			feed.items = [];
+		}
+
 		feed.setInterval = this._createSetInterval(feed);
 		this._feedList.push(feed);
 
@@ -103,11 +119,108 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	_createSetInterval(feed) {
-		return setInterval( () => this._getFeedContent(feed), feed.refresh );
+
+		let getContent = () => {
+			this._fetchFeed(feed)
+				.bind(this)
+				.then(this._rearrangeItemsData)
+				.then(this._identifyOnlyNewItems)
+				.then(this._populateItemsInFeed)
+				.catch((error) => {
+					console.log(error.stack)
+				})
+		}
+
+		getContent();
+
+		return setInterval( getContent, feed.refresh );
 	}
 
-	_getFeedContent(feed) {
-		console.log(`Every ${feed.refresh} get ${feed.url}`);
+	_populateItemsInFeed(items) {
+
+		items.forEach((item) => {
+			this._addItemToItemList(item);
+		});
+
+	}
+
+	_addItemToItemList(item) {
+		let feed = this._findFeed({
+			url: item.feed.url
+		});
+
+		if (!feed) {
+			return;
+		}
+
+		feed.items.push(item);
+		this.emit('new-item', item);
+
+	}
+
+	_identifyOnlyNewItems(items) {
+		return items.filter((item) => {
+			let feed = this._findFeed({
+				url: item.feed.url
+			});
+
+			let itemFound = this._findItem(feed, item);
+
+			return !itemFound;
+
+		});
+	}
+
+	_rearrangeItemsData(items) {
+		return items.map((oldItem) => {
+			let newItem = {
+				title: oldItem.title,
+				description: oldItem.description,
+				summary: oldItem.summary,
+				date: oldItem.pubdate,
+				url: oldItem.link,
+				author: oldItem.author,
+				image: oldItem.image,
+				feed: {
+					url: oldItem.meta.xmlurl,
+					title: oldItem.meta.title
+				}
+			}
+
+			return newItem;
+		})
+	}
+
+
+	_fetchFeed(feed) {
+
+		return new Promise( (resolve, reject) => {
+		
+			let feedparser = new FeedParser();
+			let items = [];
+
+			request.get({
+				url: feed.url,
+				headers: {
+					'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
+					'accept': 'text/html,application/xhtml+xml'
+				}
+			})
+			.pipe(feedparser)
+			.on('end', () => resolve(items) );
+
+			feedparser.on('readable', () => {
+				let item;
+
+				while(item = feedparser.read()) {
+					items.push(item);
+				}
+
+				return items;
+			});
+
+
+		})
 	}
 
 
