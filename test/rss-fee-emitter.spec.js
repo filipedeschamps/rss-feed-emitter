@@ -131,6 +131,31 @@ describe('RssFeedEmitter', () => {
 	})
 
 
+	describe('#on', () => {
+
+		it('deve emitir "new-item" logo após adicionar um novo feed', (done) => {
+			let feeder = new RssFeedEmitter();
+			let itemsReceived = [];
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/forums',
+				refresh: 2000
+			});
+
+			feeder.on('new-item', (item) => {
+				itemsReceived.push(item);
+
+				if (itemsReceived.length === 1) {
+					feeder.destroy();
+					done();
+				}
+			});
+
+		})
+
+	})
+
+
 	describe('#list', () => {
 
 		let feeder;
