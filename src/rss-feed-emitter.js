@@ -123,7 +123,7 @@ class RssFeedEmitter extends TinyEmitter {
 		let getContent = () => {
 			this._fetchFeed(feed)
 				.bind(this)
-				.then(this._rearrangeItemsData)
+				.then(this._mapItemsData)
 				.then(this._identifyOnlyNewItems)
 				.then(this._populateItemsInFeed)
 				.catch((error) => {
@@ -171,7 +171,7 @@ class RssFeedEmitter extends TinyEmitter {
 		});
 	}
 
-	_rearrangeItemsData(items) {
+	_mapItemsData(items) {
 		return items.map((oldItem) => {
 			let newItem = {
 				title: oldItem.title,
