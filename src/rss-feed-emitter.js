@@ -127,6 +127,7 @@ class RssFeedEmitter extends TinyEmitter {
 				.then(this._identifyOnlyNewItems)
 				.then(this._populateItemsInFeed)
 				.catch((error) => {
+					console.log('Error in getContent() chain inside _createSetInterval()');
 					console.log(error.stack)
 				})
 		}
@@ -217,6 +218,10 @@ class RssFeedEmitter extends TinyEmitter {
 				}
 
 				return items;
+			});
+
+			feedparser.on('error', (error) => {
+				reject(error);
 			});
 
 
