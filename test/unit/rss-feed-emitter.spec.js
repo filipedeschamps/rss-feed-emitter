@@ -1,7 +1,7 @@
 'use strict';
 
 import chai from 'chai';
-import RssFeedEmitter from '../src/rss-feed-emitter.js';
+import RssFeedEmitter from '../../src/rss-feed-emitter.js';
 
 let expect = chai.expect;
 
@@ -96,7 +96,7 @@ describe('RssFeedEmitter', () => {
 		it('deve substituir a taxa de atualização padrão quando possuir "refresh"', () => {
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/comments',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 120000
 			});
 
@@ -107,7 +107,7 @@ describe('RssFeedEmitter', () => {
 		it('deve atualizar o feed quando "url" já existir na lista de feeds', () => {
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/forums',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 120000
 			});
 
@@ -115,7 +115,7 @@ describe('RssFeedEmitter', () => {
 			expect( feeder.list()[0] ).to.have.property('refresh', 120000);
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/forums',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 240000 
 			});
 
@@ -138,8 +138,8 @@ describe('RssFeedEmitter', () => {
 			let itemsReceived = [];
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/forums',
-				refresh: 2000
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 10000
 			});
 
 			feeder.on('new-item', (item) => {
@@ -183,12 +183,12 @@ describe('RssFeedEmitter', () => {
 		it('deve listar todos os feeds cadastrados', () => {
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/mario',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 2000
 			});
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/zelda',
+				url: 'http://www.nintendolife.com/feeds/news',
 				refresh: 5000
 			});
 
@@ -196,11 +196,11 @@ describe('RssFeedEmitter', () => {
 
 			expect( list ).to.have.property('length', 2);
 
-			expect( list[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/mario');
+			expect( list[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/latest');
 			expect( list[0] ).to.have.property('refresh', 2000);
 			expect( list[0] ).to.have.property('setInterval');
 
-			expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/zelda');
+			expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
 			expect( list[1] ).to.have.property('refresh', 5000);
 			expect( list[1] ).to.have.property('setInterval');
 
@@ -229,21 +229,21 @@ describe('RssFeedEmitter', () => {
 		it('deve remover um feed da lista utilizando uma "string" contendo a url do feed', () => {
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/yoshi',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 2000
 			});
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/wario',
+				url: 'http://www.nintendolife.com/feeds/news',
 				refresh: 5000
 			});
 
 			expect( feeder.list() ).to.have.property('length', 2);
 
-			feeder.remove('http://www.nintendolife.com/feeds/yoshi');
+			feeder.remove('http://www.nintendolife.com/feeds/latest');
 
 			expect( feeder.list() ).to.have.property('length', 1);
-			expect( feeder.list()[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/wario');
+			expect( feeder.list()[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
 
 		});
 		
@@ -292,7 +292,7 @@ describe('RssFeedEmitter', () => {
 			});
 
 			expect( () => { 
-				feeder.remove('http://www.nintendolife.com/feeds/zelda');
+				feeder.remove('http://www.nintendolife.com/feeds/news');
 			}).not.to.throw(Error);
 
 		});
@@ -315,12 +315,12 @@ describe('RssFeedEmitter', () => {
 			let feeder = new RssFeedEmitter();
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/link',
+				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 2000
 			});
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/luigi',
+				url: 'http://www.nintendolife.com/feeds/news',
 				refresh: 5000
 			});
 
