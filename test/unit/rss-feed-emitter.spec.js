@@ -1,6 +1,7 @@
 'use strict';
 
 import chai from 'chai';
+import nock from 'nock';
 import RssFeedEmitter from '../../src/rss-feed-emitter.js';
 
 let expect = chai.expect;
@@ -31,6 +32,13 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.twice()
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
 			feeder = new RssFeedEmitter();
 		})
 
@@ -80,7 +88,7 @@ describe('RssFeedEmitter', () => {
 		it('deve adicionar corretamente feeds quando possuir somente "url"', () => {
 
 			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/reviews',
+				url: 'http://www.nintendolife.com/feeds/latest',
 			});
 
 			feeder.add({
@@ -126,6 +134,7 @@ describe('RssFeedEmitter', () => {
 
 		afterEach( () => {
 			feeder.destroy();
+			nock.cleanAll();
 		})
 
 	})
@@ -133,8 +142,20 @@ describe('RssFeedEmitter', () => {
 
 	describe('#on', () => {
 
-		it('deve emitir "new-item" logo após adicionar um novo feed', (done) => {
-			let feeder = new RssFeedEmitter();
+		let feeder;
+
+		beforeEach( () => {
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
+			feeder = new RssFeedEmitter();
+		})
+
+
+		it('"new-item" deve ser emitido logo após adicionar um novo feed', (done) => {
 			let itemsReceived = [];
 
 			feeder.add({
@@ -145,12 +166,16 @@ describe('RssFeedEmitter', () => {
 			feeder.on('new-item', (item) => {
 				itemsReceived.push(item);
 
-				if (itemsReceived.length === 1) {
-					feeder.destroy();
+				if (itemsReceived.length === 20) {
 					done();
 				}
 			});
 
+		})
+
+		afterEach( () => {
+			feeder.destroy();
+			nock.cleanAll();
 		})
 
 	})
@@ -161,6 +186,12 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
 			feeder = new RssFeedEmitter();
 		})
 
@@ -208,6 +239,7 @@ describe('RssFeedEmitter', () => {
 
 		afterEach( () => {
 			feeder.destroy();
+			nock.cleanAll();
 		})
 
 	})
@@ -218,6 +250,12 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
 			feeder = new RssFeedEmitter();
 		})
 
@@ -299,12 +337,24 @@ describe('RssFeedEmitter', () => {
 
 		afterEach( () => {
 			feeder.destroy();
+			nock.cleanAll();
 		})
 
 	})
 
 
 	describe('#destroy', () => {
+
+		// Este teste não possui beforeEach e afterEach, pois é necessário
+		// executar o feeder.destroy() dentro do teste para conseguir
+		// mensurar se a lista de feeds foi zerada.
+		
+		nock('http://www.nintendolife.com/')
+			.get('/feeds/latest')
+			.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+			.get('/feeds/news')
+			.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
 
 		it('deve ser uma função', () => {
 			let feeder = new RssFeedEmitter();
