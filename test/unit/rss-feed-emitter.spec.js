@@ -173,6 +173,31 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+		it('"new-item" deve ser emitido feed ter novos itens', (done) => {
+			let itemsReceived = [];
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 20
+			});
+
+			setTimeout( () => {
+				feeder.on('new-item', (item) => {
+					itemsReceived.push(item);
+
+					if (itemsReceived.length === 9) {
+						done();
+					}
+				});
+			}, 0)
+
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
+
+		})
+
 		afterEach( () => {
 			feeder.destroy();
 			nock.cleanAll();
