@@ -16,10 +16,6 @@ describe('RssFeedEmitter', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
-		it('#on deve ser uma função', () => {
-			expect( feeder.on ).to.be.a('function');
-		});
-
 		it('#emit deve ser uma função', () => {
 			expect( feeder.emit ).to.be.a('function');
 		});
@@ -154,6 +150,9 @@ describe('RssFeedEmitter', () => {
 			feeder = new RssFeedEmitter();
 		})
 
+		it('deve ser uma função', () => {
+			expect( feeder.on ).to.be.a('function');
+		});
 
 		it('"new-item" deve ser emitido logo após adicionar um novo feed', (done) => {
 			let itemsReceived = [];
