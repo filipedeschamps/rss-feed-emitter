@@ -172,7 +172,7 @@ describe('RssFeedEmitter', () => {
 
 		})
 
-		it('"new-item" deve ser emitido feed ter novos itens', (done) => {
+		it('"new-item" deve emitir somente os novos itens no segundo fetch', (done) => {
 			let itemsReceived = [];
 
 			feeder.add({
@@ -180,16 +180,16 @@ describe('RssFeedEmitter', () => {
 				refresh: 20
 			});
 
-			setTimeout( () => {
-				feeder.on('new-item', (item) => {
-					itemsReceived.push(item);
+			feeder.on('new-item', (item) => {
+				itemsReceived.push(item);
 
-					if (itemsReceived.length === 9) {
-						done();
-					}
-				});
-			}, 0)
-
+				// Esta é a soma dos primeiros 20 feeds
+				// e depois mais 9 novos feeds do segundo
+				// fetch totalizando 29 items
+				if (itemsReceived.length === 29) {
+					done();
+				}
+			});
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
