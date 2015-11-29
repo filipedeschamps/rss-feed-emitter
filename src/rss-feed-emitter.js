@@ -124,6 +124,7 @@ class RssFeedEmitter extends TinyEmitter {
 			this._fetchFeed(feed)
 				.bind(this)
 				.then(this._mapItemsData)
+				.then(this._sortItemsByDate)
 				.then(this._identifyOnlyNewItems)
 				.then(this._populateItemsInFeed)
 				.catch((error) => {
@@ -135,6 +136,10 @@ class RssFeedEmitter extends TinyEmitter {
 		getContent();
 
 		return setInterval( getContent, feed.refresh );
+	}
+
+	_sortItemsByDate(items) {
+		return _.sortBy(items, 'date');
 	}
 
 	_populateItemsInFeed(items) {
