@@ -28,14 +28,9 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.twice()
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
 			feeder = new RssFeedEmitter();
+
 		})
 
 		it('deve ser uma função', () => {
@@ -53,19 +48,23 @@ describe('RssFeedEmitter', () => {
 		it('deve retornar erro quando objeto de configuração não possuir "url"', () => {
 
 			expect( () => {
+				
 				feeder.add({
 					refresh: 60000
 				})
+
 			}).to.throw(Error);
 
 		});
 
 		it('deve retornar erro quando objeto de configuração possuir "url" mas não é uma string', () => {
 
-			expect( () => { 
+			expect( () => {
+
 				feeder.add({
 					url: [1, 2, 3]
-				}) 
+				})
+
 			}).to.throw(Error);
 
 		});
@@ -73,15 +72,23 @@ describe('RssFeedEmitter', () => {
 		it('deve retornar erro quando objeto de configuração possuir "refresh" mas não é um número', () => {
 
 			expect( () => { 
+
 				feeder.add({
 					url: 'http://www.nintendolife.com/feeds/latest',
 					refresh: 'quickly'
 				});
+
 			}).to.throw(Error);
 
 		});
 
 		it('deve adicionar corretamente feeds quando possuir somente "url"', () => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
@@ -99,6 +106,10 @@ describe('RssFeedEmitter', () => {
 
 		it('deve substituir a taxa de atualização padrão quando possuir "refresh"', () => {
 
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
 				refresh: 120000
@@ -109,6 +120,11 @@ describe('RssFeedEmitter', () => {
 		});
 
 		it('deve atualizar o feed quando "url" já existir na lista de feeds', () => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.twice()
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
@@ -141,20 +157,23 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
 			feeder = new RssFeedEmitter();
+			
 		})
 
 		it('deve ser uma função', () => {
+
 			expect( feeder.on ).to.be.a('function');
+
 		});
 
 		it('"new-item" deve ser emitido logo após adicionar um novo feed', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+
 			let itemsReceived = [];
 
 			feeder.add({
@@ -173,6 +192,13 @@ describe('RssFeedEmitter', () => {
 		})
 
 		it('"new-item" deve emitir somente os novos itens no segundo fetch', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
+
 			let itemsReceived = [];
 
 			feeder.add({
@@ -191,10 +217,6 @@ describe('RssFeedEmitter', () => {
 				}
 			});
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
-
 		})
 
 		afterEach( () => {
@@ -210,13 +232,9 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
 			feeder = new RssFeedEmitter();
+
 		})
 
 		it('deve ser uma função', () => {
@@ -236,6 +254,13 @@ describe('RssFeedEmitter', () => {
 
 
 		it('deve listar todos os feeds cadastrados', () => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/news')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
@@ -274,21 +299,25 @@ describe('RssFeedEmitter', () => {
 		let feeder;
 
 		beforeEach( () => {
+
+			feeder = new RssFeedEmitter();
+
+		})
+
+
+		it('#remove deve ser uma função', () => {
+
+			expect( feeder.remove ).to.be.a('function');
+
+		});
+
+		it('deve remover um feed da lista utilizando uma "string" contendo a url do feed', () => {
+
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
 				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 				.get('/feeds/news')
 				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
-
-			feeder = new RssFeedEmitter();
-		})
-
-
-		it('#remove deve ser uma função', () => {
-			expect( feeder.remove ).to.be.a('function');
-		});
-
-		it('deve remover um feed da lista utilizando uma "string" contendo a url do feed', () => {
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
@@ -311,6 +340,10 @@ describe('RssFeedEmitter', () => {
 		
 		it('deve retornar erro quando o método é invocado com um "number"', () => {
 
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest'
 			});
@@ -323,6 +356,10 @@ describe('RssFeedEmitter', () => {
 
 		it('deve retornar erro quando o método é invocado com um "array"', () => {
 
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest'
 			});
@@ -334,6 +371,10 @@ describe('RssFeedEmitter', () => {
 		});
 
 		it('deve retornar erro quando o método é invocado com um "object"', () => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest'
@@ -348,6 +389,10 @@ describe('RssFeedEmitter', () => {
 		});
 
 		it('não deve retornar um erro quando não encontrar o feed', () => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest'
