@@ -219,6 +219,46 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+		it('"new-item" deve emitir os itens em ordem crescente', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
+
+			let itemsReceived = [];
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 20000
+			});
+
+			feeder.on('new-item', (item) => {
+
+				itemsReceived.push(item);
+
+				if (itemsReceived.length === 1) {
+					expect(item.title).to.equal('Random: Sega And Nintendo Go To War Over Facial Hair');
+					expect(item.date.toISOString()).to.equal('2015-11-19T10:00:00.000Z');
+				}
+
+				if (itemsReceived.length === 10) {
+					expect(item.title).to.equal('Feature: Our Top 10 Wii U eShop Games - Third Anniversary Edition');
+					expect(item.date.toISOString()).to.equal('2015-11-19T20:30:00.000Z');
+				}
+
+				if (itemsReceived.length === 20) {
+					expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
+					expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
+				}
+
+				if (itemsReceived.length === 20) {
+					done();
+				}
+			});
+
+		})
+
+
 		afterEach( () => {
 			feeder.destroy();
 			nock.cleanAll();
