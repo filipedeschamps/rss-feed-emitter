@@ -124,6 +124,7 @@ class RssFeedEmitter extends TinyEmitter {
 			this._fetchFeed(feed)
 				.bind(this)
 				.then(this._mapItemsData)
+				.tap(this._redefineItemHistoryMaxLength)
 				.then(this._sortItemsByDate)
 				.then(this._identifyOnlyNewItems)
 				.then(this._populateItemsInFeed)
@@ -136,6 +137,26 @@ class RssFeedEmitter extends TinyEmitter {
 		getContent();
 
 		return setInterval( getContent, feed.refresh );
+	}
+
+	_redefineItemHistoryMaxLength(items) {
+
+		let maxLength = items.length;
+
+		items.map( (item) => {
+
+			let feed = this._findFeed({
+				url: item.feed.url
+			});
+
+			if (!feed) {
+				return;
+			}
+
+			feed.maxHistoryLength = maxLength;
+
+		});
+
 	}
 
 	_sortItemsByDate(items) {
@@ -160,6 +181,8 @@ class RssFeedEmitter extends TinyEmitter {
 		}
 
 		feed.items.push(item);
+		feed.items = _.takeRight(feed.items, feed.maxHistoryLength);
+
 		this.emit('new-item', item);
 
 	}
