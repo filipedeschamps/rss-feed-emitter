@@ -3,6 +3,7 @@
 import chai from 'chai';
 import nock from 'nock';
 import RssFeedEmitter from '../../src/rss-feed-emitter.js';
+import * as _ from 'lodash';
 
 let expect = chai.expect;
 
@@ -141,6 +142,36 @@ describe('RssFeedEmitter', () => {
 
 			expect( feeder.list() ).to.have.property('length', 1);
 			expect( feeder.list()[0] ).to.have.property('refresh', 240000);
+
+		});
+
+		it('deve sempre manter o histórico máximo igual a quantidade do feed', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-third-fetch.xml')
+
+			let itemsReceived = [];
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 15
+			});
+
+			feeder.on('new-item', (item) => {
+				itemsReceived.push(item);
+
+				let feed = _.find(feeder.list(), { url: 'http://www.nintendolife.com/feeds/latest' });
+				expect(feed.items.length).to.be.below(21);
+
+				if (itemsReceived.length === 49) {
+					done();
+				}
+			})
 
 		});
 
