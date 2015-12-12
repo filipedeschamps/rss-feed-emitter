@@ -159,7 +159,7 @@ describe('RssFeedEmitter', () => {
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 15
+				refresh: 10
 			});
 
 			feeder.on('new-item', (item) => {
@@ -234,16 +234,24 @@ describe('RssFeedEmitter', () => {
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 20
+				refresh: 10
 			});
 
 			feeder.on('new-item', (item) => {
+
 				itemsReceived.push(item);
 
 				// Esta é a soma dos primeiros 20 feeds
 				// e depois mais 9 novos feeds do segundo
 				// fetch totalizando 29 items
 				if (itemsReceived.length === 29) {
+					expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
+					expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
+					expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
+					expect(itemsReceived[20].date.toISOString()).to.equal('2015-11-20T15:30:00.000Z');
+					expect(itemsReceived[28].title).to.equal('Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More');
+					expect(itemsReceived[28].date.toISOString()).to.equal('2015-11-21T18:00:00.000Z');
+
 					done();
 				}
 			});
