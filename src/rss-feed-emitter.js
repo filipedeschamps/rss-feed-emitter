@@ -92,7 +92,7 @@ class RssFeedEmitter extends TinyEmitter {
 			return;
 		}
 
-		return _.find(feed.items, { url: item.url });
+		return _.find(feed.items, { link: item.link });
 	}
 
 	_addToFeedList(feed) {
@@ -121,17 +121,79 @@ class RssFeedEmitter extends TinyEmitter {
 	_createSetInterval(feed) {
 
 		let getContent = () => {
-			this._fetchFeed(feed)
+			this._fetchFeed(feed.url)
 				.bind(this)
-				.then(this._mapItemsData)
-				.tap(this._redefineItemHistoryMaxLength)
-				.then(this._sortItemsByDate)
-				.then(this._identifyOnlyNewItems)
-				.then(this._populateItemsInFeed)
-				.catch((error) => {
-					console.log('Error in getContent() chain inside _createSetInterval()');
+				.tap(findFeedObject)
+				.tap(redefineItemHistoryMaxLength)
+				.tap(sortItemsByDate)
+				.tap(identifyOnlyNewItems)
+				.tap(populateNewItemsInFeed)
+				.catch( (error) => {
+
+					if (error.message === 'Feed not found') {
+						return;
+					}
+
+					console.log('Error inside _createSetInterval() -> this._fetchFeed() chain');
 					console.log(error.stack)
+
 				})
+
+				function findFeedObject(data) {
+
+					let feed = this._findFeed({
+						url: data.feedUrl
+					});
+
+					if (!feed) {
+						throw new Error('Feed not found');
+					}
+
+					data.feed = feed;
+
+					return data;
+					
+				}
+
+				function redefineItemHistoryMaxLength(data) {
+
+					let feedLength = data.items.length;
+
+					data.feed.maxHistoryLength = feedLength * 3;
+
+				}
+
+				function sortItemsByDate(data) {
+
+					data.items = _.sortBy(data.items, 'date');
+
+				}
+
+				function identifyOnlyNewItems(data) {
+
+					data.newItems = data.items.filter((fetchedItem) => {
+
+						let foundItemInsideFeed = this._findItem(data.feed, fetchedItem);
+
+						if (foundItemInsideFeed) {
+							return false;
+						} else {
+							return fetchedItem;
+						}
+
+					});
+
+				}
+
+				function populateNewItemsInFeed(data) {
+
+					data.newItems.forEach((item) => {
+						this._addItemToItemList(data.feed, item);
+					});
+
+				}
+
+
 		}
 
 		getContent();
@@ -139,46 +201,8 @@ class RssFeedEmitter extends TinyEmitter {
 		return setInterval( getContent, feed.refresh );
 	}
 
-	_redefineItemHistoryMaxLength(items) {
 
-		let maxLength = items.length;
-
-		items.map( (item) => {
-
-			let feed = this._findFeed({
-				url: item.feed.url
-			});
-
-			if (!feed) {
-				return;
-			}
-
-			feed.maxHistoryLength = maxLength;
-
-		});
-
-	}
-
-	_sortItemsByDate(items) {
-		return _.sortBy(items, 'date');
-	}
-
-	_populateItemsInFeed(items) {
-
-		items.forEach((item) => {
-			this._addItemToItemList(item);
-		});
-
-	}
-
-	_addItemToItemList(item) {
-		let feed = this._findFeed({
-			url: item.feed.url
-		});
-
-		if (!feed) {
-			return;
-		}
+	_addItemToItemList(feed, item) {
 
 		feed.items.push(item);
 		feed.items = _.takeRight(feed.items, feed.maxHistoryLength);
@@ -187,65 +211,40 @@ class RssFeedEmitter extends TinyEmitter {
 
 	}
 
-	_identifyOnlyNewItems(items) {
-		return items.filter((item) => {
-			let feed = this._findFeed({
-				url: item.feed.url
-			});
 
-			let itemFound = this._findItem(feed, item);
-
-			return !itemFound;
-
-		});
-	}
-
-	_mapItemsData(items) {
-		return items.map((oldItem) => {
-			let newItem = {
-				title: oldItem.title,
-				description: oldItem.description,
-				summary: oldItem.summary,
-				date: oldItem.pubdate,
-				url: oldItem.link,
-				author: oldItem.author,
-				image: oldItem.image,
-				feed: {
-					url: oldItem.meta.xmlurl,
-					title: oldItem.meta.title
-				}
-			}
-
-			return newItem;
-		})
-	}
-
-
-	_fetchFeed(feed) {
+	_fetchFeed(feedUrl) {
 
 		return new Promise( (resolve, reject) => {
-		
+
 			let feedparser = new FeedParser();
-			let items = [];
+
+			let data = {
+				feedUrl: feedUrl,
+				items: []
+			}
 
 			request.get({
-				url: feed.url,
+				url: feedUrl,
 				headers: {
 					'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
 					'accept': 'text/html,application/xhtml+xml'
 				}
 			})
 			.pipe(feedparser)
-			.on('end', () => resolve(items) );
+			.on('end', () => resolve(data) );
 
 			feedparser.on('readable', () => {
 				let item;
 
 				while(item = feedparser.read()) {
-					items.push(item);
+
+					// Force the feed URL inside the feed item
+					item.meta.link = feedUrl;
+					data.items.push(item);
+
 				}
 
-				return items;
+				return data;
 			});
 
 			feedparser.on('error', (error) => {
