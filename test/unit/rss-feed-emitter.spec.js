@@ -145,7 +145,7 @@ describe('RssFeedEmitter', () => {
 
 		});
 
-		it('deve sempre manter o histórico máximo igual a quantidade do feed', (done) => {
+		it('deve sempre manter o histórico máximo igual a quantidade de itens do feed vezes 3', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -154,6 +154,8 @@ describe('RssFeedEmitter', () => {
 				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
 				.get('/feeds/latest')
 				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-third-fetch.xml')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-fourth-fetch.xml')
 
 			let itemsReceived = [];
 
@@ -166,9 +168,9 @@ describe('RssFeedEmitter', () => {
 				itemsReceived.push(item);
 
 				let feed = _.find(feeder.list(), { url: 'http://www.nintendolife.com/feeds/latest' });
-				expect(feed.items.length).to.be.below(21);
+				expect(feed.items.length).to.be.below(61);
 
-				if (itemsReceived.length === 49) {
+				if (itemsReceived.length === 69) {
 					done();
 				}
 			})
@@ -384,7 +386,7 @@ describe('RssFeedEmitter', () => {
 		})
 
 
-		it('#remove deve ser uma função', () => {
+		it('deve ser uma função', () => {
 
 			expect( feeder.remove ).to.be.a('function');
 

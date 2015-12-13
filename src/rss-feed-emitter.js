@@ -11,6 +11,7 @@ class RssFeedEmitter extends TinyEmitter {
 	constructor() {
 		super();
 		this._feedList = [];
+		this._historyLengthMultiplier = 3;
 	}
 
 
@@ -159,7 +160,7 @@ class RssFeedEmitter extends TinyEmitter {
 
 					let feedLength = data.items.length;
 
-					data.feed.maxHistoryLength = feedLength * 3;
+					data.feed.maxHistoryLength = feedLength * this._historyLengthMultiplier;
 
 				}
 
