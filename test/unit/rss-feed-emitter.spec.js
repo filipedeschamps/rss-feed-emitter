@@ -42,7 +42,10 @@ describe('RssFeedEmitter', () => {
 
 		it('deve retornar erro quando chamado sem objeto de configuração', () => {
 
-			expect( () => feeder.add() ).to.throw(Error);
+			expect( () => feeder.add() ).to.throw().to.eql({
+				type: 'type_error',
+				message: 'You must call #add method with a feed configuration object.'
+			});
 
 		});
 
@@ -54,7 +57,10 @@ describe('RssFeedEmitter', () => {
 					refresh: 60000
 				})
 
-			}).to.throw(Error);
+			}).to.throw().to.eql({
+				type: 'type_error',
+				message: 'Your configuration object should have an "url" key with a string value'
+			});
 
 		});
 
@@ -66,7 +72,10 @@ describe('RssFeedEmitter', () => {
 					url: [1, 2, 3]
 				})
 
-			}).to.throw(Error);
+			}).to.throw().to.eql({
+				type: 'type_error',
+				message: 'Your configuration object should have an "url" key with a string value'
+			});
 
 		});
 
@@ -79,7 +88,10 @@ describe('RssFeedEmitter', () => {
 					refresh: 'quickly'
 				});
 
-			}).to.throw(Error);
+			}).to.throw({
+				type: 'type_error',
+				message: 'Your configuration object should have a "refresh" key with a number value'
+			});
 
 		});
 
@@ -431,7 +443,10 @@ describe('RssFeedEmitter', () => {
 
 			expect( () => { 
 				feeder.remove(1000);
-			}).to.throw(Error);
+			}).to.throw().to.eql({
+				type: 'type_error',
+				message: 'You must call #remove with a string containing the feed url'
+			});
 
 		});
 
@@ -447,7 +462,10 @@ describe('RssFeedEmitter', () => {
 
 			expect( () => { 
 				feeder.remove(['http://www.nintendolife.com/feeds/latest']);
-			}).to.throw(Error);
+			}).to.throw().to.eql({
+				type: 'type_error',
+				message: 'You must call #remove with a string containing the feed url'
+			});
 
 		});
 
@@ -465,7 +483,10 @@ describe('RssFeedEmitter', () => {
 				feeder.remove({
 					url: 'http://www.nintendolife.com/feeds/latest'
 				});
-			}).to.throw(Error);
+			}).to.throw().to.eql({
+				type: 'type_error',
+				message: 'You must call #remove with a string containing the feed url'
+			});
 
 		});
 

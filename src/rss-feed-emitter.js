@@ -33,7 +33,10 @@ class RssFeedEmitter extends TinyEmitter {
 	remove(url) {
 
 		if ( typeof url !== 'string' ) {
-			throw new Error('You must call #remove with a string containing the feed url');
+			throw {
+				type: 'type_error',
+				message: 'You must call #remove with a string containing the feed url'
+			}
 		}
 
 		let feed = this._findFeed({
@@ -60,15 +63,24 @@ class RssFeedEmitter extends TinyEmitter {
 
 	_validateFeedObject(feed) {
 		if ( !feed ) {
-			throw new Error('You must call #add method with a feed configuration object.');
+			throw {
+				type: 'type_error',
+				message: 'You must call #add method with a feed configuration object.'
+			};
 		}
 
 		if ( !feed.url || typeof feed.url !== 'string' || feed.url === '' ) {
-			throw new Error('Your configuration object should have an "url" key with a string value');
+			throw {
+				type: 'type_error',
+				message: 'Your configuration object should have an "url" key with a string value'
+			};
 		}
 
 		if ( feed.refresh && typeof feed.refresh !== 'number' ) {
-			throw new Error('Your configuration object should have a "refresh" key with a number value');
+			throw {
+				type: 'type_error',
+				message: 'Your configuration object should have a "refresh" key with a number value'
+			};
 		}
 	}
 
@@ -131,7 +143,7 @@ class RssFeedEmitter extends TinyEmitter {
 				.tap(populateNewItemsInFeed)
 				.catch( (error) => {
 
-					if (error.message === 'Feed not found') {
+					if (error.type === 'feed_not_found') {
 						return;
 					}
 
@@ -147,7 +159,10 @@ class RssFeedEmitter extends TinyEmitter {
 					});
 
 					if (!feed) {
-						throw new Error('Feed not found');
+						throw {
+							type: 'feed_not_found',
+							message: 'Feed not found.'
+						};
 					}
 
 					data.feed = feed;
