@@ -311,6 +311,37 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+		it('"new-item" deve conter item com "title", "description", "summary", "date", "link" e "meta"', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/latest')
+				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
+
+			let itemsReceived = [];
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/latest',
+				refresh: 20000
+			});
+
+			feeder.on('new-item', (item) => {
+
+				itemsReceived.push(item);
+
+				expect(item).to.have.property('title');
+				expect(item).to.have.property('description');
+				expect(item).to.have.property('summary');
+				expect(item).to.have.property('date');
+				expect(item).to.have.property('link');
+				expect(item).to.have.property('meta');
+
+				if (itemsReceived.length === 20) {
+					done();
+				}
+			});
+
+		})
+
 
 		afterEach( () => {
 			feeder.destroy();
