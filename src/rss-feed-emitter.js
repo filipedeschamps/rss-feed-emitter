@@ -143,7 +143,7 @@ class RssFeedEmitter extends TinyEmitter {
 				.tap(populateNewItemsInFeed)
 				.catch( (error) => {
 
-					if (error.type === 'feed_not_found') {
+					if (error.type === 'feed_not_found' || error.type === 'fetch_url_error') {
 						return;
 					}
 
@@ -246,8 +246,22 @@ class RssFeedEmitter extends TinyEmitter {
 					'accept': 'text/html,application/xhtml+xml'
 				}
 			})
+			.on('response', requestResponse.bind(this))
 			.pipe(feedparser)
 			.on('end', () => resolve(data) );
+
+			function requestResponse(res) {
+
+				if (res.statusCode !== 200) {
+					let error = {
+						type: 'fetch_url_error',
+						message: `This URL returned a ${res.statusCode} status code`
+					}
+
+					this.emit('error', error);
+					reject(error);
+				}
+			}
 
 			feedparser.on('readable', () => {
 				let item;

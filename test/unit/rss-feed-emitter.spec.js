@@ -342,6 +342,42 @@ describe('RssFeedEmitter', () => {
 
 		})
 
+		it('"error" deve ser emitido quando url retornar 404', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/zelda')
+				.reply(404);
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/zelda',
+				refresh: 120000
+			});
+
+			feeder.on('error', (error) => {
+				expect(error).to.have.property('type', 'fetch_url_error');
+				expect(error).to.have.property('message', 'This URL returned a 404 status code');
+				done();
+			})
+		});
+
+		it('"error" deve ser emitido quando url retornar 500', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/link')
+				.reply(500);
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/link',
+				refresh: 120000
+			});
+
+			feeder.on('error', (error) => {
+				expect(error).to.have.property('type', 'fetch_url_error');
+				expect(error).to.have.property('message', 'This URL returned a 500 status code');
+				done();
+			})
+		});
+
 
 		afterEach( () => {
 			feeder.destroy();
