@@ -246,11 +246,12 @@ class RssFeedEmitter extends TinyEmitter {
 					'accept': 'text/html,application/xhtml+xml'
 				}
 			})
-			.on('response', requestResponse.bind(this))
+			.on('response', requestOnResponse.bind(this))
+			.on('error', requestOnError.bind(this))
 			.pipe(feedparser)
 			.on('end', () => resolve(data) );
 
-			function requestResponse(res) {
+			function requestOnResponse(res) {
 
 				if (res.statusCode !== 200) {
 					let error = {
@@ -260,6 +261,21 @@ class RssFeedEmitter extends TinyEmitter {
 
 					this.emit('error', error);
 					reject(error);
+				}
+			}
+
+			function requestOnError(responseError) {
+
+				if (responseError.code === 'ENOTFOUND') {
+
+					let error = {
+						type: 'fetch_url_error',
+						message: `Cannot connect to ${feedUrl}`
+					}
+
+					this.emit('error', error);
+					reject(error);
+
 				}
 			}
 

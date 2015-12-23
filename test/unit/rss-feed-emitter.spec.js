@@ -173,7 +173,7 @@ describe('RssFeedEmitter', () => {
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 10
+				refresh: 50
 			});
 
 			feeder.on('new-item', (item) => {
@@ -248,7 +248,7 @@ describe('RssFeedEmitter', () => {
 
 			feeder.add({
 				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 10
+				refresh: 50
 			});
 
 			feeder.on('new-item', (item) => {
@@ -374,6 +374,20 @@ describe('RssFeedEmitter', () => {
 			feeder.on('error', (error) => {
 				expect(error).to.have.property('type', 'fetch_url_error');
 				expect(error).to.have.property('message', 'This URL returned a 500 status code');
+				done();
+			})
+		});
+
+		it('"error" deve ser emitido quando url não existir', (done) => {
+
+			feeder.add({
+				url: 'http://ww.cantconnecttothis.addres/feeed',
+				refresh: 120000
+			});
+
+			feeder.on('error', (error) => {
+				expect(error).to.have.property('type', 'fetch_url_error');
+				expect(error).to.have.property('message', 'Cannot connect to http://ww.cantconnecttothis.addres/feeed');
 				done();
 			})
 		});
