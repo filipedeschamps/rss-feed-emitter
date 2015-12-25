@@ -141,14 +141,14 @@ class RssFeedEmitter extends TinyEmitter {
 				.tap(sortItemsByDate)
 				.tap(identifyOnlyNewItems)
 				.tap(populateNewItemsInFeed)
-				.catch( (error) => {
+				.catch((error) => {
 
-					if (error.type === 'feed_not_found' || error.type === 'fetch_url_error') {
+
+					if (error.type === 'feed_not_found') {
 						return;
 					}
 
-					console.log('Error inside _createSetInterval() -> this._fetchFeed() chain');
-					console.log(error.stack)
+					this.emit('error', error);
 
 				})
 
@@ -259,7 +259,6 @@ class RssFeedEmitter extends TinyEmitter {
 						message: `This URL returned a ${res.statusCode} status code`
 					}
 
-					this.emit('error', error);
 					reject(error);
 				}
 			}
@@ -273,7 +272,6 @@ class RssFeedEmitter extends TinyEmitter {
 						message: `Cannot connect to ${feedUrl}`
 					}
 
-					this.emit('error', error);
 					reject(error);
 
 				}
@@ -293,7 +291,13 @@ class RssFeedEmitter extends TinyEmitter {
 				return data;
 			});
 
-			feedparser.on('error', (error) => {
+			feedparser.on('error', (parserError) => {
+
+				let error = {
+					type: 'invalid_feed',
+					message: `Cannot parse ${feedUrl} XML`
+				};
+
 				reject(error);
 			});
 

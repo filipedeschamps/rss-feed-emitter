@@ -376,6 +376,7 @@ describe('RssFeedEmitter', () => {
 				expect(error).to.have.property('message', 'This URL returned a 500 status code');
 				done();
 			})
+
 		});
 
 		it('"error" deve ser emitido quando url não existir', (done) => {
@@ -390,6 +391,26 @@ describe('RssFeedEmitter', () => {
 				expect(error).to.have.property('message', 'Cannot connect to http://ww.cantconnecttothis.addres/feeed');
 				done();
 			})
+		});
+
+
+		it('"error" deve ser emitido quando conteúdo não for um feed válido', (done) => {
+
+			nock('http://www.nintendolife.com/')
+				.get('/feeds/mario')
+				.reply(200, '<html><head><body><item><title>Broken xml</title></item></head></body>');
+
+			feeder.add({
+				url: 'http://www.nintendolife.com/feeds/mario',
+				refresh: 120000
+			});
+
+			feeder.on('error', (error) => {
+				expect(error).to.have.property('type', 'invalid_feed');
+				expect(error).to.have.property('message', 'Cannot parse http://www.nintendolife.com/feeds/mario XML');
+				done();
+			})
+
 		});
 
 
