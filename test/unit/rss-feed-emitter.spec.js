@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 let expect = chai.expect;
 
-describe('RssFeedEmitter', () => {
+describe('RssFeedEmitter (unit)', () => {
 
 	describe('quando instanciado', () => {
 
