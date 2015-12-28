@@ -356,6 +356,7 @@ describe('RssFeedEmitter', () => {
 			feeder.on('error', (error) => {
 				expect(error).to.have.property('type', 'fetch_url_error');
 				expect(error).to.have.property('message', 'This URL returned a 404 status code');
+				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/zelda');
 				done();
 			})
 		});
@@ -374,6 +375,7 @@ describe('RssFeedEmitter', () => {
 			feeder.on('error', (error) => {
 				expect(error).to.have.property('type', 'fetch_url_error');
 				expect(error).to.have.property('message', 'This URL returned a 500 status code');
+				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/link');
 				done();
 			})
 
@@ -389,6 +391,7 @@ describe('RssFeedEmitter', () => {
 			feeder.on('error', (error) => {
 				expect(error).to.have.property('type', 'fetch_url_error');
 				expect(error).to.have.property('message', 'Cannot connect to http://ww.cantconnecttothis.addres/feeed');
+				expect(error).to.have.property('feed', 'http://ww.cantconnecttothis.addres/feeed');
 				done();
 			})
 		});
@@ -408,6 +411,7 @@ describe('RssFeedEmitter', () => {
 			feeder.on('error', (error) => {
 				expect(error).to.have.property('type', 'invalid_feed');
 				expect(error).to.have.property('message', 'Cannot parse http://www.nintendolife.com/feeds/mario XML');
+				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/mario');
 				done();
 			})
 

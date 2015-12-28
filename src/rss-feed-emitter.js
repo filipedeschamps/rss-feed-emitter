@@ -256,7 +256,8 @@ class RssFeedEmitter extends TinyEmitter {
 				if (res.statusCode !== 200) {
 					let error = {
 						type: 'fetch_url_error',
-						message: `This URL returned a ${res.statusCode} status code`
+						message: `This URL returned a ${res.statusCode} status code`,
+						feed: feedUrl
 					}
 
 					reject(error);
@@ -269,7 +270,9 @@ class RssFeedEmitter extends TinyEmitter {
 
 					let error = {
 						type: 'fetch_url_error',
-						message: `Cannot connect to ${feedUrl}`
+						message: `Cannot connect to ${feedUrl}`,
+						feed: feedUrl
+
 					}
 
 					reject(error);
@@ -295,7 +298,9 @@ class RssFeedEmitter extends TinyEmitter {
 
 				let error = {
 					type: 'invalid_feed',
-					message: `Cannot parse ${feedUrl} XML`
+					message: `Cannot parse ${feedUrl} XML`,
+					feed: feedUrl
+
 				};
 
 				reject(error);
