@@ -2,13 +2,12 @@
   "name": "rss-feed-emitter",
   "version": "0.0.1",
   "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
-  "main": "index.js",
+  "main": "./src/rss-feed-emitter.js",
   "scripts": {
     "test": "npm run test-unit && npm run test-integration",
-    "test-watch": "mocha --watch --compilers js:babel-core/register test/**/*.spec.js",
     "test-unit": "mocha --compilers js:babel-core/register test/unit/**/*.spec.js",
-    "test-unit-watch": "mocha --watch --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
+    "test-unit-watch": "mocha --watch --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration-watch": "mocha --watch --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js"
   },
   "repository": {
