@@ -9,15 +9,15 @@ let expect = chai.expect;
 
 describe('RssFeedEmitter (unit)', () => {
 
-	describe('quando instanciado', () => {
+	describe('when instantiated', () => {
 
 		let feeder = new RssFeedEmitter();
 
-		it('deve retornar um objeto', () => {
+		it('should return an object', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
-		it('#emit deve ser uma função', () => {
+		it('#emit should be a function', () => {
 			expect( feeder.emit ).to.be.a('function');
 		});
 		
@@ -34,13 +34,13 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('deve ser uma função', () => {
+		it('should be a function', () => {
 
 			expect( feeder.add ).to.be.a('function');
 
 		});
 
-		it('deve retornar erro quando chamado sem objeto de configuração', () => {
+		it('should return an error when called without configuration object', () => {
 
 			expect( () => feeder.add() ).to.throw().to.eql({
 				type: 'type_error',
@@ -49,7 +49,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração não possuir "url"', () => {
+		it('should throw when configuration object does not contains "url"', () => {
 
 			expect( () => {
 				
@@ -64,7 +64,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração possuir "url" mas não é uma string', () => {
+		it('should throw when configuration object contains "url", but its not a string', () => {
 
 			expect( () => {
 
@@ -79,7 +79,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve retornar erro quando objeto de configuração possuir "refresh" mas não é um número', () => {
+		it('should throw when configuration object contains "refresh", but its not a number', () => {
 
 			expect( () => { 
 
@@ -95,7 +95,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve adicionar corretamente feeds quando possuir somente "url"', () => {
+		it('should correctly add feeds when configuration object contains only "url"', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -117,7 +117,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve substituir a taxa de atualização padrão quando possuir "refresh"', () => {
+		it('should replace default refresh rate if configuration object contains "refresh"', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -132,7 +132,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve atualizar o feed quando "url" já existir na lista de feeds', () => {
+		it('should update feed when "url" already exists in feed list', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -157,7 +157,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve sempre manter o histórico máximo igual a quantidade de itens do feed vezes 3', (done) => {
+		it('should always keep feed max history the number of feed items times 3', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
