@@ -207,13 +207,13 @@ describe('RssFeedEmitter (unit)', () => {
 			
 		})
 
-		it('deve ser uma função', () => {
+		it('should be a function', () => {
 
 			expect( feeder.on ).to.be.a('function');
 
 		});
 
-		it('"new-item" deve ser emitido logo após adicionar um novo feed', (done) => {
+		it('"new-item" should be emitted right after adding a new feed', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -236,7 +236,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"new-item" deve emitir somente os novos itens no segundo fetch', (done) => {
+		it('"new-item" should emit only new items in the second fetch', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -255,9 +255,9 @@ describe('RssFeedEmitter (unit)', () => {
 
 				itemsReceived.push(item);
 
-				// Esta é a soma dos primeiros 20 feeds
-				// e depois mais 9 novos feeds do segundo
-				// fetch totalizando 29 items
+				// This is the sum of the first 20 feed items
+				// and then 9 more new items from the second
+				// fetch totaling 29 items.
 				if (itemsReceived.length === 29) {
 					expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
 					expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
@@ -272,7 +272,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"new-item" deve emitir os itens em ordem crescente', (done) => {
+		it('"new-item" should emit items in crescent order', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -311,7 +311,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"new-item" deve conter item com "title", "description", "summary", "date", "link" e "meta"', (done) => {
+		it('"new-item" should contain an object with "title", "description", "summary", "date", "link" and "meta"', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -342,7 +342,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"error" deve ser emitido quando url retornar 404', (done) => {
+		it('"error" should be emitted when URL returns 404', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/zelda')
@@ -361,7 +361,7 @@ describe('RssFeedEmitter (unit)', () => {
 			})
 		});
 
-		it('"error" deve ser emitido quando url retornar 500', (done) => {
+		it('"error" should be emitted when URL returns 500', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/link')
@@ -381,7 +381,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('"error" deve ser emitido quando url não existir', (done) => {
+		it('"error" should be emitted when URL does not exist', (done) => {
 
 			feeder.add({
 				url: 'http://ww.cantconnecttothis.addres/feeed',
@@ -397,7 +397,7 @@ describe('RssFeedEmitter (unit)', () => {
 		});
 
 
-		it('"error" deve ser emitido quando conteúdo não for um feed válido', (done) => {
+		it('"error" should be emitted when the content is not a valid feed', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/mario')
