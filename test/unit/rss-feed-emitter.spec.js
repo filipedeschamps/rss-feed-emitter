@@ -436,13 +436,13 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('deve ser uma função', () => {
+		it('should be a function', () => {
 
 			expect( feeder.list ).to.be.a('function');
 
 		});
 
-		it('deve retornar um array em branco por default', () => {
+		it('should return a blank array by default', () => {
 
 			let list = feeder.list();
 
@@ -452,7 +452,7 @@ describe('RssFeedEmitter (unit)', () => {
 		});
 
 
-		it('deve listar todos os feeds cadastrados', () => {
+		it('should list all registered feeds', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
