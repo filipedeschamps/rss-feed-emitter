@@ -17,7 +17,7 @@ describe('RssFeedEmitter (unit)', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
-		it('#emit should be a function', () => {
+		it('#emit should be a Function', () => {
 			expect( feeder.emit ).to.be.a('function');
 		});
 		
@@ -34,13 +34,13 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('should be a function', () => {
+		it('should be a Function', () => {
 
 			expect( feeder.add ).to.be.a('function');
 
 		});
 
-		it('should return an error when called without configuration object', () => {
+		it('should throw when called without configuration object', () => {
 
 			expect( () => feeder.add() ).to.throw().to.eql({
 				type: 'type_error',
@@ -207,13 +207,13 @@ describe('RssFeedEmitter (unit)', () => {
 			
 		})
 
-		it('should be a function', () => {
+		it('should be a Function', () => {
 
 			expect( feeder.on ).to.be.a('function');
 
 		});
 
-		it('"new-item" should be emitted right after adding a new feed', (done) => {
+		it('"new-item" should be emitted right after adding new feeds', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -311,7 +311,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"new-item" should contain an Object with "title", "description", "summary", "date", "link" and "meta"', (done) => {
+		it('"new-item" should contain an Object with at least "title", "description", "summary", "date", "link" and "meta"', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -436,7 +436,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('should be a function', () => {
+		it('should be a Function', () => {
 
 			expect( feeder.list ).to.be.a('function');
 
@@ -504,7 +504,7 @@ describe('RssFeedEmitter (unit)', () => {
 		})
 
 
-		it('should be a function', () => {
+		it('should be a Function', () => {
 
 			expect( feeder.remove ).to.be.a('function');
 
@@ -537,7 +537,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 		
-		it('should return an error when called with a Number', () => {
+		it('should throw when called with a Number', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -556,7 +556,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('should return an error when called with an Array', () => {
+		it('should throw when called with an Array', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -575,7 +575,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('should return an error when called with an Object', () => {
+		it('should throw when called with an Object', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -596,7 +596,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('should not return an error when feed could not be found', () => {
+		it('should not throw when feed could not be found', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -621,10 +621,6 @@ describe('RssFeedEmitter (unit)', () => {
 
 
 	describe('#destroy', () => {
-
-		// Este teste não possui beforeEach e afterEach, pois é necessário
-		// executar o feeder.destroy() dentro do teste para conseguir
-		// mensurar se a lista de feeds foi zerada.
 		
 		nock('http://www.nintendolife.com/')
 			.get('/feeds/latest')
@@ -633,12 +629,12 @@ describe('RssFeedEmitter (unit)', () => {
 			.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
 
-		it('deve ser uma função', () => {
+		it('should be a Function', () => {
 			let feeder = new RssFeedEmitter();
 			expect( feeder.destroy ).to.be.a('function');
 		});
 
-		it('deve limpar todos os feeds da instância', () => {
+		it('should remove all feeds from the instance', () => {
 			let feeder = new RssFeedEmitter();
 
 			feeder.add({
