@@ -13,7 +13,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		let feeder = new RssFeedEmitter();
 
-		it('should return an object', () => {
+		it('should return an Object', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
@@ -64,7 +64,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('should throw when configuration object contains "url", but its not a string', () => {
+		it('should throw when configuration object contains "url", but its not a String', () => {
 
 			expect( () => {
 
@@ -79,7 +79,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('should throw when configuration object contains "refresh", but its not a number', () => {
+		it('should throw when configuration object contains "refresh", but its not a Number', () => {
 
 			expect( () => { 
 
@@ -311,7 +311,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('"new-item" should contain an object with "title", "description", "summary", "date", "link" and "meta"', (done) => {
+		it('"new-item" should contain an Object with "title", "description", "summary", "date", "link" and "meta"', (done) => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -436,13 +436,13 @@ describe('RssFeedEmitter (unit)', () => {
 
 		})
 
-		it('deve ser uma função', () => {
+		it('should be a function', () => {
 
 			expect( feeder.list ).to.be.a('function');
 
 		});
 
-		it('deve retornar um array em branco por default', () => {
+		it('should return a blank Array by default', () => {
 
 			let list = feeder.list();
 
@@ -452,7 +452,7 @@ describe('RssFeedEmitter (unit)', () => {
 		});
 
 
-		it('deve listar todos os feeds cadastrados', () => {
+		it('should list all registered feeds', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -504,13 +504,13 @@ describe('RssFeedEmitter (unit)', () => {
 		})
 
 
-		it('deve ser uma função', () => {
+		it('should be a function', () => {
 
 			expect( feeder.remove ).to.be.a('function');
 
 		});
 
-		it('deve remover um feed da lista utilizando uma "string" contendo a url do feed', () => {
+		it('should remove a feed from the list with a String containing the feed url', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -537,7 +537,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 		
-		it('deve retornar erro quando o método é invocado com um "number"', () => {
+		it('should return an error when called with a Number', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -556,7 +556,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve retornar erro quando o método é invocado com um "array"', () => {
+		it('should return an error when called with an Array', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -575,7 +575,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('deve retornar erro quando o método é invocado com um "object"', () => {
+		it('should return an error when called with an Object', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
@@ -596,7 +596,7 @@ describe('RssFeedEmitter (unit)', () => {
 
 		});
 
-		it('não deve retornar um erro quando não encontrar o feed', () => {
+		it('should not return an error when feed could not be found', () => {
 
 			nock('http://www.nintendolife.com/')
 				.get('/feeds/latest')
