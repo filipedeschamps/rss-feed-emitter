@@ -2,8 +2,10 @@
   "name": "rss-feed-emitter",
   "version": "0.0.1",
   "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
-  "main": "./src/rss-feed-emitter.js",
+  "main": "dist/rss-feed-emitter.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "mocha --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
@@ -29,7 +31,9 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
+    "babel-cli": "6.4.0",
     "babel-core": "6.3.13",
+    "babel-plugin-add-module-exports": "0.1.2",
     "babel-preset-es2015": "6.3.13",
     "chai": "3.4.0",
     "lodash": "3.10.1",
