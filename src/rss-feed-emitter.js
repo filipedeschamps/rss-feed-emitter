@@ -281,17 +281,11 @@ class RssFeedEmitter extends TinyEmitter {
 			}
 
 			feedparser.on('readable', () => {
-				let item;
+				let item = feedparser.read();
 
-				while(item = feedparser.read()) {
-
-					// Force the feed URL inside the feed item
-					item.meta.link = feedUrl;
-					data.items.push(item);
-
-				}
-
-				return data;
+				// Force the feed URL inside the feed item
+				item.meta.link = feedUrl;
+				data.items.push(item);
 			});
 
 			feedparser.on('error', (parserError) => {
