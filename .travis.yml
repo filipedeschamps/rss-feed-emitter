@@ -5,3 +5,5 @@ node_js:
   - "4.2"
   - "0.12"
   - "0.10"
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
