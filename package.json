@@ -7,7 +7,7 @@
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --timeout 30000 test/**/*.spec.js",
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "test": "npm run build && npm run coverage",
+    "test": "npm run coverage",
     "test-unit": "mocha --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
     "test-unit-watch": "mocha --watch --compilers js:babel-core/register test/unit/**/*.spec.js",
