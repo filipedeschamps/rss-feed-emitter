@@ -101,10 +101,6 @@ class RssFeedEmitter extends TinyEmitter {
 	}
 
 	_findItem(feed, item) {
-		if (!feed || !item) {
-			return;
-		}
-
 		return _.find(feed.items, { link: item.link, title: item.title });
 	}
 
