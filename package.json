@@ -4,7 +4,7 @@
   "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
   "main": "dist/rss-feed-emitter.js",
   "scripts": {
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha test/**/*.spec.js",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --timeout 30000 test/**/*.spec.js",
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "npm run build && npm run coverage",
