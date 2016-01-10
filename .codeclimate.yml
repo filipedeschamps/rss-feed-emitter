@@ -9,9 +9,11 @@ engines:
     enabled: true
   fixme:
     enabled: true
+  nodesecurity:
+    enabled: true
 ratings:
   paths:
-  - "**.js"
+  - "src/**.js"
 exclude_paths:
 - dist/**/*
 - test/**/*
