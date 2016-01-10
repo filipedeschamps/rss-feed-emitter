@@ -100,15 +100,7 @@ class RssFeedEmitter extends TinyEmitter {
 		return _.find(this._feedList, { url: feed.url });
 	}
 
-	_codeClimateTest() {
-		return 'Code coverage test';
-	}
-
 	_findItem(feed, item) {
-		if (!feed && !item) {
-			return;
-		}
-
 		return _.find(feed.items, { link: item.link, title: item.title });
 	}
 
