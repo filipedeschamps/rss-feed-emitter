@@ -17,10 +17,6 @@ describe('RssFeedEmitter (unit)', () => {
 			expect( feeder ).to.be.an('object');
 		});
 
-		it('#emit should be a Function', () => {
-			expect( feeder.emit ).to.be.a('function');
-		});
-		
 	})
 
 
@@ -192,6 +188,40 @@ describe('RssFeedEmitter (unit)', () => {
 		afterEach( () => {
 			feeder.destroy();
 			nock.cleanAll();
+		})
+
+	})
+
+	describe('#emit', () => {
+
+		let feeder;
+
+		beforeEach( () => {
+
+			feeder = new RssFeedEmitter();
+			
+		})
+
+		it('#emit should be a Function', () => {
+			expect( feeder.emit ).to.be.a('function');
+		});
+
+		it('#emit should emit custom events', (done) => {
+
+			feeder.on('custom-event', (eventObject) => {
+				expect( eventObject ).to.be.an('object');
+				expect( eventObject ).to.have.property('name', 'rss-feed-emitter');
+				done();
+			});
+
+			feeder.emit('custom-event', {
+				name: 'rss-feed-emitter'
+			});
+
+		});
+
+		afterEach( () => {
+			feeder.destroy();
 		})
 
 	})
