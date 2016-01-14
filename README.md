@@ -6,12 +6,11 @@
 
  * Supports Node.js `0.10` `0.12` `4.x` `5.x` and `@stable`
  * 100% code coverage with unit and integration tests
+ * Simple interface
  * Automatically manage feed history memory
  * Written with ES6
 
 ## Usage
-
-This library
 
 ### Install
 
