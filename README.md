@@ -1,10 +1,10 @@
 # RSS Feed Emitter [![Build Status](https://travis-ci.org/filipedeschamps/rss-feed-emitter.svg?branch=master)](https://travis-ci.org/filipedeschamps/rss-feed-emitter) [![Test Coverage](https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/badges/coverage.svg)](https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/coverage)
 
-> Track tons of feeds and receive events for every new item published with this super RSS news feed aggregator written in Node.js and ES6.
+> Track tons of feeds and receive events for every new item published with this super RSS News Feed aggregator written in Node.js and ES6.
 
 ## Features
 
- * Support for Node.js 0.10, 0.12, 4.x, 5.x and @stable
+ * Supports Node.js `0.10` `0.12` `4.x` `5.x` and `@stable`
  * 100% code coverage with unit and integration tests
  * Automatically manage feed history memory
  * Written with ES6
@@ -46,9 +46,19 @@ feeder.on('new-item', function(item) {
 ```
 
 ### Listing all feeds in the instance
+``` js
+feeder.list();
+```
 
-### Removing feeds
+### Removing a single feed
 
 ``` js
 feeder.remove('http://www.nintendolife.com/feeds/news');
 ```
+
+### Destroying feed instance
+
+``` js
+feeder.destroy();
+```
+> This will remove all feeds from the instance
