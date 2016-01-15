@@ -9,682 +9,682 @@ let expect = chai.expect;
 
 describe('RssFeedEmitter (unit)', () => {
 
-	describe('when instantiated', () => {
+  describe('when instantiated', () => {
 
-		let feeder = new RssFeedEmitter();
+    let feeder = new RssFeedEmitter();
 
-		it('should return an Object', () => {
-			expect( feeder ).to.be.an('object');
-		});
+    it('should return an Object', () => {
+      expect( feeder ).to.be.an('object');
+    });
 
-	})
+  })
 
 
-	describe('#add', () => {
+  describe('#add', () => {
 
-		let feeder;
+    let feeder;
 
-		beforeEach( () => {
+    beforeEach( () => {
 
-			feeder = new RssFeedEmitter();
+      feeder = new RssFeedEmitter();
 
-		})
+    })
 
-		it('should be a Function', () => {
+    it('should be a Function', () => {
 
-			expect( feeder.add ).to.be.a('function');
+      expect( feeder.add ).to.be.a('function');
 
-		});
+    });
 
-		it('should throw when called without configuration object', () => {
+    it('should throw when called without configuration object', () => {
 
-			expect( () => feeder.add() ).to.throw().to.eql({
-				type: 'type_error',
-				message: 'You must call #add method with a feed configuration object.'
-			});
+      expect( () => feeder.add() ).to.throw().to.eql({
+        type: 'type_error',
+        message: 'You must call #add method with a feed configuration object.'
+      });
 
-		});
+    });
 
-		it('should throw when configuration object does not contains "url"', () => {
+    it('should throw when configuration object does not contains "url"', () => {
 
-			expect( () => {
-				
-				feeder.add({
-					refresh: 60000
-				})
+      expect( () => {
 
-			}).to.throw().to.eql({
-				type: 'type_error',
-				message: 'Your configuration object should have an "url" key with a string value'
-			});
+        feeder.add({
+          refresh: 60000
+        })
 
-		});
+      }).to.throw().to.eql({
+        type: 'type_error',
+        message: 'Your configuration object should have an "url" key with a string value'
+      });
 
-		it('should throw when configuration object contains "url", but its not a String', () => {
+    });
 
-			expect( () => {
+    it('should throw when configuration object contains "url", but its not a String', () => {
 
-				feeder.add({
-					url: [1, 2, 3]
-				})
+      expect( () => {
 
-			}).to.throw().to.eql({
-				type: 'type_error',
-				message: 'Your configuration object should have an "url" key with a string value'
-			});
+        feeder.add({
+          url: [1, 2, 3]
+        })
 
-		});
+      }).to.throw().to.eql({
+        type: 'type_error',
+        message: 'Your configuration object should have an "url" key with a string value'
+      });
 
-		it('should throw when configuration object contains "refresh", but its not a Number', () => {
+    });
 
-			expect( () => { 
+    it('should throw when configuration object contains "refresh", but its not a Number', () => {
 
-				feeder.add({
-					url: 'http://www.nintendolife.com/feeds/latest',
-					refresh: 'quickly'
-				});
+      expect( () => {
 
-			}).to.throw({
-				type: 'type_error',
-				message: 'Your configuration object should have a "refresh" key with a number value'
-			});
+        feeder.add({
+          url: 'http://www.nintendolife.com/feeds/latest',
+          refresh: 'quickly'
+        });
 
-		});
+      }).to.throw({
+        type: 'type_error',
+        message: 'Your configuration object should have a "refresh" key with a number value'
+      });
 
-		it('should correctly add feeds when configuration object contains only "url"', () => {
+    });
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+    it('should correctly add feeds when configuration object contains only "url"', () => {
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-			});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      .get('/feeds/news')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/news',
-			});
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+      });
 
-			expect( feeder.list() ).to.have.property('length', 2);
-			expect( feeder.list()[0] ).to.have.property('refresh', 60000);
-			expect( feeder.list()[1] ).to.have.property('refresh', 60000);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/news',
+      });
 
-		});
+      expect( feeder.list() ).to.have.property('length', 2);
+      expect( feeder.list()[0] ).to.have.property('refresh', 60000);
+      expect( feeder.list()[1] ).to.have.property('refresh', 60000);
 
-		it('should replace default refresh rate if configuration object contains "refresh"', () => {
+    });
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+    it('should replace default refresh rate if configuration object contains "refresh"', () => {
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 120000
-			});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-			expect( feeder.list()[0] ).to.have.property('refresh', 120000);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 120000
+      });
 
-		});
+      expect( feeder.list()[0] ).to.have.property('refresh', 120000);
 
-		it('should update feed when "url" already exists in feed list', () => {
+    });
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.twice()
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+    it('should update feed when "url" already exists in feed list', () => {
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 120000
-			});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .twice()
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-			expect( feeder.list() ).to.have.property('length', 1);
-			expect( feeder.list()[0] ).to.have.property('refresh', 120000);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 120000
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 240000 
-			});
+      expect( feeder.list() ).to.have.property('length', 1);
+      expect( feeder.list()[0] ).to.have.property('refresh', 120000);
 
-			expect( feeder.list() ).to.have.property('length', 1);
-			expect( feeder.list()[0] ).to.have.property('refresh', 240000);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 240000
+      });
 
-		});
+      expect( feeder.list() ).to.have.property('length', 1);
+      expect( feeder.list()[0] ).to.have.property('refresh', 240000);
 
-		it('should always keep feed max history the number of feed items times 3', (done) => {
+    });
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-third-fetch.xml')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-fourth-fetch.xml')
+    it('should always keep feed max history the number of feed items times 3', (done) => {
 
-			let itemsReceived = [];
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-third-fetch.xml')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-fourth-fetch.xml')
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 50
-			});
+      let itemsReceived = [];
 
-			feeder.on('new-item', (item) => {
-				itemsReceived.push(item);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 50
+      });
 
-				let feed = _.find(feeder.list(), { url: 'http://www.nintendolife.com/feeds/latest' });
-				expect(feed.items.length).to.be.below(61);
+      feeder.on('new-item', (item) => {
+        itemsReceived.push(item);
 
-				if (itemsReceived.length === 69) {
-					done();
-				}
-			})
+        let feed = _.find(feeder.list(), { url: 'http://www.nintendolife.com/feeds/latest' });
+        expect(feed.items.length).to.be.below(61);
 
-		});
+        if (itemsReceived.length === 69) {
+          done();
+        }
+      })
 
-		afterEach( () => {
-			feeder.destroy();
-			nock.cleanAll();
-		})
+    });
 
-	})
+    afterEach( () => {
+      feeder.destroy();
+      nock.cleanAll();
+    })
 
-	describe('#emit', () => {
+  })
 
-		let feeder;
+  describe('#emit', () => {
 
-		beforeEach( () => {
+    let feeder;
 
-			feeder = new RssFeedEmitter();
-			
-		})
+    beforeEach( () => {
 
-		it('#emit should be a Function', () => {
-			expect( feeder.emit ).to.be.a('function');
-		});
+      feeder = new RssFeedEmitter();
 
-		it('#emit should emit custom events', (done) => {
+    })
 
-			feeder.on('custom-event', (eventObject) => {
-				expect( eventObject ).to.be.an('object');
-				expect( eventObject ).to.have.property('name', 'rss-feed-emitter');
-				done();
-			});
+    it('#emit should be a Function', () => {
+      expect( feeder.emit ).to.be.a('function');
+    });
 
-			feeder.emit('custom-event', {
-				name: 'rss-feed-emitter'
-			});
+    it('#emit should emit custom events', (done) => {
 
-		});
+      feeder.on('custom-event', (eventObject) => {
+        expect( eventObject ).to.be.an('object');
+        expect( eventObject ).to.have.property('name', 'rss-feed-emitter');
+        done();
+      });
 
-		afterEach( () => {
-			feeder.destroy();
-		})
+      feeder.emit('custom-event', {
+        name: 'rss-feed-emitter'
+      });
 
-	})
+    });
 
+    afterEach( () => {
+      feeder.destroy();
+    })
 
-	describe('#on', () => {
+  })
 
-		let feeder;
 
-		beforeEach( () => {
+  describe('#on', () => {
 
-			feeder = new RssFeedEmitter();
-			
-		})
+    let feeder;
 
-		it('should be a Function', () => {
+    beforeEach( () => {
 
-			expect( feeder.on ).to.be.a('function');
+      feeder = new RssFeedEmitter();
 
-		});
+    })
 
-		it('"new-item" should be emitted right after adding new feeds', (done) => {
+    it('should be a Function', () => {
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      expect( feeder.on ).to.be.a('function');
 
-			let itemsReceived = [];
+    });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 10000
-			});
+    it('"new-item" should be emitted right after adding new feeds', (done) => {
 
-			feeder.on('new-item', (item) => {
-				itemsReceived.push(item);
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-				if (itemsReceived.length === 20) {
-					done();
-				}
-			});
+      let itemsReceived = [];
 
-		})
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 10000
+      });
 
-		it('"new-item" should emit only new items in the second fetch', (done) => {
+      feeder.on('new-item', (item) => {
+        itemsReceived.push(item);
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
+        if (itemsReceived.length === 20) {
+          done();
+        }
+      });
 
-			let itemsReceived = [];
+    })
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 50
-			});
+    it('"new-item" should emit only new items in the second fetch', (done) => {
 
-			feeder.on('new-item', (item) => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-second-fetch.xml')
 
-				itemsReceived.push(item);
+      let itemsReceived = [];
 
-				// This is the sum of the first 20 feed items
-				// and then 9 more new items from the second
-				// fetch totaling 29 items.
-				if (itemsReceived.length === 29) {
-					expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
-					expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
-					expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
-					expect(itemsReceived[20].date.toISOString()).to.equal('2015-11-20T15:30:00.000Z');
-					expect(itemsReceived[28].title).to.equal('Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More');
-					expect(itemsReceived[28].date.toISOString()).to.equal('2015-11-21T18:00:00.000Z');
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 50
+      });
 
-					done();
-				}
-			});
+      feeder.on('new-item', (item) => {
 
-		})
+        itemsReceived.push(item);
 
-		it('"new-item" should emit items in crescent order', (done) => {
+        // This is the sum of the first 20 feed items
+        // and then 9 more new items from the second
+        // fetch totaling 29 items.
+        if (itemsReceived.length === 29) {
+          expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
+          expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
+          expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
+          expect(itemsReceived[20].date.toISOString()).to.equal('2015-11-20T15:30:00.000Z');
+          expect(itemsReceived[28].title).to.equal('Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More');
+          expect(itemsReceived[28].date.toISOString()).to.equal('2015-11-21T18:00:00.000Z');
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
+          done();
+        }
+      });
 
-			let itemsReceived = [];
+    })
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 20000
-			});
+    it('"new-item" should emit items in crescent order', (done) => {
 
-			feeder.on('new-item', (item) => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
 
-				itemsReceived.push(item);
+      let itemsReceived = [];
 
-				if (itemsReceived.length === 1) {
-					expect(item.title).to.equal('Random: Sega And Nintendo Go To War Over Facial Hair');
-					expect(item.date.toISOString()).to.equal('2015-11-19T10:00:00.000Z');
-				}
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 20000
+      });
 
-				if (itemsReceived.length === 10) {
-					expect(item.title).to.equal('Feature: Our Top 10 Wii U eShop Games - Third Anniversary Edition');
-					expect(item.date.toISOString()).to.equal('2015-11-19T20:30:00.000Z');
-				}
+      feeder.on('new-item', (item) => {
 
-				if (itemsReceived.length === 20) {
-					expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
-					expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
-				}
+        itemsReceived.push(item);
 
-				if (itemsReceived.length === 20) {
-					done();
-				}
-			});
+        if (itemsReceived.length === 1) {
+          expect(item.title).to.equal('Random: Sega And Nintendo Go To War Over Facial Hair');
+          expect(item.date.toISOString()).to.equal('2015-11-19T10:00:00.000Z');
+        }
 
-		})
+        if (itemsReceived.length === 10) {
+          expect(item.title).to.equal('Feature: Our Top 10 Wii U eShop Games - Third Anniversary Edition');
+          expect(item.date.toISOString()).to.equal('2015-11-19T20:30:00.000Z');
+        }
 
-		it('"new-item" should contain an Object with at least "title", "description", "summary", "date", "link" and "meta"', (done) => {
+        if (itemsReceived.length === 20) {
+          expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
+          expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
+        }
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
+        if (itemsReceived.length === 20) {
+          done();
+        }
+      });
 
-			let itemsReceived = [];
+    })
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 20000
-			});
+    it('"new-item" should contain an Object with at least "title", "description", "summary", "date", "link" and "meta"', (done) => {
 
-			feeder.on('new-item', (item) => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml');
 
-				itemsReceived.push(item);
+      let itemsReceived = [];
 
-				expect(item).to.have.property('title');
-				expect(item).to.have.property('description');
-				expect(item).to.have.property('summary');
-				expect(item).to.have.property('date');
-				expect(item).to.have.property('link');
-				expect(item).to.have.property('meta');
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 20000
+      });
 
-				if (itemsReceived.length === 20) {
-					done();
-				}
-			});
+      feeder.on('new-item', (item) => {
 
-		})
+        itemsReceived.push(item);
 
-		it('"error" should be emitted when URL returns 404', (done) => {
+        expect(item).to.have.property('title');
+        expect(item).to.have.property('description');
+        expect(item).to.have.property('summary');
+        expect(item).to.have.property('date');
+        expect(item).to.have.property('link');
+        expect(item).to.have.property('meta');
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/zelda')
-				.reply(404);
+        if (itemsReceived.length === 20) {
+          done();
+        }
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/zelda',
-				refresh: 120000
-			});
+    })
 
-			feeder.on('error', (error) => {
-				expect(error).to.have.property('type', 'fetch_url_error');
-				expect(error).to.have.property('message', 'This URL returned a 404 status code');
-				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/zelda');
-				done();
-			})
-		});
+    it('"error" should be emitted when URL returns 404', (done) => {
 
-		it('"error" should be emitted when URL returns 500', (done) => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/zelda')
+      .reply(404);
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/link')
-				.reply(500);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/zelda',
+        refresh: 120000
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/link',
-				refresh: 120000
-			});
+      feeder.on('error', (error) => {
+        expect(error).to.have.property('type', 'fetch_url_error');
+        expect(error).to.have.property('message', 'This URL returned a 404 status code');
+        expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/zelda');
+        done();
+      })
+    });
 
-			feeder.on('error', (error) => {
-				expect(error).to.have.property('type', 'fetch_url_error');
-				expect(error).to.have.property('message', 'This URL returned a 500 status code');
-				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/link');
-				done();
-			})
+    it('"error" should be emitted when URL returns 500', (done) => {
 
-		});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/link')
+      .reply(500);
 
-		it('"error" should be emitted when URL does not exist', (done) => {
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/link',
+        refresh: 120000
+      });
 
-			feeder.add({
-				url: 'http://ww.cantconnecttothis.addres/feeed',
-				refresh: 120000
-			});
+      feeder.on('error', (error) => {
+        expect(error).to.have.property('type', 'fetch_url_error');
+        expect(error).to.have.property('message', 'This URL returned a 500 status code');
+        expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/link');
+        done();
+      })
 
-			feeder.on('error', (error) => {
-				expect(error).to.have.property('type', 'fetch_url_error');
-				expect(error).to.have.property('message', 'Cannot connect to http://ww.cantconnecttothis.addres/feeed');
-				expect(error).to.have.property('feed', 'http://ww.cantconnecttothis.addres/feeed');
-				done();
-			})
-		});
+    });
 
+    it('"error" should be emitted when URL does not exist', (done) => {
 
-		it('"error" should be emitted when the content is not a valid feed', (done) => {
+      feeder.add({
+        url: 'http://ww.cantconnecttothis.addres/feeed',
+        refresh: 120000
+      });
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/mario')
-				.reply(200, '<html><head><body><item><title>Broken xml</title></item></head></body>');
+      feeder.on('error', (error) => {
+        expect(error).to.have.property('type', 'fetch_url_error');
+        expect(error).to.have.property('message', 'Cannot connect to http://ww.cantconnecttothis.addres/feeed');
+        expect(error).to.have.property('feed', 'http://ww.cantconnecttothis.addres/feeed');
+        done();
+      })
+    });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/mario',
-				refresh: 120000
-			});
 
-			feeder.on('error', (error) => {
-				expect(error).to.have.property('type', 'invalid_feed');
-				expect(error).to.have.property('message', 'Cannot parse http://www.nintendolife.com/feeds/mario XML');
-				expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/mario');
-				done();
-			})
+    it('"error" should be emitted when the content is not a valid feed', (done) => {
 
-		});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/mario')
+      .reply(200, '<html><head><body><item><title>Broken xml</title></item></head></body>');
 
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/mario',
+        refresh: 120000
+      });
 
-		afterEach( () => {
-			feeder.destroy();
-			nock.cleanAll();
-		})
+      feeder.on('error', (error) => {
+        expect(error).to.have.property('type', 'invalid_feed');
+        expect(error).to.have.property('message', 'Cannot parse http://www.nintendolife.com/feeds/mario XML');
+        expect(error).to.have.property('feed', 'http://www.nintendolife.com/feeds/mario');
+        done();
+      })
 
-	})
+    });
 
 
-	describe('#list', () => {
+    afterEach( () => {
+      feeder.destroy();
+      nock.cleanAll();
+    })
 
-		let feeder;
+  })
 
-		beforeEach( () => {
 
-			feeder = new RssFeedEmitter();
+  describe('#list', () => {
 
-		})
+    let feeder;
 
-		it('should be a Function', () => {
+    beforeEach( () => {
 
-			expect( feeder.list ).to.be.a('function');
+      feeder = new RssFeedEmitter();
 
-		});
+    })
 
-		it('should return a blank Array by default', () => {
+    it('should be a Function', () => {
 
-			let list = feeder.list();
+      expect( feeder.list ).to.be.a('function');
 
-			expect( list ).to.be.an('array');
-			expect( list ).to.have.property('length', 0);
+    });
 
-		});
+    it('should return a blank Array by default', () => {
 
+      let list = feeder.list();
 
-		it('should list all registered feeds', () => {
+      expect( list ).to.be.an('array');
+      expect( list ).to.have.property('length', 0);
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+    });
 
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 2000
-			});
+    it('should list all registered feeds', () => {
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/news',
-				refresh: 5000
-			});
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      .get('/feeds/news')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
-			let list = feeder.list();
 
-			expect( list ).to.have.property('length', 2);
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 2000
+      });
 
-			expect( list[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/latest');
-			expect( list[0] ).to.have.property('refresh', 2000);
-			expect( list[0] ).to.have.property('setInterval');
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/news',
+        refresh: 5000
+      });
 
-			expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
-			expect( list[1] ).to.have.property('refresh', 5000);
-			expect( list[1] ).to.have.property('setInterval');
+      let list = feeder.list();
 
-		})
+      expect( list ).to.have.property('length', 2);
 
-		afterEach( () => {
-			feeder.destroy();
-			nock.cleanAll();
-		})
+      expect( list[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/latest');
+      expect( list[0] ).to.have.property('refresh', 2000);
+      expect( list[0] ).to.have.property('setInterval');
 
-	})
+      expect( list[1] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
+      expect( list[1] ).to.have.property('refresh', 5000);
+      expect( list[1] ).to.have.property('setInterval');
 
+    })
 
-	describe('#remove', () => {
+    afterEach( () => {
+      feeder.destroy();
+      nock.cleanAll();
+    })
 
-		let feeder;
+  })
 
-		beforeEach( () => {
 
-			feeder = new RssFeedEmitter();
+  describe('#remove', () => {
 
-		})
+    let feeder;
 
+    beforeEach( () => {
 
-		it('should be a Function', () => {
+      feeder = new RssFeedEmitter();
 
-			expect( feeder.remove ).to.be.a('function');
+    })
 
-		});
 
-		it('should remove a feed from the list with a String containing the feed url', () => {
+    it('should be a Function', () => {
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-				.get('/feeds/news')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+      expect( feeder.remove ).to.be.a('function');
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 2000
-			});
+    });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/news',
-				refresh: 5000
-			});
+    it('should remove a feed from the list with a String containing the feed url', () => {
 
-			expect( feeder.list() ).to.have.property('length', 2);
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      .get('/feeds/news')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
-			feeder.remove('http://www.nintendolife.com/feeds/latest');
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 2000
+      });
 
-			expect( feeder.list() ).to.have.property('length', 1);
-			expect( feeder.list()[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/news',
+        refresh: 5000
+      });
 
-		});
-		
-		it('should throw when called with a Number', () => {
+      expect( feeder.list() ).to.have.property('length', 2);
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      feeder.remove('http://www.nintendolife.com/feeds/latest');
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest'
-			});
+      expect( feeder.list() ).to.have.property('length', 1);
+      expect( feeder.list()[0] ).to.have.property('url', 'http://www.nintendolife.com/feeds/news');
 
-			expect( () => { 
-				feeder.remove(1000);
-			}).to.throw().to.eql({
-				type: 'type_error',
-				message: 'You must call #remove with a string containing the feed url'
-			});
+    });
 
-		});
+    it('should throw when called with a Number', () => {
 
-		it('should throw when called with an Array', () => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest'
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest'
-			});
+      expect( () => {
+        feeder.remove(1000);
+      }).to.throw().to.eql({
+        type: 'type_error',
+        message: 'You must call #remove with a string containing the feed url'
+      });
 
-			expect( () => { 
-				feeder.remove(['http://www.nintendolife.com/feeds/latest']);
-			}).to.throw().to.eql({
-				type: 'type_error',
-				message: 'You must call #remove with a string containing the feed url'
-			});
+    });
 
-		});
+    it('should throw when called with an Array', () => {
 
-		it('should throw when called with an Object', () => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest'
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest'
-			});
+      expect( () => {
+        feeder.remove(['http://www.nintendolife.com/feeds/latest']);
+      }).to.throw().to.eql({
+        type: 'type_error',
+        message: 'You must call #remove with a string containing the feed url'
+      });
 
-			expect( () => { 
-				feeder.remove({
-					url: 'http://www.nintendolife.com/feeds/latest'
-				});
-			}).to.throw().to.eql({
-				type: 'type_error',
-				message: 'You must call #remove with a string containing the feed url'
-			});
+    });
 
-		});
+    it('should throw when called with an Object', () => {
 
-		it('should not throw when feed could not be found', () => {
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-			nock('http://www.nintendolife.com/')
-				.get('/feeds/latest')
-				.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest'
+      });
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest'
-			});
+      expect( () => {
+        feeder.remove({
+          url: 'http://www.nintendolife.com/feeds/latest'
+        });
+      }).to.throw().to.eql({
+        type: 'type_error',
+        message: 'You must call #remove with a string containing the feed url'
+      });
 
-			expect( () => { 
-				feeder.remove('http://www.nintendolife.com/feeds/news');
-			}).not.to.throw(Error);
+    });
 
-		});
+    it('should not throw when feed could not be found', () => {
 
-		afterEach( () => {
-			feeder.destroy();
-			nock.cleanAll();
-		})
+      nock('http://www.nintendolife.com/')
+      .get('/feeds/latest')
+      .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
 
-	})
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest'
+      });
 
+      expect( () => {
+        feeder.remove('http://www.nintendolife.com/feeds/news');
+      }).not.to.throw(Error);
 
-	describe('#destroy', () => {
-		
-		nock('http://www.nintendolife.com/')
-			.get('/feeds/latest')
-			.replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
-			.get('/feeds/news')
-			.replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
+    });
 
+    afterEach( () => {
+      feeder.destroy();
+      nock.cleanAll();
+    })
 
-		it('should be a Function', () => {
-			let feeder = new RssFeedEmitter();
-			expect( feeder.destroy ).to.be.a('function');
-		});
+  })
 
-		it('should remove all feeds from the instance', () => {
-			let feeder = new RssFeedEmitter();
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/latest',
-				refresh: 2000
-			});
+  describe('#destroy', () => {
 
-			feeder.add({
-				url: 'http://www.nintendolife.com/feeds/news',
-				refresh: 5000
-			});
+    nock('http://www.nintendolife.com/')
+    .get('/feeds/latest')
+    .replyWithFile(200, __dirname + '/fixtures/nintendo-latest-first-fetch.xml')
+    .get('/feeds/news')
+    .replyWithFile(200, __dirname + '/fixtures/nintendo-news-first-fetch.xml');
 
-			expect( feeder.list() ).to.have.property('length', 2);
 
-			feeder.destroy();
+    it('should be a Function', () => {
+      let feeder = new RssFeedEmitter();
+      expect( feeder.destroy ).to.be.a('function');
+    });
 
-			expect( feeder.list() ).to.have.property('length', 0);
+    it('should remove all feeds from the instance', () => {
+      let feeder = new RssFeedEmitter();
 
-		});
-		
-	})
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 2000
+      });
+
+      feeder.add({
+        url: 'http://www.nintendolife.com/feeds/news',
+        refresh: 5000
+      });
+
+      expect( feeder.list() ).to.have.property('length', 2);
+
+      feeder.destroy();
+
+      expect( feeder.list() ).to.have.property('length', 0);
+
+    });
+
+  })
 
 })
