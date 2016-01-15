@@ -14,7 +14,6 @@ class RssFeedEmitter extends TinyEmitter {
 		this._historyLengthMultiplier = 3;
 	}
 
-
 	// PUBLIC METHODS
 
 	add(feed) {
