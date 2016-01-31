@@ -173,7 +173,7 @@
     "max-len": [1, 80, 2],
     "max-nested-callbacks": [2, 2],
     "max-params": [2, 3],
-    "max-statements": [2, 2],
+    "max-statements": [2, 10],
     "new-cap": 0, // Configuring this in the "Babel" section 
     "new-parens": 2,
     "newline-after-var": [2, "always"],
