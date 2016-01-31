@@ -230,7 +230,7 @@
     "no-var": 2,
     "object-shorthand": 0, // Configuring this in the "Babel" section
     "prefer-arrow-callback": 0,
-    "prefer-const": 2,
+    "prefer-const": 0,
     "prefer-reflect": 0,
     "prefer-spread": 0,
     "prefer-template": 2,
