@@ -170,7 +170,7 @@
     "linebreak-style": [2, "unix"],
     "lines-around-comment": [2, { "beforeBlockComment": true, "afterBlockComment": true }],
     "max-depth": [2, 3],
-    "max-len": [1, 80, 2],
+    "max-len": [1, 120, 2],
     "max-nested-callbacks": [2, 2],
     "max-params": [2, 3],
     "max-statements": [2, 10],
@@ -219,7 +219,7 @@
     /* ECMAScript 6 */
     "arrow-body-style": [2, "as-needed"],
     "arrow-parens": 0, // Configuring this in the "Babel" section
-    "arrow-spacing": [2, { "before": false, "after": true }],
+    "arrow-spacing": [2, { "before": true, "after": true }],
     "constructor-super": 2,
     "generator-star-spacing": 0, // Configuring this in the "Babel" section
     "no-arrow-condition": 2,
