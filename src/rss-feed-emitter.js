@@ -172,10 +172,11 @@ class RssFeedEmitter extends TinyEmitter {
 
   _createSetInterval( feed ) {
 
+    let instance = this;
+
     let getContent = () => {
 
       this._fetchFeed( feed.url )
-        .bind( this )
         .tap( findFeedObject )
         .tap( redefineItemHistoryMaxLength )
         .tap( sortItemsByDate )
@@ -190,18 +191,18 @@ class RssFeedEmitter extends TinyEmitter {
 
           }
 
-          this.emit( 'error', error );
+          instance.emit( 'error', error );
 
         } );
 
 
       function findFeedObject( data ) {
 
-        let feed = this._findFeed( {
+        let feedObject = instance._findFeed( {
           url: data.feedUrl
         } );
 
-        if ( !feed ) {
+        if ( !feedObject ) {
 
           throw {
             type: 'feed_not_found',
@@ -221,7 +222,7 @@ class RssFeedEmitter extends TinyEmitter {
 
         let feedLength = data.items.length;
 
-        data.feed.maxHistoryLength = feedLength * this._historyLengthMultiplier;
+        data.feed.maxHistoryLength = feedLength * instance._historyLengthMultiplier;
 
       }
 
@@ -237,7 +238,7 @@ class RssFeedEmitter extends TinyEmitter {
 
         data.newItems = data.items.filter( ( fetchedItem ) => {
 
-          let foundItemInsideFeed = this._findItem( data.feed, fetchedItem );
+          let foundItemInsideFeed = instance._findItem( data.feed, fetchedItem );
 
           if ( foundItemInsideFeed ) {
 
@@ -256,12 +257,11 @@ class RssFeedEmitter extends TinyEmitter {
 
         data.newItems.forEach( ( item ) => {
 
-          this._addItemToItemList( data.feed, item );
+          instance._addItemToItemList( data.feed, item );
 
         } );
 
       }
-
 
     };
 
@@ -296,7 +296,7 @@ class RssFeedEmitter extends TinyEmitter {
       request.get( {
         url: feedUrl,
         headers: {
-          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
+          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', // eslint-disable-line max-len
           'accept': 'text/html,application/xhtml+xml'
         }
       } )
