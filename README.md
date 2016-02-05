@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  Track tons of feeds and receive events for every new item published with this super RSS News Feed aggregator written in Node.js and ES6.
+  Track tons of feeds and receive events for every new item published with this super RSS News Feed aggregator.
 </p>
 
 
@@ -24,8 +24,8 @@
  * Supports Node.js `0.10` `0.12` `4.x` `5.x` and `@stable`
  * 100% code coverage with unit and integration tests
  * Simple interface
- * Automatically manage feed history memory
- * Written with ES6
+ * Automatically manages feed history memory
+ * Written in ES6
 
 ## Usage
 
