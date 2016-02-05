@@ -1,8 +1,23 @@
-# RSS Feed Emitter [![Build Status](https://travis-ci.org/filipedeschamps/rss-feed-emitter.svg?branch=master)](https://travis-ci.org/filipedeschamps/rss-feed-emitter) [![Test Coverage](https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/badges/coverage.svg)](https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/coverage)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/filipedeschamps/rss-feed-emitter/master/content/logo.gif">
+</p>
 
-Track tons of feeds and receive events for every new item published with this super RSS News Feed aggregator written in Node.js and ES6.
+<h1 align="center">RSS Feed Emitter</h1>
 
-![RSS Feed Emitter Logo](https://raw.githubusercontent.com/filipedeschamps/rss-feed-emitter/master/content/logo.gif)
+<p align="center">
+  <a href="https://travis-ci.org/filipedeschamps/rss-feed-emitter">
+    <img src="https://travis-ci.org/filipedeschamps/rss-feed-emitter.svg?branch=master">
+  </a>
+  <a href="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/coverage">
+    <img src="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/badges/coverage.svg">
+  </a>
+</p>
+
+<p align="center">
+  Track tons of feeds and receive events for every new item published with this super RSS News Feed aggregator written in Node.js and ES6.
+</p>
+
+
 
 ## Features
 
