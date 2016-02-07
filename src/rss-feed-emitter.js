@@ -1,6 +1,5 @@
 'use strict';
 
-
 import TinyEmitter from 'tiny-emitter';
 import * as _ from 'lodash';
 import request from 'request';
@@ -158,7 +157,7 @@ class RssFeedEmitter extends TinyEmitter {
 
   _removeFromFeedList( feed ) {
 
-    if ( !feed || !feed.setInterval ) {
+    if ( !feed ) {
 
       return;
 
