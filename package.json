@@ -12,7 +12,7 @@
     "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
     "test-unit-watch": "mocha --watch --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration-watch": "mocha --watch --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
-    "lint": "eslint src"
+    "lint": "eslint src test"
   },
   "repository": {
     "type": "git",

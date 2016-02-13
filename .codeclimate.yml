@@ -2,6 +2,9 @@
 engines:
   duplication:
     enabled: true
+    checks:
+      Similar code:
+        enabled: false
     config:
       languages:
       - javascript
@@ -14,4 +17,3 @@ ratings:
   - "src/**.js"
 exclude_paths:
 - dist/**/*
-- test/**/*
