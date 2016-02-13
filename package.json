@@ -1,7 +1,7 @@
 {
   "name": "rss-feed-emitter",
   "version": "0.0.1",
-  "description": "Agregador de RSS que emite eventos a cada novo item publicado [Node.js] [ES6]",
+  "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "dist/rss-feed-emitter.js",
   "scripts": {
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --timeout 30000 test/**/*.spec.js",
