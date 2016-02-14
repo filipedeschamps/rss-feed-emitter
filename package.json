@@ -42,7 +42,6 @@
     "chai": "3.4.0",
     "eslint": "1.10.3",
     "eslint-plugin-babel": "3.0.0",
-    "lodash": "3.10.1",
     "mocha": "2.3.3",
     "nock": "3.1.1"
   },
@@ -50,6 +49,7 @@
     "bluebird": "3.0.5",
     "feedparser": "1.1.4",
     "request": "2.65.0",
+    "lodash": "3.10.1",
     "tiny-emitter": "1.0.1"
   }
 }
