@@ -5,7 +5,7 @@ import RssFeedEmitter from '../../src/rss-feed-emitter.js';
 
 let expect = chai.expect;
 
-describe( 'RssFeedEmitter ( integration)', () => {
+describe( 'RssFeedEmitter ( integration )', () => {
 
   /* eslint max-statements: 0 */
 

@@ -8,7 +8,7 @@ import path from 'path';
 
 let expect = chai.expect;
 
-describe( 'RssFeedEmitter (unit )', () => {
+describe( 'RssFeedEmitter ( unit )', () => {
 
   /* eslint max-statements: 0 */
 

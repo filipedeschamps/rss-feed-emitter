@@ -20,17 +20,17 @@ class RssFeedEmitter extends TinyEmitter {
 
   // PUBLIC METHODS
 
-  add( feedUserConfig ) {
+  add( userFeedConfig ) {
 
-    this._validateFeedObject( feedUserConfig );
+    this._validateFeedObject( userFeedConfig );
 
-    let feedDefaultConfig = {
+    let defaultFeedConfig = {
       refresh: 60000
     };
 
-    let feedFinalConfig = _.defaults( feedUserConfig, feedDefaultConfig );
+    let finalFeedConfig = _.defaults( userFeedConfig, defaultFeedConfig );
 
-    this._addOrUpdateFeedList( feedFinalConfig );
+    this._addOrUpdateFeedList( finalFeedConfig );
     return this._feedList;
 
   }
@@ -127,30 +127,28 @@ class RssFeedEmitter extends TinyEmitter {
 
   _findFeed( feed ) {
 
-    return _.find( this._feedList, { url: feed.url } );
+    return _.find( this._feedList, {
+      url: feed.url
+    } );
 
   }
 
 
   _findItem( feed, item ) {
 
-    return _.find( feed.items, { link: item.link, title: item.title } );
+    return _.find( feed.items, {
+      link: item.link,
+      title: item.title
+    } );
 
   }
 
 
   _addToFeedList( feed ) {
 
-    if ( !feed.items ) {
-
-      feed.items = [];
-
-    }
-
+    feed.items = [];
     feed.setInterval = this._createSetInterval( feed );
     this._feedList.push( feed );
-
-    return this._feedList;
 
   }
 
@@ -173,10 +171,10 @@ class RssFeedEmitter extends TinyEmitter {
 
     let instance = this;
 
-    let getContent = () => {
+    function getContent() {
 
-      this._fetchFeed( feed.url )
-        .tap( findFeedObject )
+      instance._fetchFeed( feed.url )
+        .tap( findFeed )
         .tap( redefineItemHistoryMaxLength )
         .tap( sortItemsByDate )
         .tap( identifyOnlyNewItems )
@@ -195,13 +193,13 @@ class RssFeedEmitter extends TinyEmitter {
         } );
 
 
-      function findFeedObject( data ) {
+      function findFeed( data ) {
 
-        let feedObject = instance._findFeed( {
+        let foundFeed = instance._findFeed( {
           url: data.feedUrl
         } );
 
-        if ( !feedObject ) {
+        if ( !foundFeed ) {
 
           throw {
             type: 'feed_not_found',
@@ -210,9 +208,7 @@ class RssFeedEmitter extends TinyEmitter {
 
         }
 
-        data.feed = feed;
-
-        return data;
+        data.feed = foundFeed;
 
       }
 
@@ -262,7 +258,7 @@ class RssFeedEmitter extends TinyEmitter {
 
       }
 
-    };
+    }
 
     getContent();
 
@@ -299,16 +295,16 @@ class RssFeedEmitter extends TinyEmitter {
           'accept': 'text/html,application/xhtml+xml'
         }
       } )
-      .on( 'response', requestOnResponse.bind( this ) )
-      .on( 'error', requestOnError.bind( this ) )
+      .on( 'response', requestOnResponse )
+      .on( 'error', requestOnError )
       .pipe( feedparser )
-      .on( 'end', () => resolve( data ) );
+      .on( 'end', finish );
 
       function requestOnResponse( res ) {
 
-        let status200 = 200;
+        let statusOk = 200;
 
-        if ( res.statusCode !== status200 ) {
+        if ( res.statusCode !== statusOk ) {
 
           let error = {
             type: 'fetch_url_error',
@@ -338,6 +334,13 @@ class RssFeedEmitter extends TinyEmitter {
         }
 
       }
+
+      function finish() {
+
+        resolve( data );
+
+      }
+
 
       feedparser.on( 'readable', () => {
 
