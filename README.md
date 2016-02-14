@@ -11,6 +11,12 @@
   <a href="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/coverage">
     <img src="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/badges/coverage.svg">
   </a>
+  <a href="https://www.npmjs.com/package/rss-feed-emitter">
+    <img src="https://david-dm.org/filipedeschamps/rss-feed-emitter.svg">
+  </a>
+  <a href="https://www.npmjs.com/package/rss-feed-emitter">
+    <img src="https://badge.fury.io/js/rss-feed-emitter.svg">
+  </a>
 </p>
 
 <p align="center">
@@ -21,7 +27,7 @@
 
 ## Features
 
- * Supports Node.js `0.10` `0.12` `4.x` `5.x` and `@stable`
+ * Supports Node.js `0.10.x`, `0.12.x`, `4.x`, `5.x`, and `@stable`
  * 100% code coverage with unit and integration tests
  * Simple interface
  * Automatically manages feed history memory
