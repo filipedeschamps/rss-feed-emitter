@@ -41,7 +41,7 @@ This module source code and repository are also a **super complete tutorial**, c
 
 If you're afraid to read the source codes of the modules you use or create your first module, this is the best chance you have to break this barrier :)
 
-**[Start here]()** (WIP)
+**[Start here](https://github.com/filipedeschamps/rss-feed-emitter/issues/119)**
 
 
 ## Features
