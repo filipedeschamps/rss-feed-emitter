@@ -1,12 +1,15 @@
 {
   "name": "rss-feed-emitter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "dist/rss-feed-emitter.js",
   "scripts": {
+    "clean": "rimraf dist coverage",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --timeout 30000 test/**/*.spec.js",
-    "build": "babel src --out-dir dist",
-    "prepublish": "npm run build",
+    "build:commonjs": "babel src --out-dir dist",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/rss-feed-emitter.js dist/rss-feed-emitter.min.js",
+    "build": "npm run build:commonjs && npm run build:umd",
+    "prepublish": "npm run clean && npm run build",
     "test": "npm run coverage",
     "test-unit": "mocha --compilers js:babel-core/register test/unit/**/*.spec.js",
     "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
@@ -37,13 +40,18 @@
     "babel-core": "6.3.13",
     "babel-eslint": "4.1.7",
     "babel-istanbul": "0.6.0",
+    "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "0.1.2",
     "babel-preset-es2015": "6.3.13",
     "chai": "3.4.0",
+    "cross-env": "^1.0.7",
     "eslint": "1.10.3",
     "eslint-plugin-babel": "3.0.0",
     "mocha": "2.3.3",
-    "nock": "3.1.1"
+    "nock": "3.1.1",
+    "rimraf": "^2.5.2",
+    "webpack": "^1.12.14",
+    "webpack-node-externals": "^1.0.0"
   },
   "dependencies": {
     "bluebird": "3.0.5",
