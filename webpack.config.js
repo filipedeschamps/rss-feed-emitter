@@ -39,7 +39,7 @@ if (env === 'production') {
         warnings: false
       }
     })
-  )
+    )
 }
 
 module.exports = config
