@@ -1,5 +1,7 @@
 'use strict';
-
+// We use the package homepage as the default user agent header
+// because it's nice to not trick others that we are a browser.
+import pkg from '../package.json';
 // TinyEmitter is a really nice Event Emitter. We will extend
 // our main class from it.
 import TinyEmitter from 'tiny-emitter';
@@ -29,7 +31,7 @@ class RssFeedEmitter extends TinyEmitter {
 
   // The constructor special method is called everytime
   // we create a new instance of this "Class".
-  constructor() {
+  constructor( options = {} ) {
 
     // Since this is a "Class", you have to call #super method
     // for the parent class initialize it's internals.
@@ -38,6 +40,11 @@ class RssFeedEmitter extends TinyEmitter {
     // Also, we are creating a blank array to keep all
     // our feed objects.
     this._feedList = [];
+
+    // If the user has specified a User Agent
+    // we will use that as the 'user-agent' header when
+    // making requests, otherwise we use the package.homepage:
+    this._userAgent = options.userAgent || pkg.homepage;
 
     // This module manages automatically how many feed items
     // it will keep in memory, and basically it will have a
@@ -486,8 +493,8 @@ class RssFeedEmitter extends TinyEmitter {
       request.get( {
         url: feedUrl,
         headers: {
-          'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36', // eslint-disable-line max-len
-          'accept': 'text/html,application/xhtml+xml'
+          'user-agent': this._userAgent,
+          'accept': 'text/html,application/xhtml+xml,application/xml'
         }
       } )
       // Run this once we get a response from the server.
