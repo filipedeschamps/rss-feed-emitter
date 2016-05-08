@@ -167,7 +167,7 @@ describe( 'RssFeedEmitter ( integration )', () => {
     it( 'should emit items from "The Huffington Post"', ( done ) => {
 
       let itemsReceived = [];
-      let feedUrl = 'http://feeds.huffingtonpost.com/c/35496/f/677045/index.rss';
+      let feedUrl = 'http://www.huffingtonpost.com/feeds/index.xml';
 
       feeder.add( {
         url: feedUrl,
@@ -264,6 +264,36 @@ describe( 'RssFeedEmitter ( integration )', () => {
 
         itemsReceived.push( item );
         expect( item.title ).to.be.a( 'string' );
+        // The description is not always a string, it can be null in CNN's feed:
+        // expect( item.description ).to.be.a( 'string' );
+        expect( item.date ).to.be.a( 'date' );
+        expect( item.meta ).to.have.property( 'link', feedUrl );
+
+        if ( itemsReceived.length === 1 ) {
+
+          done();
+
+        }
+
+      } );
+
+    } );
+
+
+    it( 'should emit items from feed url involving redirects', ( done ) => {
+
+      let itemsReceived = [];
+      let feedUrl = 'http://feeds.nczonline.net/blog/';
+
+      feeder.add( {
+        url: feedUrl,
+        refresh: 60000
+      } );
+
+      feeder.on( 'new-item', ( item ) => {
+
+        itemsReceived.push( item );
+        expect( item.title ).to.be.a( 'string' );
         expect( item.description ).to.be.a( 'string' );
         expect( item.date ).to.be.a( 'date' );
         expect( item.meta ).to.have.property( 'link', feedUrl );
@@ -277,6 +307,7 @@ describe( 'RssFeedEmitter ( integration )', () => {
       } );
 
     } );
+
 
     afterEach( () => {
 

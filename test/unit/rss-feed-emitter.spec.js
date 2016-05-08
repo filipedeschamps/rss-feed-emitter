@@ -24,6 +24,112 @@ describe( 'RssFeedEmitter ( unit )', () => {
 
   } );
 
+  describe( 'when instantiated without userAgent option', () => {
+
+    let feeder = new RssFeedEmitter();
+
+    it( 'uses default "userAgent" value as "user-agent" header when making requests', ( done ) => {
+
+      nock( 'http://www.nintendolife.com/', {
+        reqheaders: {
+          'user-agent': ( receivedUserAgent ) => {
+
+            let defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
+
+            expect( receivedUserAgent ).to.eql( defaultUserAgent );
+            return defaultUserAgent === receivedUserAgent;
+
+          }
+        }
+      } )
+      .get( '/feeds/latest' )
+      .replyWithFile( '200', path.join( __dirname, '/fixtures/nintendo-latest-first-fetch.xml' ) );
+
+      let itemsReceived = [];
+
+      feeder.add( {
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 20000
+      } );
+
+      feeder.on( 'new-item', ( item ) => {
+
+        let totalLength = 20;
+
+        itemsReceived.push( item );
+
+        if ( itemsReceived.length === totalLength ) {
+
+          done();
+
+        }
+
+      } );
+
+    } );
+
+    afterEach( () => {
+
+      feeder.destroy();
+      nock.cleanAll();
+
+    } );
+
+
+  } );
+
+  describe( 'when instantiated with userAgent option', () => {
+
+    let definedUserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36';
+
+    let feeder = new RssFeedEmitter( { userAgent: definedUserAgent } );
+
+    it( 'uses any given "userAgent" option as "user-agent" header when making requests', ( done ) => {
+
+      nock( 'http://www.nintendolife.com/', {
+        reqheaders: {
+          'user-agent': ( receivedUserAgent ) => {
+
+            expect( receivedUserAgent ).to.eql( definedUserAgent );
+            return definedUserAgent === receivedUserAgent;
+
+          }
+        }
+      } )
+      .get( '/feeds/latest' )
+      .replyWithFile( '200', path.join( __dirname, '/fixtures/nintendo-latest-first-fetch.xml' ) );
+
+      let itemsReceived = [];
+
+      feeder.add( {
+        url: 'http://www.nintendolife.com/feeds/latest',
+        refresh: 20000
+      } );
+
+      feeder.on( 'new-item', ( item ) => {
+
+        let totalLength = 20;
+
+        itemsReceived.push( item );
+
+        if ( itemsReceived.length === totalLength ) {
+
+          done();
+
+        }
+
+      } );
+
+    } );
+
+    afterEach( () => {
+
+      feeder.destroy();
+      nock.cleanAll();
+
+    } );
+
+  } );
 
   describe( '#add', () => {
 

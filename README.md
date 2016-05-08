@@ -67,6 +67,11 @@ let RssFeedEmitter = require('rss-feed-emitter');
 let feeder = new RssFeedEmitter();
 ```
 
+#### Changing the user agent for requests
+
+``` js
+let feeder = new RssFeedEmitter({ userAgent: 'Your UA string' });
+```
 
 ### Adding feeds
 
