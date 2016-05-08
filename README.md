@@ -72,7 +72,6 @@ let feeder = new RssFeedEmitter();
 ``` js
 let feeder = new RssFeedEmitter({ userAgent: 'Your UA string' });
 ```
-> The default user agent is this package's repository url
 
 ### Adding feeds
 
