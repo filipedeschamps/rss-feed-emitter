@@ -1,7 +1,5 @@
 'use strict';
-// We use the package homepage as the default user agent header
-// because it's nice to not trick others that we are a browser.
-import pkg from '../package.json';
+
 // TinyEmitter is a really nice Event Emitter. We will extend
 // our main class from it.
 import TinyEmitter from 'tiny-emitter';
@@ -43,8 +41,8 @@ class RssFeedEmitter extends TinyEmitter {
 
     // If the user has specified a User Agent
     // we will use that as the 'user-agent' header when
-    // making requests, otherwise we use the package.homepage:
-    this._userAgent = options.userAgent || pkg.homepage;
+    // making requests, otherwise we use the default option.
+    this._userAgent = options.userAgent || 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
     // This module manages automatically how many feed items
     // it will keep in memory, and basically it will have a
