@@ -106,35 +106,6 @@ describe( 'RssFeedEmitter ( integration )', () => {
     } );
 
 
-    it( 'should emit items from "Bloomberg"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://www.bloomberg.com/feed/podcast/etf-report.xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
     it( 'should emit items from "The Guardian"', ( done ) => {
 
       let itemsReceived = [];
