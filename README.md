@@ -14,6 +14,7 @@
   <a href="https://www.npmjs.com/package/rss-feed-emitter">
     <img src="https://badge.fury.io/js/rss-feed-emitter.svg">
   </a>
+  <a href="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter"><img src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter" style="max-width:100%;"></a>
 </p>
 
 <p align="center">
