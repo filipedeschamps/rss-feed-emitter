@@ -240,7 +240,9 @@ class RssFeedEmitter extends TinyEmitter {
   // not a new item.
   _findItem( feed, item ) {
 
-    return _.find( feed.items, {
+    return _.find( feed.items, item.guid || item.id ? {
+      [ item.guid ? 'guid' : 'id' ]: item.guid || item.id
+    } : {
       link: item.link,
       title: item.title
     } );
