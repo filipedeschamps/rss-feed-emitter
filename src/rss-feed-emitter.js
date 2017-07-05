@@ -464,7 +464,7 @@ class RssFeedEmitter extends TinyEmitter {
     feed.items = _.takeRight( feed.items, feed.maxHistoryLength );
 
     // And emit the "new-item" event of this item.
-    this.emit( 'new-item', item );
+    this.emit( 'new-item', item, feed.url );
 
   }
 
