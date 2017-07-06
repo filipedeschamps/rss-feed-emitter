@@ -51,6 +51,8 @@ class RssFeedEmitter extends TinyEmitter {
     // 10 items, we will keep 30 items max in the history.
     this._historyLengthMultiplier = 3;
 
+    this._initialized = [];
+
   }
 
 
@@ -308,6 +310,7 @@ class RssFeedEmitter extends TinyEmitter {
         .tap( sortItemsByDate )
         .tap( identifyOnlyNewItems )
         .tap( populateNewItemsInFeed )
+        .tap( initialize )
         .catch( ( error ) => {
 
           // If this chain is iterating over a recently
@@ -325,6 +328,13 @@ class RssFeedEmitter extends TinyEmitter {
 
         } );
 
+
+      function initialize( data ) {
+
+        // data
+        instance._initialized.push( data.feed.url );
+
+      }
 
       // 2. This happens after we got the results from
       // the private method _fetchFeed. Basically we
@@ -465,6 +475,13 @@ class RssFeedEmitter extends TinyEmitter {
 
     // And emit the "new-item" event of this item.
     this.emit( 'new-item', item, feed.url );
+
+    // Emit only after initial seeding
+    if ( this._initialized.includes( feed.url ) ) {
+
+      this.emit( 'new-item-max', item, feed.url );
+
+    }
 
   }
 
