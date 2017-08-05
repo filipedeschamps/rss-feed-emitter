@@ -1,3 +1,5 @@
+'use strict';
+
 // TinyEmitter is a really nice Event Emitter. We will extend
 // our main class from it.
 import TinyEmitter from 'tiny-emitter';
