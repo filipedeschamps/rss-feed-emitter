@@ -48,7 +48,7 @@
   "dependencies": {
     "bluebird": "3.0.5",
     "feedparser": "1.1.4",
-    "request": "2.74.0",
+    "request": "2.81.0",
     "lodash": "3.10.1",
     "tiny-emitter": "1.0.1"
   }
