@@ -119,7 +119,7 @@ class RssFeedEmitter extends TinyEmitter {
     // Try to find the feed object using the
     // private method #_findFeed
     let feed = this._findFeed( {
-      url: url
+      url
     } );
 
     // And then remove the feed object from
@@ -503,7 +503,7 @@ class RssFeedEmitter extends TinyEmitter {
       // the getContent Promise chain. It starts with a feed url
       // property and a blank item array.
       let data = {
-        feedUrl: feedUrl,
+        feedUrl,
         items: []
       };
 
