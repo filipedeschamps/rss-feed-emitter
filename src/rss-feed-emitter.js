@@ -240,10 +240,31 @@ class RssFeedEmitter extends TinyEmitter {
   // not a new item.
   _findItem( feed, item ) {
 
-    return _.find( feed.items, {
+    // default object with 'link' and 'title'
+    let object = {
       link: item.link,
       title: item.title
-    } );
+    };
+
+    // if feed is RSS 2.x, check existence of 'guid'
+    if ( item.guid ) {
+
+      object = {
+        guid: item.guid
+      };
+
+    }
+
+    // if feed is Atom 1.x, check existence of 'id'
+    if ( item.id ) {
+
+      object = {
+        'id': item.id
+      };
+
+    }
+
+    return _.find( feed.items, object );
 
   }
 
