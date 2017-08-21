@@ -44,7 +44,7 @@ If you're afraid to read the source code of the modules you use or to create you
 
 ## Features
 
- * Supports Node.js `0.10.x`, `0.12.x`, `4.x`, `5.x`, and `@stable`
+ * Supports Node.js `0.10.x`, `0.12.x`, `4.x`, `5.x`, `6.x`, `7.x`, `8.x` and `@stable`
  * 100% code coverage with unit and integration tests
  * Simple interface
  * Automatically manages feed history memory
