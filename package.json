@@ -1,6 +1,6 @@
 {
   "name": "rss-feed-emitter",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "dist/rss-feed-emitter.js",
   "scripts": {
