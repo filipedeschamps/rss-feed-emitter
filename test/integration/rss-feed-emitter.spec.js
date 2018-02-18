@@ -221,6 +221,36 @@ describe( 'RssFeedEmitter ( integration )', () => {
 
     } );
 
+    it( 'should emit items from "Milliyet Gazetesi"', ( done ) => {
+
+      // This feed only accept requets with 'text/xml' request reader
+
+      let itemsReceived = [];
+      let feedUrl = 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml';
+
+      feeder.add( {
+        url: feedUrl,
+        refresh: 60000
+      } );
+
+      feeder.on( 'new-item', ( item ) => {
+
+        itemsReceived.push( item );
+        expect( item.title ).to.be.a( 'string' );
+        expect( item.description ).to.be.a( 'string' );
+        expect( item.date ).to.be.a( 'date' );
+        expect( item.meta ).to.have.property( 'link', feedUrl );
+
+        if ( itemsReceived.length === 1 ) {
+
+          done();
+
+        }
+
+      } );
+
+    } );
+
     it( 'should emit items from "CNN"', ( done ) => {
 
       let itemsReceived = [];
