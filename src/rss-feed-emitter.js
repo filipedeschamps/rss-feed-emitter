@@ -224,10 +224,10 @@ class RssFeedEmitter extends TinyEmitter {
 
   // Very simple private method: given a feed object
   // try to find it in the feedList using its "url".
-  _findFeed( feed ) {
+  _findFeed({url}) {
 
     return _.find( this._feedList, {
-      url: feed.url
+      url: url
     } );
 
   }
@@ -238,33 +238,33 @@ class RssFeedEmitter extends TinyEmitter {
   // this to see if there's already an item inside
   // the feed item list. If there is, we know it's
   // not a new item.
-  _findItem( feed, item ) {
+  _findItem({items}, {link, title, guid, id}) {
 
     // default object with 'link' and 'title'
     let object = {
-      link: item.link,
-      title: item.title
+      link: link,
+      title: title
     };
 
     // if feed is RSS 2.x, check existence of 'guid'
-    if ( item.guid ) {
+    if ( guid ) {
 
       object = {
-        guid: item.guid
+        guid: guid
       };
 
     }
 
     // if feed is Atom 1.x, check existence of 'id'
-    if ( item.id ) {
+    if ( id ) {
 
       object = {
-        'id': item.id
+        'id': id
       };
 
     }
 
-    return _.find( feed.items, object );
+    return _.find( items, object );
 
   }
 
@@ -297,7 +297,7 @@ class RssFeedEmitter extends TinyEmitter {
   // responsible to keep fetching the RSS
   // for content and emitting events
   // when new items are found.
-  _createSetInterval( feed ) {
+  _createSetInterval({url, refresh}) {
 
     // First, lets keep the "this" reference.
     let instance = this;
@@ -323,7 +323,7 @@ class RssFeedEmitter extends TinyEmitter {
     //    feed item list and emit while emitting events.
     function getContent() {
 
-      instance._fetchFeed( feed.url )
+      instance._fetchFeed( url )
         .tap( findFeed )
         .tap( redefineItemHistoryMaxLength )
         .tap( sortItemsByDate )
@@ -454,7 +454,7 @@ class RssFeedEmitter extends TinyEmitter {
     getContent();
 
     // Create and return the setInterval itself.
-    return setInterval( getContent, feed.refresh );
+    return setInterval( getContent, refresh );
 
   }
 
@@ -528,15 +528,15 @@ class RssFeedEmitter extends TinyEmitter {
       // Basically what we do here is, if we doesn't get a "200" status
       // code from the request, reject the promise because probably we
       // received something like a "404" or "500" error.
-      function requestOnResponse( res ) {
+      function requestOnResponse({statusCode}) {
 
         let statusOk = 200;
 
-        if ( res.statusCode !== statusOk ) {
+        if ( statusCode !== statusOk ) {
 
           let error = {
             type: 'fetch_url_error',
-            message: `This URL returned a ${res.statusCode} status code`,
+            message: `This URL returned a ${statusCode} status code`,
             feed: feedUrl
           };
 
@@ -548,9 +548,9 @@ class RssFeedEmitter extends TinyEmitter {
 
       // This will happen when Node.js itself couldn't connet
       // to the host to get something from it.
-      function requestOnError( responseError ) {
+      function requestOnError({code}) {
 
-        if ( responseError.code === 'ENOTFOUND' ) {
+        if ( code === 'ENOTFOUND' ) {
 
           let error = {
             type: 'fetch_url_error',
