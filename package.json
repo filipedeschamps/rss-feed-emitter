@@ -49,7 +49,7 @@
     "bluebird": "3.0.5",
     "feedparser": "1.1.4",
     "request": "2.88.0",
-    "lodash": "4.17.5",
+    "lodash": "^4.17.11",
     "tiny-emitter": "1.0.1"
   }
 }
