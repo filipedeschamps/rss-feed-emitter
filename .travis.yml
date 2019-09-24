@@ -1,12 +1,22 @@
 language: node_js
 node_js:
+  - "node"
   - "stable"
+  - "11"
+  - "10"
   - "9"
   - "8"
-  - "7"
-  - "6"
-  - "5"
-  - "4.2"
-after_script:
-  - npm install -g codeclimate-test-reporter
-  - codeclimate-test-reporter < coverage/lcov.info
+
+stages:
+  - lint
+  - test
+  - coverage
+
+jobs:
+  include:
+    - stage: lint
+      script: npm run lint
+    - stage: test
+      script: npm test
+    - stage: coverage
+      script: npm run coverage

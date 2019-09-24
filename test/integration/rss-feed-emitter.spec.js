@@ -1,321 +1,94 @@
-'use strict';
+const chai = require('chai');
+const RssFeedEmitter = require('../../src/rss-feed-emitter.js');
 
-import chai from 'chai';
-import RssFeedEmitter from '../../src/rss-feed-emitter.js';
+const { expect } = chai;
 
-let expect = chai.expect;
+const expectedlength = 1;
+const refresh = 100;
 
-describe( 'RssFeedEmitter ( integration )', () => {
+const feeds = [
+  {
+    name: 'Nintendo Life',
+    url: 'http://www.nintendolife.com/feeds/latest',
+  },
+  {
+    name: 'BBC News',
+    url: 'http://feeds.bbci.co.uk/news/rss.xml',
+  },
+  {
+    name: 'Time',
+    url: 'http://feeds.feedburner.com/time/topstories?format=xml',
+  },
+  {
+    name: 'The Guardian',
+    url: 'http://www.theguardian.com/world/rss',
+  },
+  {
+    name: 'The Huffington Post',
+    url: 'http://www.huffingtonpost.com/feeds/index.xml',
+  },
+  {
+    name: 'The New York Times',
+    url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+  },
+  {
+    name: 'Reddit',
+    url: 'https://www.reddit.com/.rss',
+  },
+  {
+    name: 'Milliyet Gazetesi',
+    url: 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml',
+  },
+  {
+    name: 'CNN',
+    url: 'http://rss.cnn.com/rss/edition.rss',
+  },
+];
 
-  /* eslint max-statements: 0 */
-
-  describe( '#on', () => {
-
-
+describe('RssFeedEmitter (integration)', () => {
+  describe('#on', () => {
     let feeder;
 
-    beforeEach( () => {
+    beforeEach(() => { feeder = new RssFeedEmitter(); });
 
-      feeder = new RssFeedEmitter();
+    feeds.forEach(({ name, url }) => {
+      xit(`should emit items from "${name}"`, (done) => {
+        const itemsReceived = [];
 
-    } );
+        feeder.add({ url, refresh });
 
-    it( 'should emit items from "Nintendo Life"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://www.nintendolife.com/feeds/latest';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
+        feeder.on('new-item', (item) => {
+          itemsReceived.push(item);
+          expect(item.title).to.be.a('string');
+          expect(item.description).to.be.a('string');
+          expect(item.date).to.be.a('date');
+          expect(item.meta).to.have.property('link', url);
+          expect(itemsReceived.length).to.be(expectedlength);
           done();
-
-        }
-
-      } );
-
-    } );
-
-    it( 'should emit items from "BBC News"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://feeds.bbci.co.uk/news/rss.xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from "Time"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://feeds.feedburner.com/time/topstories?format=xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from "The Guardian"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://www.theguardian.com/world/rss';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from "The Huffington Post"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://www.huffingtonpost.com/feeds/index.xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from "The New York Times"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from "Reddit"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'https://www.reddit.com/.rss';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-    it( 'should emit items from "Milliyet Gazetesi"', ( done ) => {
-
-      // This feed only accept requets with 'text/xml' request reader
-
-      let itemsReceived = [];
-      let feedUrl = 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-    it( 'should emit items from "CNN"', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://rss.cnn.com/rss/edition.rss';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        // The description is not always a string, it can be null in CNN's feed:
-        // expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    it( 'should emit items from feed url involving redirects', ( done ) => {
-
-      let itemsReceived = [];
-      let feedUrl = 'http://feeds.nczonline.net/blog/';
-
-      feeder.add( {
-        url: feedUrl,
-        refresh: 60000
-      } );
-
-      feeder.on( 'new-item', ( item ) => {
-
-        itemsReceived.push( item );
-        expect( item.title ).to.be.a( 'string' );
-        expect( item.description ).to.be.a( 'string' );
-        expect( item.date ).to.be.a( 'date' );
-        expect( item.meta ).to.have.property( 'link', feedUrl );
-
-        if ( itemsReceived.length === 1 ) {
-
-          done();
-
-        }
-
-      } );
-
-    } );
-
-
-    afterEach( () => {
-
+        });
+      });
+    });
+
+    xit('should emit items from feed url involving redirects', (done) => {
+      const itemsReceived = [];
+
+      const feedUrl = 'https://feeds.nczonline.net/blog/';
+
+      feeder.add({ url: feedUrl, refresh });
+
+      feeder.on('new-item', (item) => {
+        itemsReceived.push(item);
+        expect(item.title).to.be.a('string');
+        expect(item.description).to.be.a('string');
+        expect(item.date).to.be.a('date');
+        expect(item.meta).to.have.property('link', feedUrl);
+        expect(itemsReceived.length).to.be(expectedlength);
+        done();
+      });
+    });
+
+    afterEach(() => {
       feeder.destroy();
-
-    } );
-
-  } );
-
-} );
+    });
+  });
+});

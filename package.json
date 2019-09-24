@@ -3,16 +3,16 @@
   "version": "2.0.1",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "dist/rss-feed-emitter.js",
+  "directories": {
+    "test": "test/**/*.spec.js"
+  },
   "scripts": {
-    "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- --timeout 30000 test/**/*.spec.js",
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "test": "npm run coverage",
-    "test-unit": "mocha --compilers js:babel-core/register test/unit/**/*.spec.js",
-    "test-integration": "mocha --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
-    "test-unit-watch": "mocha --watch --compilers js:babel-core/register test/unit/**/*.spec.js",
-    "test-integration-watch": "mocha --watch --timeout 30000 --compilers js:babel-core/register test/integration/**/*.spec.js",
-    "lint": "eslint src test"
+    "test": "npm run build && npx nyc npx mocha \"test/**/*.spec.js\" --exit",
+    "coverage": "npm test && npx nyc report --reporter=text-lcov | npx coveralls",
+    "lint": "npx eslint src/ test/",
+    "lint-fix": "npx eslint src/ test/ --fix"
   },
   "repository": {
     "type": "git",
@@ -33,23 +33,41 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
-    "babel-cli": "6.4.0",
-    "babel-core": "6.3.13",
-    "babel-eslint": "4.1.7",
-    "babel-istanbul": "0.6.0",
-    "babel-plugin-add-module-exports": "0.1.2",
-    "babel-preset-es2015": "6.3.13",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.2",
+    "@types/bluebird": "^3.5.27",
+    "@types/chai": "^4.2.3",
+    "@types/feedparser": "^2.2.3",
+    "@types/request": "^2.48.3",
+    "babel-eslint": "^10.0.3",
+    "babel-istanbul": "^0.12.2",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-istanbul": "^5.2.0",
     "chai": "3.4.0",
-    "eslint": "1.10.3",
-    "eslint-plugin-babel": "3.0.0",
-    "mocha": "2.3.3",
-    "nock": "3.1.1"
+    "cross-env": "^6.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nock": "^11.3.5"
   },
   "dependencies": {
     "bluebird": "3.0.5",
     "feedparser": "1.1.4",
+    "lodash": "^4.17.15",
     "request": "2.88.0",
-    "lodash": "4.17.5",
     "tiny-emitter": "1.0.1"
+  },
+  "nyc": {
+    "all": true,
+    "instrument": true,
+    "include": [
+      "src/**/*"
+    ]
+  },
+  "engines": {
+    "node": ">=8.16.2"
   }
 }
