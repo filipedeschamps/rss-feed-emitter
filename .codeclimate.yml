@@ -1,17 +1,5 @@
 ---
-engines:
-  duplication:
-    enabled: false
-    checks:
-      Similar code:
-        enabled: false
-    config:
-      languages:
-      - javascript
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
+version: "2"
 ratings:
   paths:
   - "src/**.js"
@@ -23,3 +11,13 @@ plugins:
     checks:
       complexity:
         enabled: false
+  duplication:
+    enabled: false
+    checks:
+      Similar code:
+        enabled: false
+    config:
+      languages:
+      - javascript
+  fixme:
+    enabled: true
