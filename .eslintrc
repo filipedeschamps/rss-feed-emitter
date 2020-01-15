@@ -25,6 +25,8 @@
     "no-restricted-syntax": ["off"],
     "no-await-in-loop": "off",
     "import/no-unresolved": 0,
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "complexity": ["error", 10],
+    "arrow-parens": ["error", "always"]
   }
 }
