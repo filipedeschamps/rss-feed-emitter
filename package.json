@@ -7,7 +7,7 @@
     "test": "test/**/*.spec.js"
   },
   "scripts": {
-    "test": "npx mocha \"test/**/*.spec.js\" --exit",
+    "test": "npx nyc npx mocha \"test/**/*.spec.js\" --exit",
     "coverage": "npm test && npx nyc report --reporter=text-lcov | npx coveralls",
     "lint": "npx eslint src/ test/",
     "lint:fix": "npx eslint src/ test/ --fix"
