@@ -2,17 +2,15 @@
   "name": "rss-feed-emitter",
   "version": "2.0.1",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
-  "main": "dist/rss-feed-emitter.js",
+  "main": "src/FeedEmitter.js",
   "directories": {
     "test": "test/**/*.spec.js"
   },
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "prepublish": "npm run build",
-    "test": "npm run build && npx nyc npx mocha \"test/**/*.spec.js\" --exit",
+    "test": "npx mocha \"test/**/*.spec.js\" --exit",
     "coverage": "npm test && npx nyc report --reporter=text-lcov | npx coveralls",
     "lint": "npx eslint src/ test/",
-    "lint-fix": "npx eslint src/ test/ --fix"
+    "lint:fix": "npx eslint src/ test/ --fix"
   },
   "repository": {
     "type": "git",
@@ -33,32 +31,20 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.2",
-    "@types/bluebird": "^3.5.27",
-    "@types/chai": "^4.2.3",
+    "@types/chai": "^4.2.7",
     "@types/feedparser": "^2.2.3",
-    "@types/request": "^2.48.3",
-    "babel-eslint": "^10.0.3",
-    "babel-istanbul": "^0.12.2",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-plugin-istanbul": "^5.2.0",
+    "@types/request": "^2.48.4",
     "chai": "3.4.0",
-    "cross-env": "^6.0.0",
-    "eslint": "^6.1.0",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.18.2",
-    "nock": "^11.3.5"
+    "eslint-plugin-import": "^2.20.0",
+    "nock": "^11.7.2"
   },
   "dependencies": {
-    "bluebird": "3.0.5",
+    "atom-ui-reporter": "0.0.1",
     "feedparser": "1.1.4",
-    "lodash": "^4.17.15",
-    "request": "2.88.0",
-    "tiny-emitter": "1.0.1"
+    "request": "^2.88.0"
   },
   "nyc": {
     "all": true,

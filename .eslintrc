@@ -1,16 +1,30 @@
 {
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
-    "mocha": true,
-  },
   "extends": "airbnb-base",
-  "parser": "babel-eslint",
-  "plugins": [
-    "babel"
-  ],
+  "parserOptions": {
+    "sourceType": "script"
+  },
   "rules": {
-    "no-param-reassign": [2, { "props": false }]
+    "valid-jsdoc": ["error", {
+      "requireReturn": false,
+      "requireReturnDescription": false,
+      "preferType": {
+        "String": "string",
+        "Number": "number",
+        "Boolean": "boolean",
+        "Function": "function",
+        "object": "Object",
+        "date": "Date",
+        "error": "Error"
+      },
+      "prefer": {
+        "return": "returns"
+      }
+    }],
+    "strict": ["error", "safe"],
+    "linebreak-style": "off",
+    "no-restricted-syntax": ["off"],
+    "no-await-in-loop": "off",
+    "import/no-unresolved": 0,
+    "no-param-reassign": 0
   }
 }

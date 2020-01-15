@@ -1,15 +1,19 @@
+'use strict';
+
 const chai = require('chai');
-const RssFeedEmitter = require('../../src/rss-feed-emitter.js');
+const RssFeedEmitter = require('../../src/FeedEmitter');
 
 const { expect } = chai;
 
 const expectedlength = 1;
 const refresh = 100;
 
+process.env.NOCK_OFF = true;
+
 const feeds = [
   {
     name: 'Nintendo Life',
-    url: 'http://www.nintendolife.com/feeds/latest',
+    url: 'https://www.nintendolife.com/feeds/latest',
   },
   {
     name: 'BBC News',
@@ -45,6 +49,9 @@ const feeds = [
   },
 ];
 
+
+// I've had issues with these, but if someone wants to rewrite it fully, they're welcome to.
+// I can get them to notify in a tester, but not in here, sadly.
 describe('RssFeedEmitter (integration)', () => {
   describe('#on', () => {
     let feeder;
@@ -52,7 +59,7 @@ describe('RssFeedEmitter (integration)', () => {
     beforeEach(() => { feeder = new RssFeedEmitter(); });
 
     feeds.forEach(({ name, url }) => {
-      xit(`should emit items from "${name}"`, (done) => {
+      it(`should emit items from "${name}"`, (done) => {
         const itemsReceived = [];
 
         feeder.add({ url, refresh });
@@ -69,6 +76,7 @@ describe('RssFeedEmitter (integration)', () => {
       });
     });
 
+    // this doesn't work for me, as the feed doesn't redirect even in a browser
     xit('should emit items from feed url involving redirects', (done) => {
       const itemsReceived = [];
 
