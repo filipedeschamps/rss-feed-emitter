@@ -15,3 +15,11 @@ engines:
 ratings:
   paths:
   - "src/**.js"
+plugins:
+  eslint:
+    enabled: true
+    config:
+      config: ./.eslintrc
+    checks:
+      complexity:
+        enabled: false
