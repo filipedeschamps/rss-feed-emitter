@@ -1,5 +1,13 @@
 ---
-engines:
+version: "2"
+ratings:
+  paths:
+  - "src/**.js"
+plugins:
+  eslint:
+    enabled: true
+    config:
+      config: ./.eslintrc
   duplication:
     enabled: false
     checks:
@@ -8,12 +16,5 @@ engines:
     config:
       languages:
       - javascript
-  eslint:
-    enabled: true
   fixme:
     enabled: true
-ratings:
-  paths:
-  - "src/**.js"
-exclude_paths:
-- dist/**/*
