@@ -44,12 +44,13 @@ If you're afraid to read the source code of the modules you use or to create you
 
 ## Features
 
- * Supports Node.js `0.10.x`, `0.12.x`, `4.x`, `5.x`, `6.x`, `7.x`, `8.x`, `9.x` and `@stable`
+ * Supports Node.js `4.x`, `5.x`, `6.x`, `7.x`, `8.x`, `9.x`, `10.x`, `11.x` and `@stable`
  * Supported Node.js `0.10.x` and `0.12.x` until rss-feed-emmiter version `1.0.7`
  * 100% code coverage with unit and integration tests
  * Simple interface
  * Automatically manages feed history memory
  * Written in ES6
+ * Special thanks to @TobiTenno for the complete rewrite!
 
 
 ## Usage
@@ -115,3 +116,14 @@ feeder.remove('http://www.nintendolife.com/feeds/news');
 feeder.destroy();
 ```
 > This will remove all feeds from the instance
+
+
+## Contributors
+
+| [<img src="https://avatars3.githubusercontent.com/u/7128721?s=400&v=4" width="155"><br><sub>@TobiTenno</sub>](https://github.com/TobiTenno) |
+| :---: |
+
+## Author
+
+| [<img src="https://avatars0.githubusercontent.com/u/4248081?v=3&s=115" width="155"><br><sub>@filipedeschamps</sub>](https://github.com/filipedeschamps) |
+| :---: |
