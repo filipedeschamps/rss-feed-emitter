@@ -19,6 +19,24 @@ const Feed = require('./Feed');
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
+const checkFeed = (feed) => {
+  if (!feed) {
+    throw new FeedError('You must call #add method with a feed configuration object.', 'type_error');
+  }
+};
+
+const checkUrl = (feed) => {
+  if (!feed.url || typeof feed.url !== 'string') {
+    throw new FeedError('Your configuration object should have an "url" key with a string value', 'type_error');
+  }
+};
+
+const checkRefresh = (feed) => {
+  if (feed.refresh && typeof feed.refresh !== 'number') {
+    throw new FeedError('Your configuration object should have a "refresh" key with a number value', 'type_error');
+  }
+};
+
 /**
  * MAIN CLASS
  * This is where we extend from TinyEmitter and absorve
@@ -33,21 +51,10 @@ class FeedEmitter extends EventEmitter {
    * @param       {string} ua User Agent string to pass to feeds
    */
   static validateFeedObject(feed, ua) {
-    if (!feed) {
-      throw new FeedError('You must call #add method with a feed configuration object.', 'type_error');
-    }
-
-    if (!feed.url || typeof feed.url !== 'string') {
-      throw new FeedError('Your configuration object should have an "url" key with a string value', 'type_error');
-    }
-
-    if (feed.refresh && typeof feed.refresh !== 'number') {
-      throw new FeedError('Your configuration object should have a "refresh" key with a number value', 'type_error');
-    }
-
-    if (!feed.userAgent) {
-      feed.userAgent = ua || DEFAULT_UA;
-    }
+    checkFeed(feed);
+    checkUrl(feed);
+    checkRefresh(feed);
+    feed.userAgent = feed.userAgent || ua || DEFAULT_UA;
   }
 
   /**

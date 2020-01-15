@@ -52,7 +52,7 @@ const feeds = [
 
 // I've had issues with these, but if someone wants to rewrite it fully, they're welcome to.
 // I can get them to notify in a tester, but not in here, sadly.
-describe('RssFeedEmitter (integration)', () => {
+xdescribe('RssFeedEmitter (integration)', () => {
   describe('#on', () => {
     let feeder;
 

@@ -27,7 +27,6 @@ const historyLengthMultiplier = 3;
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
-
 class Feed {
   constructor(data) {
     ({
@@ -106,25 +105,29 @@ class Feed {
         resolve(items);
       });
 
-      request
-        .get({
-          url: this.url,
-          headers: {
-            'user-agent': this.userAgent,
-            accept: 'text/html,application/xhtml+xml,application/xml,text/xml',
-          },
-        })
-        .on('response', (res) => {
-          if (res.statusCode !== RESPONSE_CODES.OK) {
-            reject(new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
-          }
-        })
-        .on('error', () => {
-          reject(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
-        })
-        .pipe(feedparser)
-        .on('end', () => resolve(items));
+      this.get(feedparser, reject);
     });
+  }
+
+  get(feedparser, reject) {
+    request
+      .get({
+        url: this.url,
+        headers: {
+          'user-agent': this.userAgent,
+          accept: 'text/html,application/xhtml+xml,application/xml,text/xml',
+        },
+      })
+      .on('response', (res) => {
+        if (res.statusCode !== RESPONSE_CODES.OK) {
+          reject(new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
+        }
+      })
+      .on('error', () => {
+        reject(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
+      })
+      .pipe(feedparser)
+      .on('end', () => {});
   }
 
   destroy() {

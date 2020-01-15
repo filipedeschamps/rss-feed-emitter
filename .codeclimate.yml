@@ -8,9 +8,6 @@ plugins:
     enabled: true
     config:
       config: ./.eslintrc
-    checks:
-      complexity:
-        enabled: false
   duplication:
     enabled: false
     checks:
