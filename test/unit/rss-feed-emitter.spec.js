@@ -105,6 +105,33 @@ describe('RssFeedEmitter (unit)', () => {
     });
   });
 
+  describe('when instantiated with skipFirstLoad option', () => {
+    it('does not emit an initial load event', (done) => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
+
+      feeder.destroy();
+      feeder = new RssFeedEmitter({ skipFirstLoad: true });
+
+      feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        refresh: 100,
+      });
+
+      feeder.on('initial-load:https://nintendolife.com/feeds/latest', () => {
+        expect(false).to.eq(true);
+      });
+      feeder.on('new-item', (item) => {
+        if (item.title === 'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More') {
+          done();
+        }
+      });
+    });
+  });
+
   describe('#add', () => {
     it('should be a Function', () => {
       expect(feeder.add).to.be.a('function');
@@ -203,6 +230,8 @@ describe('RssFeedEmitter (unit)', () => {
         .get('/feeds/latest')
         .twice()
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',

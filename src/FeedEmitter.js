@@ -62,7 +62,7 @@ class FeedEmitter extends EventEmitter {
    * we create a new instance of this "Class".
    * @param {Object} [options={ userAgent: defaultUA }] [description]
    */
-  constructor(options = { userAgent: DEFAULT_UA }) {
+  constructor(options = { userAgent: DEFAULT_UA, skipFirstLoad: false }) {
     super();
 
     this.feedList = [];
@@ -74,6 +74,12 @@ class FeedEmitter extends EventEmitter {
      * @type {string}
      */
     this.userAgent = options.userAgent;
+
+    /**
+     * Whether or not to skip the normal emit event on first load
+     * @type {boolean}
+     */
+    this.skipFirstLoad = options.skipFirstLoad;
   }
 
 
@@ -182,7 +188,7 @@ class FeedEmitter extends EventEmitter {
    */
   createSetInterval(feed) {
     const feedManager = new FeedManager(this, feed);
-    feedManager.getContent();
+    feedManager.getContent(true);
     return setInterval(feedManager.getContent.bind(feedManager), feed.refresh);
   }
 

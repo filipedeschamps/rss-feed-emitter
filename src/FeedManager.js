@@ -38,11 +38,14 @@ class FeedManager {
    * Now that we have all the new items, add them to the
    feed item list.
    * @param  {Object} data data to mutate
+   * @param {boolean} firstload Whether or not this is the first laod
    */
-  populateNewItemsInFeed(data) {
+  populateNewItemsInFeed(data, firstload) {
     data.newItems.forEach((item) => {
       this.feed.addItem(item);
-      this.instance.emit(this.feed.eventName, item);
+      if (!(firstload && this.instance.skipFirstLoad)) {
+        this.instance.emit(this.feed.eventName, item);
+      }
     });
   }
 
@@ -50,7 +53,7 @@ class FeedManager {
     this.instance.emit('error', error);
   }
 
-  async getContent() {
+  async getContent(firstload) {
     this.feed.fetchData()
       .then((items) => {
         const data = {
@@ -61,6 +64,9 @@ class FeedManager {
         this.sortItemsByDate(data);
         this.identifyNewItems(data);
         this.populateNewItemsInFeed(data);
+        if (firstload && !this.instance.skipFirstLoad) {
+          this.instance.emit(`initial-load:${this.feed.url}`, { url: this.feed.url, items: this.feed.items });
+        }
       })
       .catch(this.onError.bind(this));
   }
