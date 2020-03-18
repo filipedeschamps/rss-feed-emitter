@@ -5,6 +5,7 @@ const nock = require('nock');
 const path = require('path');
 const RssFeedEmitter = require('../../src/FeedEmitter');
 const RssFeedError = require('../../src/FeedError');
+const Feed = require('../../src/Feed');
 
 process.env.NOCK_OFF = false;
 
@@ -118,15 +119,15 @@ describe('RssFeedEmitter (unit)', () => {
         feeder.add({
           refresh: 60000,
         });
-      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string value');
+      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string or array value');
     });
 
-    it('should throw when configuration object contains "url", but its not a String', () => {
+    it('should throw when configuration object contains "url", but its not a String or Array', () => {
       expect(() => {
         feeder.add({
-          url: ['a', 'b', 'c'],
+          url: { thing: 'thing' },
         });
-      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string value');
+      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string or array value');
     });
 
     it('should throw when configuration object contains "refresh", but its not a Number', () => {
@@ -153,6 +154,24 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/news',
+      });
+
+      expect(feeder.list).to.have.property('length', 2);
+      expect(feeder.list[0]).to.have.property('refresh', defaultRefesh);
+      expect(feeder.list[1]).to.have.property('refresh', defaultRefesh);
+    });
+
+    it('should correctly add feeds when configuration object contains only "url" array', () => {
+      const defaultRefesh = 60000;
+
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/news')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+
+      feeder.add({
+        url: ['https://www.nintendolife.com/feeds/latest', 'https://www.nintendolife.com/feeds/news'],
       });
 
       expect(feeder.list).to.have.property('length', 2);
@@ -231,6 +250,36 @@ describe('RssFeedEmitter (unit)', () => {
           done();
         }
       });
+    }).timeout(3000);
+
+    it('should apply default "userAgent" if none is provided in add or construction', () => {
+      const subFeeder = new RssFeedEmitter();
+      const list = subFeeder.add({
+        url: 'test',
+        userAgent: undefined,
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)');
+    });
+
+    it('should respect constructed "userAgent" if none is provided in add', () => {
+      const subFeeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = subFeeder.add({
+        url: 'test',
+        userAgent: undefined,
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('testABC');
+    });
+
+    it('should respect provided "userAgent"', () => {
+      const subFeeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = subFeeder.add({
+        url: 'test',
+        userAgent: 'test123',
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('test123');
     });
   });
 
@@ -615,6 +664,56 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.destroy();
 
       expect(feeder.list).to.have.property('length', 0);
+    });
+  });
+
+  describe('storage Feed', () => {
+    describe('#constructor', () => {
+      it('should error when no url is provided', () => {
+        expect(() => new Feed({ url: undefined })).to.throw(TypeError, 'missing required field `url`');
+      });
+
+      it('should default items to an empty list if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(JSON.stringify(feed.items)).to.eq('[]');
+      });
+
+      it('should default refresh to 60000 if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.refresh).to.eq(60000);
+      });
+
+      it('should default refresh to 60000 if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.refresh).to.eq(60000);
+      });
+
+      it('should default user agent to defautl value if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.userAgent).to.eq('Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)');
+      });
+    });
+
+    describe('#findItem', () => {
+      it('should support matching on entry id', () => {
+        const feed = new Feed({ url: 'https://npmjs.org', items: [{ id: '010' }] });
+        const result = feed.findItem({ id: '010' });
+        expect(result.id).to.eq('010');
+      });
+
+      it('should support matching on entry link and title', () => {
+        const item = {
+          title: 'On Endless Forms Most Beautiful',
+          url: 'charles.darwin.co.uk',
+        };
+
+        const feed = new Feed({ url: 'https://npmjs.org', items: [item] });
+        const result = feed.findItem(item);
+        expect(result).to.not.eq(undefined);
+        expect(result.id).to.eq(undefined);
+        expect(result.title).to.eq('On Endless Forms Most Beautiful');
+        expect(result.url).to.eq('charles.darwin.co.uk');
+      });
     });
   });
 });

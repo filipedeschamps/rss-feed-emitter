@@ -26,8 +26,8 @@ const checkFeed = (feed) => {
 };
 
 const checkUrl = (feed) => {
-  if (!feed.url || typeof feed.url !== 'string') {
-    throw new FeedError('Your configuration object should have an "url" key with a string value', 'type_error');
+  if (!feed.url || !(typeof feed.url === 'string' || Array.isArray(feed.url))) {
+    throw new FeedError('Your configuration object should have an "url" key with a string or array value', 'type_error');
   }
 };
 
@@ -76,6 +76,14 @@ class FeedEmitter extends EventEmitter {
     this.userAgent = options.userAgent;
   }
 
+
+  /**
+   * UserFeedConfig typedef
+   * @typedef {Object} UserFeedConfig
+   * @property {(string|string[])} url Url string or string array. Cannot be null or empty
+   * @property {Number} refresh Refresh cycle duration for the feed.
+   */
+
   /**
    * ADD
    * The #add method is one of the main ones. Basically it
@@ -84,15 +92,26 @@ class FeedEmitter extends EventEmitter {
    *    url: "http://www.nintendolife.com/feeds/news",
    *    refresh: 2000
    *  }
-   * @param {Object} userFeedConfig user feed config
+   * @param {UserFeedConfig} userFeedConfig user feed config
+   * @returns {Feed[]}
    */
-
   add(userFeedConfig) {
     FeedEmitter.validateFeedObject(userFeedConfig, this.userAgent);
+
+    if (Array.isArray(userFeedConfig.url)) {
+      userFeedConfig.url.forEach((url) => {
+        this.add({
+          ...userFeedConfig,
+          url,
+        });
+      });
+      return this.feedList;
+    }
 
     const feed = new Feed(userFeedConfig);
 
     this.addOrUpdateFeedList(feed);
+
     return this.feedList;
   }
 
