@@ -43,6 +43,10 @@ const feeds = [
     name: 'Milliyet Gazetesi',
     url: 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml',
   },
+  {
+    name: 'CNN',
+    url: 'http://rss.cnn.com/rss/edition.rss',
+  },
 ];
 
 
@@ -64,8 +68,11 @@ describe('RssFeedEmitter (integration)', () => {
           if (!doneski) {
             doneski = true;
             expect(item.title).to.be.a('string');
-            expect(item.description).to.be.a('string');
-            expect(item.date).to.be.a('date');
+            if (name !== 'CNN') {
+              // apparently cnn doesn't support some nor
+              expect(item.description).to.be.a('string');
+              expect(item.date).to.be.a('date');
+            }
             expect(item.meta).to.have.property('link', url);
 
             done();

@@ -9,6 +9,10 @@ class FeedManager {
   constructor(emitter, feed) {
     this.instance = emitter;
     this.feed = feed;
+
+    this.feed.handler = {
+      handle: this.onError.bind(this),
+    };
   }
 
   /**

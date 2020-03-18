@@ -7,15 +7,13 @@ const RssFeedEmitter = require('../../src/FeedEmitter');
 const RssFeedError = require('../../src/FeedError');
 const Feed = require('../../src/Feed');
 
+
 process.env.NOCK_OFF = false;
 
 const { expect } = chai;
 
 let feeder;
 const defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
-
-process.on('uncaughtException', () => {});
-process.on('unhandledRejection', () => {});
 
 describe('RssFeedEmitter (unit)', () => {
   beforeEach(() => {
@@ -113,7 +111,6 @@ describe('RssFeedEmitter (unit)', () => {
         .get('/feeds/latest')
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
 
-      feeder.destroy();
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
       feeder.add({
@@ -282,9 +279,12 @@ describe('RssFeedEmitter (unit)', () => {
     }).timeout(3000);
 
     it('should apply default "userAgent" if none is provided in add or construction', () => {
-      const subFeeder = new RssFeedEmitter();
-      const list = subFeeder.add({
-        url: 'test',
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
         userAgent: undefined,
       });
       expect(list.length).to.eq(1);
@@ -292,9 +292,13 @@ describe('RssFeedEmitter (unit)', () => {
     });
 
     it('should respect constructed "userAgent" if none is provided in add', () => {
-      const subFeeder = new RssFeedEmitter({ userAgent: 'testABC' });
-      const list = subFeeder.add({
-        url: 'test',
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
         userAgent: undefined,
       });
       expect(list.length).to.eq(1);
@@ -302,9 +306,13 @@ describe('RssFeedEmitter (unit)', () => {
     });
 
     it('should respect provided "userAgent"', () => {
-      const subFeeder = new RssFeedEmitter({ userAgent: 'testABC' });
-      const list = subFeeder.add({
-        url: 'test',
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
         userAgent: 'test123',
       });
       expect(list.length).to.eq(1);
@@ -365,7 +373,6 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.on('nintendo', () => {
         if (calledNum === 0) {
           calledNum += 1;
-          feeder.destroy();
           done();
         }
       });
@@ -426,7 +433,6 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.on('new-item', (item) => {
         itemsReceived.push(item);
         if (itemsReceived.length === totalLength) {
-          feeder.destroy();
           expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
           expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
           expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
@@ -445,6 +451,8 @@ describe('RssFeedEmitter (unit)', () => {
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
+
+      expect(feeder.list).to.have.length(0);
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -783,7 +791,7 @@ describe('RssFeedEmitter (unit)', () => {
       it('should support matching on entry link and title', () => {
         const item = {
           title: 'On Endless Forms Most Beautiful',
-          url: 'charles.darwin.co.uk',
+          url: 'http://charles.darwin.co.uk',
         };
 
         const feed = new Feed({ url: 'https://npmjs.org', items: [item] });
@@ -791,7 +799,36 @@ describe('RssFeedEmitter (unit)', () => {
         expect(result).to.not.eq(undefined);
         expect(result.id).to.eq(undefined);
         expect(result.title).to.eq('On Endless Forms Most Beautiful');
-        expect(result.url).to.eq('charles.darwin.co.uk');
+        expect(result.url).to.eq('http://charles.darwin.co.uk');
+      });
+    });
+
+    describe('#handleError', () => {
+      it('should handle errors if a handler is present', async () => {
+        nock('https://www.nintendolife.com/')
+          .get('/feeds/latest')
+          .reply(500);
+
+        const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
+        let numHandled = 0;
+        const handler = {
+          handle: () => {
+            numHandled += 1;
+          },
+        };
+        feed.handler = handler;
+        await feed.fetchData();
+        expect(numHandled).to.eq(2);
+      });
+
+      it('should throw errors if a handler is not present', () => {
+        nock('https://www.nintendolife.com/')
+          .get('/feeds/latest')
+          .reply(500);
+
+        const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
+
+        expect(() => { feed.handleError(new Error()); }).to.throw();
       });
     });
   });

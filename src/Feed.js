@@ -95,7 +95,7 @@ class Feed {
 
   fetchData() {
     // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       const items = [];
       const feedparser = new FeedParser();
       feedparser.on('readable', () => {
@@ -104,17 +104,17 @@ class Feed {
         items.push(item);
       });
       feedparser.on('error', () => {
-        reject(new FeedError(`Cannot parse ${this.url} XML`, 'invalid_feed', this.url));
+        this.handleError(new FeedError(`Cannot parse ${this.url} XML`, 'invalid_feed', this.url));
       });
       feedparser.on('end', () => {
         resolve(items);
       });
 
-      this.get(feedparser, reject);
+      this.get(feedparser);
     });
   }
 
-  get(feedparser, reject) {
+  get(feedparser) {
     request
       .get({
         url: this.url,
@@ -125,14 +125,22 @@ class Feed {
       })
       .on('response', (res) => {
         if (res.statusCode !== RESPONSE_CODES.OK) {
-          reject(new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
+          this.handleError(new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
         }
       })
       .on('error', () => {
-        reject(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
+        this.handleError(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
       })
       .pipe(feedparser)
       .on('end', () => {});
+  }
+
+  handleError(error) {
+    if (this.handler) {
+      this.handler.handle(error);
+    } else {
+      throw error;
+    }
   }
 
   destroy() {
