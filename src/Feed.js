@@ -34,6 +34,7 @@ class Feed {
       url: this.url,
       refresh: this.refresh,
       userAgent: this.userAgent,
+      eventName: this.eventName,
     } = data);
 
     if (!this.items) {
@@ -56,6 +57,10 @@ class Feed {
      */
     if (!this.userAgent) {
       this.userAgent = DEFAULT_UA;
+    }
+
+    if (!this.eventName) {
+      this.eventName = 'new-item';
     }
   }
 

@@ -236,7 +236,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
-        refresh: 2,
+        refresh: 20,
       });
 
       const maxItemsReceived = 69;
@@ -281,14 +281,34 @@ describe('RssFeedEmitter (unit)', () => {
       expect(list.length).to.eq(1);
       expect(list[0].userAgent).to.eq('test123');
     });
+
+    it('should add all feeds added at once', () => {
+      const defaultRefesh = 60000;
+
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/news')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+      }, {
+        url: 'https://www.nintendolife.com/feeds/news',
+      });
+
+      expect(list).to.have.property('length', 2);
+      expect(list[0]).to.have.property('refresh', defaultRefesh);
+      expect(list[1]).to.have.property('refresh', defaultRefesh);
+    });
   });
 
   describe('#emit', () => {
-    it('#emit should be a Function', () => {
+    it('should be a Function', () => {
       expect(feeder.emit).to.be.a('function');
     });
 
-    it('#emit should emit custom events', (done) => {
+    it('should emit custom events', (done) => {
       feeder.on('custom-event', (eventObject) => {
         expect(eventObject).to.be.an('object');
         expect(eventObject).to.have.property('name', 'rss-feed-emitter');
@@ -297,6 +317,28 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.emit('custom-event', {
         name: 'rss-feed-emitter',
+      });
+    });
+
+    it('should emit provided custom events', (done) => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        refresh: 1000,
+        eventName: 'nintendo',
+      });
+
+      let calledNum = 0;
+
+      feeder.on('nintendo', () => {
+        if (calledNum === 0) {
+          calledNum += 1;
+          feeder.destroy();
+          done();
+        }
       });
     });
 
@@ -344,7 +386,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
-        refresh: 1000,
+        refresh: 100,
       });
 
       // This is the sum of the first 20 feed items
@@ -355,6 +397,7 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.on('new-item', (item) => {
         itemsReceived.push(item);
         if (itemsReceived.length === totalLength) {
+          feeder.destroy();
           expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
           expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
           expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
@@ -395,9 +438,6 @@ describe('RssFeedEmitter (unit)', () => {
         if (itemsReceived.length === 20) {
           expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
           expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
-        }
-
-        if (itemsReceived.length === 20) {
           done();
         }
       });
@@ -443,11 +483,16 @@ describe('RssFeedEmitter (unit)', () => {
         refresh: 100,
       });
 
+      let errorCalls = 0;
+
       feeder.on('error', (error) => {
-        expect(error).to.have.property('name', 'fetch_url_error');
-        expect(error).to.have.property('message', 'This URL returned a 404 status code');
-        expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
-        done();
+        if (errorCalls === 0) {
+          errorCalls += 1;
+          expect(error).to.have.property('name', 'fetch_url_error');
+          expect(error).to.have.property('message', 'This URL returned a 404 status code');
+          expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
+          done();
+        }
       });
     });
 
@@ -458,14 +503,19 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/link',
-        refresh: 120000,
+        refresh: 100,
       });
 
+      let errorCalls = 0;
+
       feeder.on('error', (error) => {
-        expect(error).to.have.property('name', 'fetch_url_error');
-        expect(error).to.have.property('message', 'This URL returned a 500 status code');
-        expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
-        done();
+        if (errorCalls === 0) {
+          errorCalls += 1;
+          expect(error).to.have.property('name', 'fetch_url_error');
+          expect(error).to.have.property('message', 'This URL returned a 500 status code');
+          expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
+          done();
+        }
       });
     });
 
@@ -490,7 +540,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/mario',
-        refresh: 120000,
+        refresh: 10,
       });
 
       feeder.on('error', (error) => {
@@ -499,7 +549,7 @@ describe('RssFeedEmitter (unit)', () => {
         expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/mario');
         done();
       });
-    });
+    }).timeout(10000);
   });
 
   describe('.list', () => {

@@ -42,7 +42,7 @@ class FeedManager {
   populateNewItemsInFeed(data) {
     data.newItems.forEach((item) => {
       this.feed.addItem(item);
-      this.instance.emit('new-item', item);
+      this.instance.emit(this.feed.eventName, item);
     });
   }
 

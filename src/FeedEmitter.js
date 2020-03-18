@@ -92,23 +92,30 @@ class FeedEmitter extends EventEmitter {
    *    url: "http://www.nintendolife.com/feeds/news",
    *    refresh: 2000
    *  }
-   * @param {UserFeedConfig} userFeedConfig user feed config
+   * @param {UserFeedConfig[]} userFeedConfig user feed config
    * @returns {Feed[]}
    */
-  add(userFeedConfig) {
-    FeedEmitter.validateFeedObject(userFeedConfig, this.userAgent);
+  add(...userFeedConfig) {
+    if (userFeedConfig.length > 1) {
+      userFeedConfig.forEach((f) => this.add(f));
+      return this.feedList;
+    }
 
-    if (Array.isArray(userFeedConfig.url)) {
-      userFeedConfig.url.forEach((url) => {
+    const config = userFeedConfig[0];
+
+    FeedEmitter.validateFeedObject(config, this.userAgent);
+
+    if (Array.isArray(config.url)) {
+      config.url.forEach((url) => {
         this.add({
-          ...userFeedConfig,
+          ...config,
           url,
         });
       });
       return this.feedList;
     }
 
-    const feed = new Feed(userFeedConfig);
+    const feed = new Feed(config);
 
     this.addOrUpdateFeedList(feed);
 
