@@ -262,7 +262,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
-        refresh: 20,
+        refresh: 100,
       });
 
       const maxItemsReceived = 69;
