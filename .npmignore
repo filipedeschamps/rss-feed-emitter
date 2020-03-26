@@ -1,4 +1,3 @@
-src
 .travis.yml
 .codeclimate.yml
 .editorconfig
@@ -7,4 +6,3 @@ src
 .nvmrc
 content
 test
-
