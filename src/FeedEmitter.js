@@ -26,8 +26,8 @@ const checkFeed = (feed) => {
 };
 
 const checkUrl = (feed) => {
-  if (!feed.url || typeof feed.url !== 'string') {
-    throw new FeedError('Your configuration object should have an "url" key with a string value', 'type_error');
+  if (!feed.url || !(typeof feed.url === 'string' || Array.isArray(feed.url))) {
+    throw new FeedError('Your configuration object should have an "url" key with a string or array value', 'type_error');
   }
 };
 
@@ -62,7 +62,7 @@ class FeedEmitter extends EventEmitter {
    * we create a new instance of this "Class".
    * @param {Object} [options={ userAgent: defaultUA }] [description]
    */
-  constructor(options = { userAgent: DEFAULT_UA }) {
+  constructor(options = { userAgent: DEFAULT_UA, skipFirstLoad: false }) {
     super();
 
     this.feedList = [];
@@ -74,7 +74,21 @@ class FeedEmitter extends EventEmitter {
      * @type {string}
      */
     this.userAgent = options.userAgent;
+
+    /**
+     * Whether or not to skip the normal emit event on first load
+     * @type {boolean}
+     */
+    this.skipFirstLoad = options.skipFirstLoad;
   }
+
+
+  /**
+   * UserFeedConfig typedef
+   * @typedef {Object} UserFeedConfig
+   * @property {(string|string[])} url Url string or string array. Cannot be null or empty
+   * @property {Number} refresh Refresh cycle duration for the feed.
+   */
 
   /**
    * ADD
@@ -84,15 +98,33 @@ class FeedEmitter extends EventEmitter {
    *    url: "http://www.nintendolife.com/feeds/news",
    *    refresh: 2000
    *  }
-   * @param {Object} userFeedConfig user feed config
+   * @param {UserFeedConfig[]} userFeedConfig user feed config
+   * @returns {Feed[]}
    */
+  add(...userFeedConfig) {
+    if (userFeedConfig.length > 1) {
+      userFeedConfig.forEach((f) => this.add(f));
+      return this.feedList;
+    }
 
-  add(userFeedConfig) {
-    FeedEmitter.validateFeedObject(userFeedConfig, this.userAgent);
+    const config = userFeedConfig[0];
 
-    const feed = new Feed(userFeedConfig);
+    FeedEmitter.validateFeedObject(config, this.userAgent);
+
+    if (Array.isArray(config.url)) {
+      config.url.forEach((url) => {
+        this.add({
+          ...config,
+          url,
+        });
+      });
+      return this.feedList;
+    }
+
+    const feed = new Feed(config);
 
     this.addOrUpdateFeedList(feed);
+
     return this.feedList;
   }
 
@@ -156,7 +188,7 @@ class FeedEmitter extends EventEmitter {
    */
   createSetInterval(feed) {
     const feedManager = new FeedManager(this, feed);
-    feedManager.getContent();
+    feedManager.getContent(true);
     return setInterval(feedManager.getContent.bind(feedManager), feed.refresh);
   }
 

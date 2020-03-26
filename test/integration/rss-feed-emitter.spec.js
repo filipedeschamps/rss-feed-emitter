@@ -6,7 +6,7 @@ const RssFeedEmitter = require('../../src/FeedEmitter');
 const { expect } = chai;
 
 const expectedlength = 1;
-const refresh = 100;
+const refresh = 1000;
 
 process.env.NOCK_OFF = true;
 
@@ -21,7 +21,7 @@ const feeds = [
   },
   {
     name: 'Time',
-    url: 'http://feeds.feedburner.com/time/topstories?format=xml',
+    url: 'http://feeds.feedburner.com/time/topstories?fmt=xml',
   },
   {
     name: 'The Guardian',
@@ -50,28 +50,33 @@ const feeds = [
 ];
 
 
-// I've had issues with these, but if someone wants to rewrite it fully, they're welcome to.
-// I can get them to notify in a tester, but not in here, sadly.
-xdescribe('RssFeedEmitter (integration)', () => {
+describe('RssFeedEmitter (integration)', () => {
   describe('#on', () => {
     let feeder;
 
     beforeEach(() => { feeder = new RssFeedEmitter(); });
 
+    afterEach(() => { feeder.destroy(); });
+
     feeds.forEach(({ name, url }) => {
       it(`should emit items from "${name}"`, (done) => {
-        const itemsReceived = [];
-
         feeder.add({ url, refresh });
 
+        let doneski = false;
+
         feeder.on('new-item', (item) => {
-          itemsReceived.push(item);
-          expect(item.title).to.be.a('string');
-          expect(item.description).to.be.a('string');
-          expect(item.date).to.be.a('date');
-          expect(item.meta).to.have.property('link', url);
-          expect(itemsReceived.length).to.be(expectedlength);
-          done();
+          if (!doneski) {
+            doneski = true;
+            expect(item.title).to.be.a('string');
+            if (name !== 'CNN') {
+              // apparently cnn doesn't support some nor
+              expect(item.description).to.be.a('string');
+              expect(item.date).to.be.a('date');
+            }
+            expect(item.meta).to.have.property('link', url);
+
+            done();
+          }
         });
       });
     });

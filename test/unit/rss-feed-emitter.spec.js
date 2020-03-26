@@ -5,6 +5,8 @@ const nock = require('nock');
 const path = require('path');
 const RssFeedEmitter = require('../../src/FeedEmitter');
 const RssFeedError = require('../../src/FeedError');
+const Feed = require('../../src/Feed');
+
 
 process.env.NOCK_OFF = false;
 
@@ -12,9 +14,6 @@ const { expect } = chai;
 
 let feeder;
 const defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
-
-process.on('uncaughtException', () => {});
-process.on('unhandledRejection', () => {});
 
 describe('RssFeedEmitter (unit)', () => {
   beforeEach(() => {
@@ -104,6 +103,32 @@ describe('RssFeedEmitter (unit)', () => {
     });
   });
 
+  describe('when instantiated with skipFirstLoad option', () => {
+    it('does not emit an initial load event', (done) => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ skipFirstLoad: true });
+
+      feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        refresh: 100,
+      });
+
+      feeder.on('initial-load:https://nintendolife.com/feeds/latest', () => {
+        expect(false).to.eq(true);
+      });
+      feeder.on('new-item', (item) => {
+        if (item.title === 'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More') {
+          done();
+        }
+      });
+    });
+  });
+
   describe('#add', () => {
     it('should be a Function', () => {
       expect(feeder.add).to.be.a('function');
@@ -118,15 +143,15 @@ describe('RssFeedEmitter (unit)', () => {
         feeder.add({
           refresh: 60000,
         });
-      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string value');
+      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string or array value');
     });
 
-    it('should throw when configuration object contains "url", but its not a String', () => {
+    it('should throw when configuration object contains "url", but its not a String or Array', () => {
       expect(() => {
         feeder.add({
-          url: ['a', 'b', 'c'],
+          url: { thing: 'thing' },
         });
-      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string value');
+      }).to.throw(RssFeedError, 'Your configuration object should have an "url" key with a string or array value');
     });
 
     it('should throw when configuration object contains "refresh", but its not a Number', () => {
@@ -160,6 +185,24 @@ describe('RssFeedEmitter (unit)', () => {
       expect(feeder.list[1]).to.have.property('refresh', defaultRefesh);
     });
 
+    it('should correctly add feeds when configuration object contains only "url" array', () => {
+      const defaultRefesh = 60000;
+
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/news')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+
+      feeder.add({
+        url: ['https://www.nintendolife.com/feeds/latest', 'https://www.nintendolife.com/feeds/news'],
+      });
+
+      expect(feeder.list).to.have.property('length', 2);
+      expect(feeder.list[0]).to.have.property('refresh', defaultRefesh);
+      expect(feeder.list[1]).to.have.property('refresh', defaultRefesh);
+    });
+
     it('should replace default refresh rate if configuration object contains "refresh"', () => {
       const notDefaultRefresh = 120000;
 
@@ -184,6 +227,8 @@ describe('RssFeedEmitter (unit)', () => {
         .get('/feeds/latest')
         .twice()
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -217,7 +262,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
-        refresh: 2,
+        refresh: 100,
       });
 
       const maxItemsReceived = 69;
@@ -231,15 +276,76 @@ describe('RssFeedEmitter (unit)', () => {
           done();
         }
       });
+    }).timeout(3000);
+
+    it('should apply default "userAgent" if none is provided in add or construction', () => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        userAgent: undefined,
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)');
+    });
+
+    it('should respect constructed "userAgent" if none is provided in add', () => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        userAgent: undefined,
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('testABC');
+    });
+
+    it('should respect provided "userAgent"', () => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ userAgent: 'testABC' });
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        userAgent: 'test123',
+      });
+      expect(list.length).to.eq(1);
+      expect(list[0].userAgent).to.eq('test123');
+    });
+
+    it('should add all feeds added at once', () => {
+      const defaultRefesh = 60000;
+
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/news')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+
+      const list = feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+      }, {
+        url: 'https://www.nintendolife.com/feeds/news',
+      });
+
+      expect(list).to.have.property('length', 2);
+      expect(list[0]).to.have.property('refresh', defaultRefesh);
+      expect(list[1]).to.have.property('refresh', defaultRefesh);
     });
   });
 
   describe('#emit', () => {
-    it('#emit should be a Function', () => {
+    it('should be a Function', () => {
       expect(feeder.emit).to.be.a('function');
     });
 
-    it('#emit should emit custom events', (done) => {
+    it('should emit custom events', (done) => {
       feeder.on('custom-event', (eventObject) => {
         expect(eventObject).to.be.an('object');
         expect(eventObject).to.have.property('name', 'rss-feed-emitter');
@@ -248,6 +354,27 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.emit('custom-event', {
         name: 'rss-feed-emitter',
+      });
+    });
+
+    it('should emit provided custom events', (done) => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder.add({
+        url: 'https://www.nintendolife.com/feeds/latest',
+        refresh: 1000,
+        eventName: 'nintendo',
+      });
+
+      let calledNum = 0;
+
+      feeder.on('nintendo', () => {
+        if (calledNum === 0) {
+          calledNum += 1;
+          done();
+        }
       });
     });
 
@@ -295,7 +422,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
-        refresh: 1000,
+        refresh: 100,
       });
 
       // This is the sum of the first 20 feed items
@@ -325,6 +452,8 @@ describe('RssFeedEmitter (unit)', () => {
 
       const itemsReceived = [];
 
+      expect(feeder.list).to.have.length(0);
+
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
         refresh: 10,
@@ -346,9 +475,6 @@ describe('RssFeedEmitter (unit)', () => {
         if (itemsReceived.length === 20) {
           expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
           expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
-        }
-
-        if (itemsReceived.length === 20) {
           done();
         }
       });
@@ -394,11 +520,16 @@ describe('RssFeedEmitter (unit)', () => {
         refresh: 100,
       });
 
+      let errorCalls = 0;
+
       feeder.on('error', (error) => {
-        expect(error).to.have.property('name', 'fetch_url_error');
-        expect(error).to.have.property('message', 'This URL returned a 404 status code');
-        expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
-        done();
+        if (errorCalls === 0) {
+          errorCalls += 1;
+          expect(error).to.have.property('name', 'fetch_url_error');
+          expect(error).to.have.property('message', 'This URL returned a 404 status code');
+          expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
+          done();
+        }
       });
     });
 
@@ -409,14 +540,19 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/link',
-        refresh: 120000,
+        refresh: 100,
       });
 
+      let errorCalls = 0;
+
       feeder.on('error', (error) => {
-        expect(error).to.have.property('name', 'fetch_url_error');
-        expect(error).to.have.property('message', 'This URL returned a 500 status code');
-        expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
-        done();
+        if (errorCalls === 0) {
+          errorCalls += 1;
+          expect(error).to.have.property('name', 'fetch_url_error');
+          expect(error).to.have.property('message', 'This URL returned a 500 status code');
+          expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
+          done();
+        }
       });
     });
 
@@ -441,7 +577,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/mario',
-        refresh: 120000,
+        refresh: 10,
       });
 
       feeder.on('error', (error) => {
@@ -450,7 +586,7 @@ describe('RssFeedEmitter (unit)', () => {
         expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/mario');
         done();
       });
-    });
+    }).timeout(10000);
   });
 
   describe('.list', () => {
@@ -615,6 +751,85 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.destroy();
 
       expect(feeder.list).to.have.property('length', 0);
+    });
+  });
+
+  describe('storage Feed', () => {
+    describe('#constructor', () => {
+      it('should error when no url is provided', () => {
+        expect(() => new Feed({ url: undefined })).to.throw(TypeError, 'missing required field `url`');
+      });
+
+      it('should default items to an empty list if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(JSON.stringify(feed.items)).to.eq('[]');
+      });
+
+      it('should default refresh to 60000 if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.refresh).to.eq(60000);
+      });
+
+      it('should default refresh to 60000 if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.refresh).to.eq(60000);
+      });
+
+      it('should default user agent to defautl value if none is provided', () => {
+        const feed = new Feed({ url: 'https://npmjs.org' });
+        expect(feed.userAgent).to.eq('Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)');
+      });
+    });
+
+    describe('#findItem', () => {
+      it('should support matching on entry id', () => {
+        const feed = new Feed({ url: 'https://npmjs.org', items: [{ id: '010' }] });
+        const result = feed.findItem({ id: '010' });
+        expect(result.id).to.eq('010');
+      });
+
+      it('should support matching on entry link and title', () => {
+        const item = {
+          title: 'On Endless Forms Most Beautiful',
+          url: 'http://charles.darwin.co.uk',
+        };
+
+        const feed = new Feed({ url: 'https://npmjs.org', items: [item] });
+        const result = feed.findItem(item);
+        expect(result).to.not.eq(undefined);
+        expect(result.id).to.eq(undefined);
+        expect(result.title).to.eq('On Endless Forms Most Beautiful');
+        expect(result.url).to.eq('http://charles.darwin.co.uk');
+      });
+    });
+
+    describe('#handleError', () => {
+      it('should handle errors if a handler is present', async () => {
+        nock('https://www.nintendolife.com/')
+          .get('/feeds/latest')
+          .reply(500);
+
+        const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
+        let numHandled = 0;
+        const handler = {
+          handle: () => {
+            numHandled += 1;
+          },
+        };
+        feed.handler = handler;
+        await feed.fetchData();
+        expect(numHandled).to.eq(2);
+      });
+
+      it('should throw errors if a handler is not present', () => {
+        nock('https://www.nintendolife.com/')
+          .get('/feeds/latest')
+          .reply(500);
+
+        const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
+
+        expect(() => { feed.handleError(new Error()); }).to.throw();
+      });
     });
   });
 });

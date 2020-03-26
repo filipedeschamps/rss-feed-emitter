@@ -65,20 +65,20 @@ $ npm install rss-feed-emitter
 
 ### Creating an instance
 
-``` js
-let RssFeedEmitter = require('rss-feed-emitter');
-let feeder = new RssFeedEmitter();
+```js
+const RssFeedEmitter = require('rss-feed-emitter');
+const feeder = new RssFeedEmitter();
 ```
 
 #### Changing the user agent for requests
 
-``` js
-let feeder = new RssFeedEmitter({ userAgent: 'Your UA string' });
+```js
+const feeder = new RssFeedEmitter({ userAgent: 'Your UA string' });
 ```
 
 ### Adding feeds
 
-``` js
+```js
 feeder.add({
   url: 'http://www.nintendolife.com/feeds/news',
   refresh: 2000
@@ -87,21 +87,67 @@ feeder.add({
 
 > Default refresh value is 60 seconds
 
+You can also add multiple at once by either providing an array of urls for the `url` field:
+```js
+feeder.add({
+  url: ['http://www.nintendolife.com/feeds/news', 'http://feeds.bbci.co.uk/news/rss.xml' ],
+  refresh: 2000
+});
+```
+
+or by passing multiple configs:
+```js
+feeder.add({
+  url: 'http://www.nintendolife.com/feeds/news',
+  refresh: 2000
+}, {
+  url: 'http://feeds.bbci.co.uk/news/rss.xml',
+  refresh: 5000
+});
+```
 
 ### Listening to new items
 
-``` js
+```js
 feeder.on('new-item', function(item) {
   console.log(item);
 })
 ```
 
+you can also override the default `'new-item'` event name with a new value of your choice by providing the event name in the feed config.
+```js
+feeder.add({
+  url: 'http://www.nintendolife.com/feeds/news',
+  refresh: 2000,
+  eventName: 'nintendo'
+});
 
-### Listing all feeds in the instance
-``` js
-feeder.list();
+feeder.on('nintendo', function(item) {
+  console.log(item);
+});
 ```
 
+### Ignoring the first load of items
+```js
+const feeder = new RssFeedEmitter({ skipFirstLoad: true });
+
+feeder.add({
+  url: 'http://www.nintendolife.com/feeds/news',
+  refresh: 2000,
+  eventName: 'nintendo'
+});
+
+// this item will only be from the new items, not from old items.
+feeder.on('nintendo', function(item) {
+  console.log(item);
+});
+```
+
+### Listing all feeds in the instance
+The list is now an ES6 getter to make the field a bit more plain to access.
+```js
+feeder.list;
+```
 
 ### Removing a single feed
 
