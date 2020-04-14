@@ -528,6 +528,7 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('name', 'fetch_url_error');
           expect(error).to.have.property('message', 'This URL returned a 404 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
+          expect(error.toString()).to.eq('fetch_url_error : This URL returned a 404 status code\nhttps://www.nintendolife.com/feeds/zelda');
           done();
         }
       });
@@ -551,6 +552,7 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('name', 'fetch_url_error');
           expect(error).to.have.property('message', 'This URL returned a 500 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
+          expect(error.toString()).to.eq('fetch_url_error : This URL returned a 500 status code\nhttps://www.nintendolife.com/feeds/link');
           done();
         }
       });

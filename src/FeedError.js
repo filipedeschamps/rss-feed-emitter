@@ -8,7 +8,7 @@ class FeedError extends Error {
   }
 
   toString() {
-    return `${this.type} : ${this.message}\n${this.feed}`;
+    return `${this.name} : ${this.message}\n${this.feed}`;
   }
 }
 
