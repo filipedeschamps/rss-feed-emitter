@@ -3,7 +3,12 @@
 const FeedParser = require('feedparser');
 const request = require('request');
 const FeedError = require('./FeedError');
+const FeedItem = require('./FeedItem'); // eslint-disable-line no-unused-vars
 
+/**
+ * Map of specially handled error codes
+ * @type {Object}
+ */
 const RESPONSE_CODES = {
   OK: 200,
   NOT_FOUND: 404,
@@ -27,6 +32,21 @@ const historyLengthMultiplier = 3;
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
+/**
+ * Allowed mime types to allow fetching
+ * @type {Array<string>}
+ */
+const ALLOWED_MIMES = ['text/html', 'application/xhtml+xml', 'application/xml', 'text/xml'];
+
+/**
+ * Storage object for properties of a feed
+ * @typedef {Object} Feed
+ * @property {string} url Feed url
+ * @property {FeedItem[]} items items currently retrieved from the feed
+ * @property {number} refresh timeout between refreshes
+ * @property {string} userAgent User Agent string to fetch the feed with
+ * @property {string} eventName event name to use when emitting this feed
+ */
 class Feed {
   constructor(data) {
     ({
@@ -60,6 +80,10 @@ class Feed {
     }
 
     if (!this.eventName) {
+      /**
+       * event name for this feed to emit when a new item becomes available
+       * @type {String}
+       */
       this.eventName = 'new-item';
     }
   }
@@ -70,8 +94,8 @@ class Feed {
    * this to see if there's already an item inside
    * the feed item list. If there is, we know it's
    * not a new item.
-   * @param       {Object} item item specitics
-   * @returns      {Object}      the matched element
+   * @param {FeedItem} item item specitics
+   * @returns {FeedItem}      the matched element
    */
   findItem(item) {
     return this.items.find((entry) => {
@@ -84,15 +108,28 @@ class Feed {
     });
   }
 
+  /**
+   * Update the maximum history length based on the length of a feed retrieval
+   * @param  {FeedItem[]} newItems new list of items to base the history length on
+   * @mutator
+   */
   updateHxLength(newItems) {
     this.maxHistoryLength = newItems.length * historyLengthMultiplier;
   }
 
+  /**
+   * Add an item to the feed
+   * @param {FeedItem} item Feed item. Indeterminant structure.
+   */
   addItem(item) {
     this.items.push(item);
     this.items = this.items.slice(this.items.length - this.maxHistoryLength, this.items.length);
   }
 
+  /**
+   * Fetch the data for this feed
+   * @returns {Promise} array of new feed items
+   */
   fetchData() {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
@@ -114,13 +151,17 @@ class Feed {
     });
   }
 
+  /**
+   * Perform the feed parsing
+   * @param  {FeedParser} feedparser feedparser instance to use for parsing a retrieved feed
+   */
   get(feedparser) {
     request
       .get({
         url: this.url,
         headers: {
           'user-agent': this.userAgent,
-          accept: 'text/html,application/xhtml+xml,application/xml,text/xml',
+          accept: ALLOWED_MIMES.join(','),
         },
       })
       .on('response', (res) => {
@@ -135,6 +176,10 @@ class Feed {
       .on('end', () => {});
   }
 
+  /**
+   * Private: handle errors inside the feed retrieval process
+   * @param  {Error} error error to be handled
+   */
   handleError(error) {
     if (this.handler) {
       this.handler.handle(error);
@@ -143,6 +188,9 @@ class Feed {
     }
   }
 
+  /**
+   * Destroy feed
+   */
   destroy() {
     clearInterval(this.interval);
     delete this.interval;
