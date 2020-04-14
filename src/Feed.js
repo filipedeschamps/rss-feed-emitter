@@ -125,7 +125,7 @@ class Feed {
       })
       .on('response', (res) => {
         if (res.statusCode !== RESPONSE_CODES.OK) {
-          this.handleError(new FeedError(`${this.url} returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
+          this.handleError(new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url));
         }
       })
       .on('error', () => {

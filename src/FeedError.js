@@ -6,6 +6,10 @@ class FeedError extends Error {
     this.name = type;
     this.feed = feed;
   }
+
+  toString() {
+    return `${this.type} : ${this.message}\n${this.feed}`;
+  }
 }
 
 module.exports = FeedError;
