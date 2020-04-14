@@ -5,8 +5,8 @@
 <h1 align="center">RSS Feed Emitter</h1>
 
 <p align="center">
-  <a href="https://travis-ci.org/filipedeschamps/rss-feed-emitter">
-    <img src="https://travis-ci.org/filipedeschamps/rss-feed-emitter.svg?branch=master">
+  <a href="https://travis-ci.com/filipedeschamps/rss-feed-emitter">
+    <img src="https://travis-ci.com/filipedeschamps/rss-feed-emitter.svg?branch=master">
   </a>
   <a href='https://coveralls.io/github/filipedeschamps/rss-feed-emitter'>
     <img src='https://coveralls.io/repos/github/filipedeschamps/rss-feed-emitter/badge.svg' alt='Coverage Status' />
