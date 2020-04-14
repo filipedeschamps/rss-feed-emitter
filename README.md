@@ -8,13 +8,15 @@
   <a href="https://travis-ci.org/filipedeschamps/rss-feed-emitter">
     <img src="https://travis-ci.org/filipedeschamps/rss-feed-emitter.svg?branch=master">
   </a>
-  <a href="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/coverage">
-    <img src="https://codeclimate.com/github/filipedeschamps/rss-feed-emitter/badges/coverage.svg">
+  <a href='https://coveralls.io/github/filipedeschamps/rss-feed-emitter'>
+    <img src='https://coveralls.io/repos/github/filipedeschamps/rss-feed-emitter/badge.svg' alt='Coverage Status' />
   </a>
   <a href="https://www.npmjs.com/package/rss-feed-emitter">
     <img src="https://badge.fury.io/js/rss-feed-emitter.svg">
   </a>
-  <a href="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter"><img src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter" style="max-width:100%;"></a>
+  <a href="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter">
+  <img src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter" style="max-width:100%;">
+</a>
 </p>
 
 <p align="center">
@@ -27,15 +29,15 @@
 This is a fully functional module, but its source code and repository are also a **super complete tutorial**, covering:
 
  1. What to do first when creating a module from scratch
- 2. How to manage your module in Github and npm
- 3. How to transpile your ES6 code into ES5
- 4. How to create automated unit and integration tests
- 5. How to integrate them with Travis CI and make the build break if tests didn't pass
- 6. How to automatically test your module against various versions of Node.js
- 7. How to setup a code coverage tool and keep 100% coverage
- 8. How to integrate the coverage results with Code Climate
- 9. How to configure linting tools to make your code base consistent
- 10. How to deploy to Github and npm with tags and releases
+ 0. How to manage your module in Github and npm
+ 0. ~~How to transpile your ES6 code into ES5~~ this went away in v3
+ 0. How to create automated unit and integration tests
+ 0. How to integrate them with Travis CI and make the build break if tests didn't pass
+ 0. How to automatically test your module against various versions of Node.js
+ 0. How to setup a code coverage tool and keep 100% coverage
+ 0. How to integrate the coverage results with Coveralls
+ 0. How to configure linting tools to make your code base consistent
+ 0. How to deploy to Github and npm with tags and releases
 
 If you're afraid to read the source code of the modules you use or to create your first module, this is the best chance you have to break this barrier :)
 
@@ -44,7 +46,8 @@ If you're afraid to read the source code of the modules you use or to create you
 
 ## Features
 
- * Supports Node.js `4.x`, `5.x`, `6.x`, `7.x`, `8.x`, `9.x`, `10.x`, `11.x` and `@stable`
+ * Supports Node.js `8.x` up through the current version of node.js
+ * Supported Node.js  `4.x`, `5.x`, `6.x`, and `7.x` until rss-feed-emitter version `2.0.1`
  * Supported Node.js `0.10.x` and `0.12.x` until rss-feed-emmiter version `1.0.7`
  * 100% code coverage with unit and integration tests
  * Simple interface
