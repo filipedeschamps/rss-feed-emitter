@@ -42,7 +42,7 @@
     "nock": "^11.7.2"
   },
   "dependencies": {
-    "feedparser": "1.1.4",
+    "feedparser": "2.2.9",
     "request": "^2.88.0"
   },
   "nyc": {
