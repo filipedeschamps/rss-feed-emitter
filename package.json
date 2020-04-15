@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "feedparser": "1.1.4",
-    "request": "^2.88.0"
+    "request": "^2.88.2"
   },
   "nyc": {
     "all": true,
