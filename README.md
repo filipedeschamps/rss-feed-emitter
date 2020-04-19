@@ -146,6 +146,12 @@ feeder.on('nintendo', function(item) {
 });
 ```
 
+### Adding an 'error' handler
+Handle error events by printing to console. This handler is needed to prevent unhandled exceptions from crashing the processes.
+```js
+feeder.on('error', console.error);
+```
+
 ### Listing all feeds in the instance
 The list is now an ES6 getter to make the field a bit more plain to access.
 ```js
