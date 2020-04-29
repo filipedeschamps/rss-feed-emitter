@@ -1,0 +1,15 @@
+{
+    "inlcude": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "test/**/*.js"
+    ],
+    "compilerOptions": {
+      "outDir": "./types",
+      "declaration": true,
+      "noEmit": false,
+      "allowJs": true,
+      "emitDeclarationOnly": true
+    }
+}
