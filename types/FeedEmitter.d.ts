@@ -55,7 +55,7 @@ declare class FeedEmitter extends FeedEmitter_base {
         /**
          * Url string or string array. Cannot be null or empty
          */
-        url: string | string[];
+        url: (string | string[]);
         /**
          * Refresh cycle duration for the feed.
          */
@@ -85,13 +85,4 @@ declare class FeedEmitter extends FeedEmitter_base {
      */
     createSetInterval(feed: any): any;
     removeFromFeedList(feed: any): void;
-    addListener(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    on(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    once(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    prependListener(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    removeListener(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    off(event: string | symbol, listener: (...args: any[]) => void): FeedEmitter;
-    removeAllListeners(event?: string | symbol): FeedEmitter;
-    setMaxListeners(n: number): FeedEmitter;
 }

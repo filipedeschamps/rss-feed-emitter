@@ -13,7 +13,7 @@
     "lint": "npx eslint src/ test/",
     "lint:fix": "npx eslint src/ test/ --fix",
     "prepublish": "npm run build:types",
-    "build:types": "npx tsc -p tsconfig.declaration.json"
+    "build:types": "npx -p typescript tsc -p tsconfig.declaration.json"
   },
   "repository": {
     "type": "git",

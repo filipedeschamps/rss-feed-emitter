@@ -10,14 +10,14 @@ export = Feed;
  */
 declare class Feed {
     constructor(data: any);
-    items: any;
+    items: any[];
     refresh: number;
     userAgent: string;
     /**
      * event name for this feed to emit when a new item becomes available
      * @type {String}
      */
-    eventName: String;
+    eventName: string;
     /**
      * Given a feed and item, try to find
      * it inside the feed item list. We will use

@@ -38,11 +38,11 @@ type FeedItem = {
     /**
      * date the item "occurred"
      */
-    date: Date;
+    date: Date | null;
     /**
      * Published date of the item
      */
-    pubdate: Date;
+    pubdate: Date | null;
     /**
      * link to item relating to the feed
      */
