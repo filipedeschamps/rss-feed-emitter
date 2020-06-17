@@ -1,16 +1,10 @@
 'use strict';
 
-const EventEmitter = require('events');
+const { EventEmitter } = require('events');
 
 const FeedError = require('./FeedError');
 const FeedManager = require('./FeedManager');
 const Feed = require('./Feed');
-
-/**
- * A feed list entry
- * @type {Object} Feed
- * @property {Interval} setInterval
- */
 
 /**
  * Default UserAgent string
@@ -19,18 +13,30 @@ const Feed = require('./Feed');
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
+/**
+ * Validate if the feed exists
+ * @param  {Feed} feed feed configuration
+ */
 const checkFeed = (feed) => {
   if (!feed) {
     throw new FeedError('You must call #add method with a feed configuration object.', 'type_error');
   }
 };
 
+/**
+ * Validate feed url is a string or array of strings
+ * @param  {Feed} feed feed to validate url(s) for
+ */
 const checkUrl = (feed) => {
   if (!feed.url || !(typeof feed.url === 'string' || Array.isArray(feed.url))) {
     throw new FeedError('Your configuration object should have an "url" key with a string or array value', 'type_error');
   }
 };
 
+/**
+ * Validate that the feed refresh is valid
+ * @param  {Feed} feed feed to validate refresh timeout for
+ */
 const checkRefresh = (feed) => {
   if (feed.refresh && typeof feed.refresh !== 'number') {
     throw new FeedError('Your configuration object should have a "refresh" key with a number value', 'type_error');

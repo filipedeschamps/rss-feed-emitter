@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "src/FeedEmitter.js",
+  "types": "types/FeedEmitter.d.ts",
   "directories": {
     "test": "test/**/*.spec.js"
   },
@@ -10,7 +11,9 @@
     "test": "npx nyc npx mocha \"test/**/*.spec.js\" --exit",
     "coverage": "npm test && npx nyc report --reporter=text-lcov | npx coveralls",
     "lint": "npx eslint src/ test/",
-    "lint:fix": "npx eslint src/ test/ --fix"
+    "lint:fix": "npx eslint src/ test/ --fix",
+    "prepublish": "npm run build:types",
+    "build:types": "npx -p typescript tsc -p tsconfig.declaration.json"
   },
   "repository": {
     "type": "git",
@@ -31,15 +34,15 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
-    "@types/chai": "^4.2.7",
+    "@types/chai": "^4.2.11",
     "@types/feedparser": "^2.2.3",
     "@types/request": "^2.48.4",
     "chai": "3.4.0",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.20.0",
-    "nock": "^11.7.2"
+    "eslint-plugin-import": "^2.20.2",
+    "nock": "11.7.2"
   },
   "dependencies": {
     "feedparser": "1.1.4",
