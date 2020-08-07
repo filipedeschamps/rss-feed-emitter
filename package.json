@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "src/FeedEmitter.js",
-  "types": "types/src/FeedEmitter.d.ts",
+  "types": "types/FeedEmitter.d.ts",
   "directories": {
     "test": "test/**/*.spec.js"
   },
