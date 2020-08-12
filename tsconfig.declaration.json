@@ -5,6 +5,7 @@
   "exclude": [
     "test/**/*.js",
     "types/**/*.*",
+    "types/**/**.d.ts",
     "node_modules/**/*.*"
   ],
   "compilerOptions": {
