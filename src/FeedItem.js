@@ -1,7 +1,8 @@
 'use strict';
 
 /**
- * @typedef {Object} FeedItem
+ * FeedItem for storing feed data
+ * @class
  * @property {string} title Title of the feed item
  * @property {string} description description of the feed item
  * @property {string} summary summary on the feed item

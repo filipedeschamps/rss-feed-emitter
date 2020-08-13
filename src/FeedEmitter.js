@@ -49,6 +49,7 @@ const checkRefresh = (feed) => {
  * the #emit and #on methods to emit 'new-item' events
  * when we have new feed items.
  * @extends EventEmitter
+ * @class
  */
 class FeedEmitter extends EventEmitter {
   /**
@@ -71,18 +72,25 @@ class FeedEmitter extends EventEmitter {
   constructor(options = { userAgent: DEFAULT_UA, skipFirstLoad: false }) {
     super();
 
+    /**
+     * Array of feeds that are tracked
+     * @private
+     * @type {Feed[]}
+     */
     this.feedList = [];
 
     /**
      * If the user has specified a User Agent
      * we will use that as the 'user-agent' header when
      * making requests, otherwise we use the default option.
+     * @private
      * @type {string}
      */
     this.userAgent = options.userAgent;
 
     /**
      * Whether or not to skip the normal emit event on first load
+     * @private
      * @type {boolean}
      */
     this.skipFirstLoad = options.skipFirstLoad;
@@ -104,6 +112,7 @@ class FeedEmitter extends EventEmitter {
    *    url: "http://www.nintendolife.com/feeds/news",
    *    refresh: 2000
    *  }
+   * @public
    * @param {UserFeedConfig[]} userFeedConfig user feed config
    * @returns {Feed[]}
    */
@@ -138,6 +147,7 @@ class FeedEmitter extends EventEmitter {
    * REMOVE
    * This is a very simple method and its functionality is
    * remove a feed from the feedList.
+   * @public
    * @param  {string} url   URL to add
    * @returns {Feed}     item removed from list
    */
@@ -153,13 +163,18 @@ class FeedEmitter extends EventEmitter {
     return this.removeFromFeedList(feed);
   }
 
+  /**
+   * List of feeds this emitter is handling
+   * @public
+   * @returns {Feed[]} Feed arrray
+   */
   get list() {
     return this.feedList;
   }
 
   /**
-   * DESTROY
    * Remove all feeds from feedList
+   * @public
    */
   destroy() {
     this.feedList.forEach((feed) => feed.destroy());
@@ -167,6 +182,11 @@ class FeedEmitter extends EventEmitter {
     this.feedList = [];
   }
 
+  /**
+   * Add or remove a feed in the feed list
+   * @private
+   * @param {Feed} feed feed to be removed if it's present or added if it's not
+   */
   addOrUpdateFeedList(feed) {
     const feedInList = this.findFeed(feed);
     if (feedInList) {
@@ -176,10 +196,24 @@ class FeedEmitter extends EventEmitter {
     this.addToFeedList(feed);
   }
 
+  /**
+   * Find and return a feed
+   * @private
+   * @param  {UserFeedConfig} feed Feed to look up
+   * @returns {Feed | null}
+   */
   findFeed(feed) {
     return this.feedList.find((feedEntry) => feedEntry.url === feed.url);
   }
 
+  /**
+   * Add a feed to the feed list
+   * Side effects:
+   *  - Clear feed items list
+   *  - Create an interval for the feed
+   * @private
+   * @param {Feed} feed feed to be added
+   */
   addToFeedList(feed) {
     feed.items = [];
     feed.interval = this.createSetInterval(feed);
@@ -189,6 +223,7 @@ class FeedEmitter extends EventEmitter {
 
   /**
    * Set up a recurring task to check for new items
+   * @private
    * @param  {Object} feed Feed to be removed
    * @returns {Interval}      interval for updating the feed
    */
@@ -198,6 +233,13 @@ class FeedEmitter extends EventEmitter {
     return setInterval(feedManager.getContent.bind(feedManager), feed.refresh);
   }
 
+  /**
+   * Remove feed from the feed list
+   * Side effects:
+   * - Destroys the feed first
+   * @private
+   * @param  {Feed} feed feed to be removed
+   */
   removeFromFeedList(feed) {
     if (!feed) return;
 
