@@ -72,14 +72,16 @@ class Feed {
     this.refresh; // eslint-disable-line no-unused-expressions
 
     /**
-     * User Agent string for use on retrieval calls
+     * If the user has specified a User Agent
+     * we will use that as the 'user-agent' header when
+     * making requests, otherwise we use the default option.
      * @type {string}
      */
     this.userAgent; // eslint-disable-line no-unused-expressions
 
     /**
-     * Event name of events that this feed produces
-     * @type {string}
+     * event name for this feed to emit when a new item becomes available
+     * @type {String}
      */
     this.eventName; // eslint-disable-line no-unused-expressions
 
@@ -90,42 +92,15 @@ class Feed {
     this.maxHistoryLength; // eslint-disable-line no-unused-expressions
 
     ({
-      items: this.items,
-      url: this.url,
-      refresh: this.refresh,
-      userAgent: this.userAgent,
+      items: this.items, url: this.url, refresh: this.refresh, userAgent: this.userAgent,
       eventName: this.eventName,
     } = data);
 
-    if (!this.items) {
-      this.items = [];
-    }
-
-    if (!this.url) {
-      throw new TypeError('missing required field `url`');
-    }
-
-    if (!this.refresh) {
-      this.refresh = 60000;
-    }
-
-    /**
-     * If the user has specified a User Agent
-     * we will use that as the 'user-agent' header when
-     * making requests, otherwise we use the default option.
-     * @type {string}
-     */
-    if (!this.userAgent) {
-      this.userAgent = DEFAULT_UA;
-    }
-
-    if (!this.eventName) {
-      /**
-       * event name for this feed to emit when a new item becomes available
-       * @type {String}
-       */
-      this.eventName = 'new-item';
-    }
+    if (!this.items) this.items = [];
+    if (!this.url) throw new TypeError('missing required field `url`');
+    if (!this.refresh) this.refresh = 60000;
+    if (!this.userAgent) this.userAgent = DEFAULT_UA;
+    if (!this.eventName) this.eventName = 'new-item';
   }
 
   /**
