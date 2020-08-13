@@ -36,6 +36,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/feedparser": "^2.2.3",
+    "@types/form-data": "^2.5.0",
     "@types/request": "^2.48.4",
     "chai": "3.4.0",
     "eslint": "^6.8.0",

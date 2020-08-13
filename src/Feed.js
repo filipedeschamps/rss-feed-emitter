@@ -40,7 +40,7 @@ const ALLOWED_MIMES = ['text/html', 'application/xhtml+xml', 'application/xml', 
 
 /**
  * Storage object for properties of a feed
- * @typedef {Object} Feed
+ * @class
  * @property {string} url Feed url
  * @property {FeedItem[]} items items currently retrieved from the feed
  * @property {number} refresh timeout between refreshes
@@ -48,26 +48,28 @@ const ALLOWED_MIMES = ['text/html', 'application/xhtml+xml', 'application/xml', 
  * @property {string} eventName event name to use when emitting this feed
  */
 class Feed {
+  /**
+   * Create a feed
+   * @param {Feed} data object with feed data
+   */
   constructor(data) {
-    ({
-      items: this.items,
-      url: this.url,
-      refresh: this.refresh,
-      userAgent: this.userAgent,
-      eventName: this.eventName,
-    } = data);
+    /**
+     * Array of item
+     * @type {FeedItem[]}
+     */
+    this.items; // eslint-disable-line no-unused-expressions
 
-    if (!this.items) {
-      this.items = [];
-    }
+    /**
+     * Feed url for retrieving feed items
+     * @type {string}
+     */
+    this.url; // eslint-disable-line no-unused-expressions
 
-    if (!this.url) {
-      throw new TypeError('missing required field `url`');
-    }
-
-    if (!this.refresh) {
-      this.refresh = 60000;
-    }
+    /**
+     * Duration between feed refreshes
+     * @type {number}
+     */
+    this.refresh; // eslint-disable-line no-unused-expressions
 
     /**
      * If the user has specified a User Agent
@@ -75,17 +77,30 @@ class Feed {
      * making requests, otherwise we use the default option.
      * @type {string}
      */
-    if (!this.userAgent) {
-      this.userAgent = DEFAULT_UA;
-    }
+    this.userAgent; // eslint-disable-line no-unused-expressions
 
-    if (!this.eventName) {
-      /**
-       * event name for this feed to emit when a new item becomes available
-       * @type {String}
-       */
-      this.eventName = 'new-item';
-    }
+    /**
+     * event name for this feed to emit when a new item becomes available
+     * @type {String}
+     */
+    this.eventName; // eslint-disable-line no-unused-expressions
+
+    /**
+     * Maximum history length
+     * @type {number}
+     */
+    this.maxHistoryLength; // eslint-disable-line no-unused-expressions
+
+    ({
+      items: this.items, url: this.url, refresh: this.refresh, userAgent: this.userAgent,
+      eventName: this.eventName,
+    } = data);
+
+    if (!this.items) this.items = [];
+    if (!this.url) throw new TypeError('missing required field `url`');
+    if (!this.refresh) this.refresh = 60000;
+    if (!this.userAgent) this.userAgent = DEFAULT_UA;
+    if (!this.eventName) this.eventName = 'new-item';
   }
 
   /**
@@ -94,6 +109,7 @@ class Feed {
    * this to see if there's already an item inside
    * the feed item list. If there is, we know it's
    * not a new item.
+   * @public
    * @param {FeedItem} item item specitics
    * @returns {FeedItem}      the matched element
    */
@@ -110,8 +126,8 @@ class Feed {
 
   /**
    * Update the maximum history length based on the length of a feed retrieval
+   * @public
    * @param  {FeedItem[]} newItems new list of items to base the history length on
-   * @mutator
    */
   updateHxLength(newItems) {
     this.maxHistoryLength = newItems.length * historyLengthMultiplier;
@@ -119,6 +135,7 @@ class Feed {
 
   /**
    * Add an item to the feed
+   * @public
    * @param {FeedItem} item Feed item. Indeterminant structure.
    */
   addItem(item) {
@@ -128,6 +145,7 @@ class Feed {
 
   /**
    * Fetch the data for this feed
+   * @public
    * @returns {Promise} array of new feed items
    */
   fetchData() {
@@ -153,6 +171,7 @@ class Feed {
 
   /**
    * Perform the feed parsing
+   * @private
    * @param  {FeedParser} feedparser feedparser instance to use for parsing a retrieved feed
    */
   get(feedparser) {
@@ -177,8 +196,9 @@ class Feed {
   }
 
   /**
-   * Private: handle errors inside the feed retrieval process
+   * Handle errors inside the feed retrieval process
    * @param  {Error} error error to be handled
+   * @private
    */
   handleError(error) {
     if (this.handler) {
@@ -190,6 +210,7 @@ class Feed {
 
   /**
    * Destroy feed
+   * @public
    */
   destroy() {
     clearInterval(this.interval);
