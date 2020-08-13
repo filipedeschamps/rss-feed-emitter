@@ -9,13 +9,19 @@
  * @property {string} feed Feed URL producing the error
  */
 class FeedError extends Error {
+  /**
+   * Create a Feed error
+   * @param {string} message error message
+   * @param {string} type    Type of error, provides Error#name
+   * @param {string} feed    Feed url that originated the error
+   */
   constructor(message, type, feed) {
     super(message);
     /**
      * Type of error
      * @type {string}
      */
-    this.type = type;
+    this.name = type;
     /**
      * Feed url causing the error
      * @type {string}
@@ -24,7 +30,7 @@ class FeedError extends Error {
   }
 
   toString() {
-    return `${this.type} : ${this.message}\n${this.feed}`;
+    return `${this.name} : ${this.message}\n${this.feed}`;
   }
 }
 

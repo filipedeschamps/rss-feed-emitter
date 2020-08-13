@@ -120,7 +120,7 @@ class FeedManager {
         this.instance.emit(`initial-load:${this.feed.url}`, { url: this.feed.url, items: this.feed.items });
       }
     } catch (e) {
-      this.onError.bind(this)(e);
+      this.onError(e);
     }
   }
 }
