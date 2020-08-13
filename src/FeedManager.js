@@ -106,21 +106,17 @@ class FeedManager {
    * @param  {boolean}  firstload whether or not this is the first load on the manager
    */
   async getContent(firstload) {
-    try {
-      const items = await this.feed.fetchData();
-      const data = {
-        items,
-        url: this.feed.url,
-      };
-      this.feed.updateHxLength(items);
-      this.sortItemsByDate(data);
-      this.identifyNewItems(data);
-      this.populateNewItemsInFeed(data, firstload);
-      if (firstload && !this.instance.skipFirstLoad) {
-        this.instance.emit(`initial-load:${this.feed.url}`, { url: this.feed.url, items: this.feed.items });
-      }
-    } catch (e) {
-      this.onError(e);
+    const items = await this.feed.fetchData();
+    const data = {
+      items,
+      url: this.feed.url,
+    };
+    this.feed.updateHxLength(items);
+    this.sortItemsByDate(data);
+    this.identifyNewItems(data);
+    this.populateNewItemsInFeed(data, firstload);
+    if (firstload && !this.instance.skipFirstLoad) {
+      this.instance.emit(`initial-load:${this.feed.url}`, { url: this.feed.url, items: this.feed.items });
     }
   }
 }
