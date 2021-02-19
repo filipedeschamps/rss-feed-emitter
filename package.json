@@ -8,7 +8,7 @@
     "test": "test/**/*.spec.js"
   },
   "scripts": {
-    "test": "nyc mocha \"test/**/*.spec.js\" --exit",
+    "test": "nyc --reporter=lcov mocha \"test/**/*.spec.js\" --exit",
     "coverage": "npm test && nyc report --reporter=text-lcov | npx coveralls",
     "lint": "eslint src/ test/",
     "lint:fix": "eslint src/ test/ --fix",
