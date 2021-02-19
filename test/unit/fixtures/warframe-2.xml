@@ -1,0 +1,2102 @@
+
+<?xml version="1.0"?>
+<rss version="2.0"><channel><title>General Latest Topics</title><link>https://forums.warframe.com/forum/21-general/</link><description>General Latest Topics</description><language>en</language><item><title>Warframe Rebalance // Armour/Health/Shields, Enemy Scaling, Status 3.0</title><link>https://forums.warframe.com/topic/1257785-warframe-rebalance-armourhealthshields-enemy-scaling-status-30/</link><description><![CDATA[<p>
+	Grab a drink and sit back, this is a very long read. In this post I cover the core issues with Warframe's current balance. I will break this post into sections so you can look through the headers to find something you're looking for, do however keep in mind that this will be a <strong>massive</strong> update with changes to many of the facets that affect balance. What I mean by this is, if you don't read the entire post you may not understand lots of the reasons for some changes, or may entirely miss some things that affect how you would have felt about the parts you did read. That aside, thanks in advance for the time you take to read my post, regardless of how much you make it through. Good luck Tenno and I look forward to hearing your input!
+</p>
+
+<p style="text-align:center;">
+	<u><em><strong>Today I bring you the wynnie (my name)</strong><strong> edition "Warframe Rebalance".</strong></em></u><br /><br /><span style="color:#aaaaaa;"><strong><u><em>Note:</em></u> T<em>his is a jarring change to how much of the game's balance functions, and thus I don't expect everyone to agree with it at first glance, so please pay attention and try to understand the issues that exist as I'm explaining. Take time to think, and then try to see how these changes would address the issues at hand.</em></strong></span>
+</p>
+
+<p>
+	Alright, so to start off, I'll get into what this covers. <strong>So for this rework, the design goal is to increase the build and enemy diversity.</strong> Currently, if you're put up against Grineer, there's an <strong>alloy armoured Bombard</strong> and a <strong>ferrite armoured Heavy Gunner</strong>, yet for both of these two supposedly "distinct" units, you still just <strong>slap on slash</strong> and call it a day. This is a big issue with Warframe's current design, when it comes to a faction like Grineer or Corpus you just <strong>slap on a specific element to ignore their resistances for the entire faction.</strong> Having a specific build be the most effective is healthy design, however the issue comes from the fact that <strong>slash and toxin are bypassing elements.</strong> This means they completely remove the difference between any units you're put up against, <strong>alloy armour vs ferrite armour doesn't matter when they're both bypassed by slash in the same way.</strong> It makes sense for some builds to be more effective against certain armoured enemies, but there should never be a time where you can use a <strong>single build that is most effective against all units in a specific faction. </strong>There should be some level of having to consider the unit in question, especially when considering heavier units like Corpus Techs or Bombards. <strong>Slapping on a single build that is perfectly effective against a whole faction leads to stale and unrewarding gameplay.</strong>
+</p>
+
+<ul><li>
+		<strong>Slash and toxin no longer bypass armour/shields.</strong>
+	</li>
+</ul><p>
+	<b>Another issue is </b>even if you have an adequate amount of damage, you're still not able to kill the armoured enemies you're up against simply because you can't force the right status. Currently, any weapons that <strong>are not good at applying slash status</strong> can never compete once enemy armour scales, because of how effective health works. The <strong>effective health gets so high that it's impossible to brute force with up-front damage, </strong>which shoe-horns you into building to ignore it on weapons. This issue then means <strong>weapons that can't proc slash via some method are rendered obsolete.</strong> This issue is slightly corrected by the band-aid mods that we have <strong>(Hunter Munitions, Internal Bleeding)</strong>. These mods attempt to address this issue by making specific weapon types able to compete against armour by <strong>forcing slash</strong>, instead of making the weapons inherently able to compete by addressing the armour scaling issue. These mods only further the idea that <strong>armour scaling needs to be looked into</strong> as there are <strong>many weapons that are completely irrelevant and can never even be considered against armoured factions.</strong>
+</p>
+
+<ul><li>
+		<strong>Armour no longer scales.</strong>
+
+		<ul><li>
+				<span style="color:#aaaaaa;">i suggest two different methods of balancing armour below, one is just removing scaling, the second is very different but i believe a more effective method of achieving proper balance, more info on them below</span>
+			</li>
+		</ul></li>
+</ul><p>
+	So, another thing! Status procs are <strong>incredibly useful</strong>, and a wonderful tool that can be used to <strong>achieve your goal of murdering everything as quickly as possible.</strong> There are some very serious issues with the status system in it's current form however, the current core issues with it would be the <strong>power discrepancy between low and high fire-rate status weapons, and that many procs are not worth building for at all </strong>(but the latter issue does not require an explanation). There currently exists a divide between how useful a debuff proc is when compared to a damage proc on any weapon. <strong>The only stat that affects the power of building for a damage status proc on a weapon is the status chance value, any two weapons of equal status will have the same effective increase in power from building for any specific damage proc.</strong> However for debuff procs fire-rate also has a drastic effect, not just the status chance value. <strong>This means on slower firing weapons damage procs always end up winning out when comparing it's effective power increase to a debuff proc, of course the opposite applies to faster firing weapons.</strong> If debuff procs were not affected by a weapon's fire-rate, as well as it's status chance, as opposed to how damage procs are only affected by status chance, then there would be more build diversity. This would allow players to build for any status proc, debuff, or damage, on any weapon type regardless of any stats aside from it's status chance value, without considering how damage procs would beat out debuff procs due to the weapon's fire-rate, or vice-versa.
+</p>
+
+<ul><li>
+		<strong>Status Efficacy: debuff procs now scale with weapon's base fire-rate.</strong>
+	</li>
+</ul><p>
+	This is the main chunk of what this rework is attempting to address. There are lots of extra little sections, <strong>because as I'm updating armour I believe health and shields should be changed to have a similar design direction, despite shields and health not needing extensive changes.</strong> So there will be the main sections that address the above issues, and <strong>extra little tidbits</strong> that are tacked on to <strong>keep everything cohesive</strong> and to not leave bits of the system behind and outdated.
+</p>
+
+<p style="text-align:center;">
+	<span style="color:#ff9999;"><strong><u><em>Armour Revised:</em></u></strong></span>
+</p>
+
+<p>
+	<span style="color:#ff9999;"><u><strong>The Issue:</strong></u></span>
+</p>
+
+<p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>So for a generic tanky armoured unit as an example we can use a Heavy Gunner, and comparably "tanky" enemy without armour or some extra damage reduction gimmick.</em></span>
+</p>
+
+<p>
+	<strong>Heavy Gunner:</strong>
+</p>
+
+<ul><li>
+		<strong>level 100;</strong>
+
+		<ul><li>
+				<strong>~<span style="color:#cc3300;">32,000</span></strong> health
+			</li>
+			<li>
+				<strong>~<span style="color:#f1c40f;">6,400</span></strong> armour
+				<ul><li>
+						<span style="color:#aaaaaa;">~95% damage reduction</span>
+					</li>
+					<li>
+						<span style="color:#aaaaaa;"><strong>~700,000</strong></span> effective health
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	<strong>Corpus Tech:</strong>
+</p>
+
+<ul><li>
+		<strong>level 100;</strong>
+
+		<ul><li>
+				<strong>~<span style="color:#cc3300;">70,000</span></strong> health
+			</li>
+			<li>
+				<strong>~<span style="color:#3498db;">11,000</span></strong> shield
+				<ul><li>
+						<span style="color:#aaaaaa;"><strong>~81,000</strong></span> effective health
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>now if you were to strip 90% of the gunner's armour via corrosive and heat procs maybe non-armoured units can compete in tankiness..?</em></span>
+</p>
+
+<p>
+	<strong>Heavy Gunner:</strong>
+</p>
+
+<ul><li>
+		<strong>level 100;</strong>
+
+		<ul><li>
+				<strong>~<span style="color:#cc3300;">32,000</span></strong> health
+			</li>
+			<li>
+				<strong>~<span style="color:#f1c40f;">640</span></strong> armour
+				<ul><li>
+						<span style="color:#aaaaaa;">90% stripped from corrosive + heat</span>
+					</li>
+					<li>
+						<span style="color:#aaaaaa;">~68% damage reduction</span>
+					</li>
+					<li>
+						<span style="color:#aaaaaa;"><strong>~100,000</strong></span> effective health
+						<ul><li>
+								despite removing 90% of it's <span style="color:#f1c40f;">armour</span>, it still has about 25% more<br />
+								effective health than a comparably tanky non-<span style="color:#f1c40f;">armoured </span>unit, this<br />
+								figure only grows larger as the enemy levels climb
+							</li>
+							<li>
+								as well as having more effective health than the non-armoured unit<br />
+								it will still be 3x quicker to use true damage (slash) to bypass it's<br />
+								armour instead of brute force it with direct damage
+							</li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	Now from the above figures you can see clearly with current armour, <strong>even with a weapon stripping as much armour as possible</strong>, it still poses a significant balance issue.<strong> This effective health discrepancy greatly exaggerates the value of slash procs, because despite them being more than 30% weaker than all other damage procs </strong>(yes, this is true, and in practice they even end up being as much as 50% weaker damage per proc when compared to toxin, heat, or elec with a proper build),<strong> they are still by far the most effective for any armoured units. Even when a weapon is built entirely to strip armour</strong>, slash procs end up overpowering these armour strip/reduction builds (even when abusing the weakness of the armour type in question), which is a massive balance issue.<strong> </strong>This is without even mentioning that <strong>slash becomes more effective as levels scale, it is the only damage type or status proc to have this function, and it is directly a result of armour being a scaling reduction. </strong>Armour being a scaling reduction<strong> forces an anti-armour/armour ignore meta </strong>that effectively renders any other methods of dealing with armour obsolete <strong>unless you have ridiculously inflated damage for what should be required for the level of enemies in question.</strong> When armour is reducing your damage by 50%, <strong>slash procs are 2x as effective</strong>, and you need 2x the enemy's health in damage to be capable of killing it. When armour scales up and reduces your damage by 90%,<strong> slash procs are now 10x more effective</strong>, and at this point you require 10x the enemy's health in damage when not ignoring armour, which is very poor design. This leads to slash procs, despite being about 30-50% weaker than other damaging procs in practice, becoming <strong>20x+ more effective than other methods of dealing with armour</strong>, and pushing the <strong>armour ignore</strong> meta, instead of just <strong>building for weaknesses as you would with health types.</strong>
+</p>
+
+<p>
+	<strong><u>Armour Weakness Break-points</u></strong>
+</p>
+
+<p>
+	This means the corresponding <strong>level per enemy unit type before it's main weakness to it's armour type (radiation +75% to alloy, corrosive +75% to ferrite)</strong> <strong>ends up doing less than 1.00x it's damage.</strong> This point comes into play because with armour, elements they have a weakness to ignore a percentage of the armour, and then also deal that same percentage as bonus damage after ignoring the armour.<strong> So radiation will ignore 75% of any alloy armour, and then have it's damage multiplied by 1.75x.</strong>
+</p>
+
+<p>
+	There are four numbers per unit. These numbers correspond to the level the enemy needs to reach to surpass <strong>900 / 1800 / 4500 / 9000</strong> armour points. These armour values are important as they denote the levels at which specific armour weakness damage types, with certain levels of armour strip<strong> ( 0% / 50% / 80% / 90% ) start doing less than 1.00x your damage against the enemy,</strong> and it's effectively now being reduced.
+</p>
+
+<p>
+	The very first number is the damage type on it's own, the second is the damage type after a heat proc to strip 50% armour, the third is the damage type after corrosive strips 80% armour, and the final number is after corrosive + heat are combined to achieve 90% total armour strip. Two specific break-points are emphasized, with either <strong>bold</strong> or <em>italics</em>. <strong>Bold</strong> means that is the damage type without any armour strip, <em>italics</em> means that is the damage type with it's status fully capped, which only applies to ferrite, as alloy's weakness doesn't strip armour.
+</p>
+
+<p>
+	<u><strong>Alloy Units</strong></u>
+</p>
+
+<p>
+	<strong>Elite Lancer:</strong> <strong>58</strong>, 81, <em>218</em>, 543<br /><strong>Eviscerator:</strong> <strong>44</strong>, 67, <em>204</em>, 529<br /><strong>Nox:</strong> <strong>37</strong>, 60, <em>150</em>, 390<br /><strong>Napalm:</strong> <strong>25</strong>, 42, <em>72</em>, 155<br /><strong>Bombard:</strong> <strong>23</strong>, 40, <em>70</em>, 153<br /><strong>Bailiff:</strong> <strong>20</strong>, 37, <em>67</em>, 150
+</p>
+
+<p>
+	<strong><u>Ferrite Units</u></strong><br /><br /><strong>(Elite) Shield Lancer:</strong> <strong>3428</strong>, 8663, N/A, N/A<br /><strong>Butcher / Flameblade / Powerfist:</strong> <strong>3424</strong>, 8659, N/A, N/A<br /><strong>Hyekka Master:</strong> <strong>150</strong>, 390, <em>350</em>, 3424<br /><strong>Hellion:</strong> <strong>81</strong>, 164, <em>543</em>, 1364<br /><strong>Scorch:</strong> <strong>76</strong>, 159, <em>528</em>, 1359<br /><strong>Commander:</strong> <strong>71</strong>, 163, <em>569</em>, 1448<br /><strong>Lancer / Ballista:</strong> <strong>67</strong>, 150, <em>529</em>, 1350<br /><strong>Scorpion:</strong> <strong>62</strong>, 94, <em>313</em>, 790<br /><strong>Trooper:</strong> <strong>53</strong>, 85, <em>304</em>, 781<br /><strong>Seeker:</strong> <strong>44</strong>, 67, <em>204</em>, 529<br /><strong>Heavy Gunner:</strong> <strong>27</strong>, 44, <em>74</em>, 157<br /><br />
+	Now, if I go a step further and compare the break-points and effectiveness to slash, well, you'll see just how much of a balance issue slash bypassing armour entirely poses. So as we can see from above, as armour scales, <strong>corrosive and radiation damage types effectiveness lessens from 1.75x up until the break-points where it's no longer worth using. </strong>Below I will be showing the effectiveness (the effective damage multiplier) applied to armour weaknesses without any armour strip, and comparing them to the effectiveness of slash procs. So at 1.00x effectiveness, each point of damage you deal directly to armour is equal to 1 point of damage inflicted. <strong>Do keep in mind, the maximum effectiveness any weakness type can have is 1.75x,</strong> you'll see slash passes this value by an insurmountable degree very early on.<br /><br /><b><u>Neutral Damage Type Effectiveness at Break-points with No Strip</u></b><br /><br /><strong>300 armour:</strong> 0.50x effectiveness<br /><strong>900 armour:</strong> 0.250x effectiveness<br /><strong>1800 armour: </strong>0.143x effectiveness<br /><strong>4500 armour:</strong> 0.063x effectiveness<br /><strong>9000 armour: </strong>0.032x effectiveness<br /><br /><b><u>Weakness (Radiation/Corrosive) Effectiveness at Break-points with No Strip</u></b><br /><br /><strong>300 armour:</strong> 1.40x effectiveness<br /><strong>900 armour:</strong> 1.00x effectiveness<br /><strong>1800 armour: </strong>0.70x effectiveness<br /><strong>4500 armour:</strong> 0.37x effectiveness<br /><strong>9000 armour: </strong>0.21x effectiveness<br /><br /><b><u>Slash Effectiveness at Break-points</u></b><br /><br /><strong>300 armour:</strong> 2.00x effectiveness<br /><strong>900 armour:</strong> 4.00x effectiveness<br /><strong>1800 armour: </strong>6.54x effectiveness<br /><strong>4500 armour:</strong> 16.00x effectiveness<br /><strong>9000 armour: </strong>30.03x effectiveness<br /><br />
+	So, as you can see from the above numbers that I mathed out, <strong>radiation as a damage type up against alloy armour starts to fall off around level 50</strong>. When put up against alloy armour, if you are using radiation damage, it's main weakness, you will stop noticing the benefit around this level. It is much the same with corrosive, the <strong>raw damage of corrosive starts to fall off around level 70.</strong> You can increase these break-points by stripping some amount of the enemy's armour, but <strong>having to rely on armour strip for a weakness to actually be relevant is very poor design.</strong> <strong>This is all due to the fact that armour scales, and that it works as a reduction to incoming damage.</strong> These armour types, when put up against their weakest damage type, end up overpowering the weakness even at Sortie levels, which is a massive issue. If the breakpoints were much higher, this would of course be better for balance, but this also begs the question, <strong>why does an enemies weakness get reduced effectiveness at higher levels? It only does so against armour, because of how it works</strong> as a scaling reduction, health and shields do not have any of this sort of wacky balance. The strongest build against a level 1 proto-shield/robotic unit will remain the strongest build regardless of level, because it's designed in such a way that the weakness actually matters. This should absolutely be the case for all types of enemies in the game, the strongest/most effective damage type should be dependant on an enemies resistance types, and it should be static for all levels of play. Corrosive should be the most effective damage type against ferrite armour, <strong>this effectiveness should remain constant regardless of an enemy's level.</strong> <strong>Armour can not be changed to be balanced properly in this way, like health and shields are, without having the scaling removed entirely, or having it be made into a separate life pool that relies on it's resistance values for damage reduction, much like shields and health do.</strong><br /><br /><strong>As you can see, due to how weaknesses work, they will never be able to get above 1.75x effectiveness even with armour stripping, and at a measly 300 armour they are only at 1.40x.</strong> Meanwhile, with slash, even at this incredibly low level of armour, <strong>it surpasses the maximum possible effectiveness for any weakness type.</strong> <strong>There is no reason to bother with weaknesses when you can use slash procs to entirely bypass armour</strong>, armour scaling makes sure of this fact, as <strong>weakness types falter in effectiveness as levels scale, while slash increases in effectiveness.<br /><br /><span style="color:#ff9999;">I believe this should be more than enough information to paint a proper picture of why armour scaling needs to be removed, and armour as a whole should be looked at. Addressing this issue of armour scaling will greatly increase build diversity and make the game more engaging, and fun to play.</span><br /><br /><span style="color:#ff9999;"><u>Fix Method 1: Remove Armour Scaling</u></span><br /><br />
+	To balance armour it could be made to not scale and just have a flat/static value.</strong> If this were the direction of balancing as opposed to making it a separate life pool like my next suggestion will be, then we still run into <strong>the issue of viral overpowering actual armour weaknesses</strong>, so in this case <strong>viral should be made to not apply to an enemy's health pool so long as they have any armour</strong>, this would make armoured units effectively no longer have health in any form until armour is fully stripped and reverted to a health type. This would make building for armour weaknesses actually relevant, as opposed to just building viral on everything to help you brute force by buffing your damage immensely, especially when considering slash no longer bypasses the reduction.<br /><br />
+	Another thing to note, is that <strong>health resistances apply additively to armour resistance values</strong>. With this rebalance, and <strong>the direction of making resistance types more prevalent</strong>, this function should be removed. <strong>So effectively, if an enemy has 1+ armour, their armour resistances will apply and completely overwrite the resistances of their health type</strong>, and viral will not work against their health since armour overwrites it. <strong>If they have no armour, they will revert to their health type resistances.</strong>
+</p>
+
+<p>
+	<strong>Lastly</strong>, armour strip that is a flat value would need to be re-thought if this is the method of fixing the armour scaling issue. Mag can reduce an enemy's armour by 400 with a single 100% strength polarize, if armour is made to not scale this flat value strip would either need to be turned to a percentage, or the value heavily nerfed. I can't think of any other flat strip abilities at the moment, but I'm sure they exist somewhere.<br /><br /><strong><span style="color:#ff9999;"><u>Fix Method 2: Making Armour it's own Life/Armour Pool</u></span><br /><br />
+	Armour in my opinion though, despite being able to be balanced with just having the scaling removed, it would be a better design direction to have it be made a separate life pool, separate from health. Now effectively a second health pool with differing resistance values.</strong> Armour functioning as a second health pool will however require lots of changes. If it is made a separate pool, it would <strong>need to have the scaling made to be equal to health scaling, much like shields should be made to be as well.</strong> This would mean now armour has a linear effect on eHP (effective health points) because each <strong>1 point of armour is now, much like shields and health, worth 1 point of effective health.</strong> This would <strong>make balance infinitely easier to implement</strong>, balance enemy base values around a target eHP range, a specific range for fodder mods, for heavy mobs, and each little subclass of enemies would be balanced around it's own range. <strong>This means even across factions, eHP values are equalized and very effectively balanced, no factions scaling more than any others, they are now properly cross-balanced against one another.</strong><br /><br />
+	For the Tenno, we would need a way to<strong> replenish our armour</strong>. This could be accomplished by adding "<strong>armour orbs</strong>" that are potential drops from enemies, as <strong>well as creating/changing a few mods or arcanes that grant some way to replenish armour.</strong> One good candidate would be <strong>Parazon Finishers</strong>, but of course there will also be changes lots of Warframes that are reliant on armour could receive to gain an <strong>inherent way to replenish it from within their kit.<br /><br />
+	Note: I prioritize and assume implementation of method 2 for the rest of the thread, it all works even if method 1 is implemented instead, just with a few small straight forward tweaks. I just feel fix method 2 is a much better design direction so I assume this as the one being considered when reading the rest of the thread.</strong><br />
+
+</p>
+
+<p style="text-align:center;">
+	<img alt="health.png" class="ipsImage" data-ratio="83.33" height="500" width="600" src="https://cdn.discordapp.com/attachments/824033346782494720/836132107902255164/health.png" /><br />
+
+</p>
+
+<p>
+	<em><strong>Regardless of which method is used to address the issue, the following armour resistance changes should be implemented. Currently armour resistance values do not really matter, and they should be something to actually make you consider which damage types you are bringing to the table, as opposed to the current viral on everything meta.</strong></em><br /><br /><span style="color:#ff9999;"><u><strong>The following applies to method 1 and method 2 of the armour issue fix.</strong></u></span>
+</p>
+
+<p>
+	<strong><u>Armour Resistance Changes:</u></strong>
+</p>
+
+<ul><li>
+		<strong>Five unique armour types, these can apply to any faction (except Tenno of course is reserved for the player), infested armour types can be used for Ghouls and the like, cross-sharing armour types between factions that use them for specific unique units would be a fine thing to implement, adds some extra diversity and spice.</strong>
+
+		<ul><li>
+				<span style="color:#666699;"><strong>Tenno Armour</strong></span>
+			</li>
+			<li>
+				<span style="color:#996666;"><strong>Ferrite Armour</strong></span>
+			</li>
+			<li>
+				<span style="color:#42445f;"><strong>Alloy Armour</strong></span>
+			</li>
+			<li>
+				<span style="color:#663366;"><strong>Infested Sinew </strong></span><em>(can be used for Ghouls)</em>
+			</li>
+			<li>
+				<strong>Fossilized </strong><em>(can be used for Ghouls)</em><br />
+
+			</li>
+		</ul></li>
+	<li>
+		<strong>Each armour type now has the following resistances (except for Tenno armour, <span style="color:#cc3300;">-55%</span> across the board to incoming damage).</strong>
+		<ul><li>
+				<strong>1 x <span style="color:#cc3300;">-75%</span></strong>
+			</li>
+			<li>
+				<strong>2 x <span style="color:#cc3300;">-50%</span></strong>
+			</li>
+			<li>
+				<strong>3 x <span style="color:#cc3300;">-25%</span></strong>
+			</li>
+			<li>
+				<strong>4 x <span style="color:#f1c40f;">+0%</span> </strong>
+				<ul><li>
+						<span style="color:#aaaaaa;">(void not counted here as it's the true neutral)</span>
+					</li>
+				</ul></li>
+			<li>
+				<strong>1 x <span style="color:#33cc33;">+25%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#33cc33;">+50%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#33cc33;">+75%</span></strong>
+			</li>
+		</ul></li>
+</ul><p>
+	<img alt="unknown.png" class="ipsImage" data-ratio="84.96" height="480" style="width:350px;height:298px;" width="565" src="https://cdn.discordapp.com/attachments/824033346782494720/844064763767816232/unknown.png" /><img alt="unknown.png" class="ipsImage" data-ratio="85.11" height="480" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844071146647453716/unknown.png" /><img alt="unknown.png" data-ratio="85.11" style="width:350px;height:298px;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844070249569320960/unknown.png" /><img alt="unknown.png" class="ipsAttachLink_image" data-ratio="85.11" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844070351901556736/unknown.png" /><img alt="unknown.png" class="ipsAttachLink_image" data-ratio="85.11" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844072230622593044/unknown.png" /></p>
+
+<p>
+	<strong>The above pictures are my suggested changes for all armour type resistances.</strong> Designing enemies more heavily around the elemental resistance system would be a fantastic design overhaul. It greatly rewards build diversity and removes the issues of how armour currently functions, as a triple stacked damage reduction (health resistances + armour resistances + armour reduction), which makes weaknesses less relevant than just bypassing armour altogether.
+</p>
+
+<p style="text-align:center;">
+	<strong><span style="color:#3498db;"><u><em>Shields Revised:</em></u></span></strong>
+</p>
+
+<p>
+	<span style="color:#3498db;"><strong><u>The Issues:</u></strong></span>
+</p>
+
+<p>
+	Shield gating is a wonderful mechanic that has added further distinction between armour and shields, but it has some <strong>glaring issues</strong>. The issues clearly arise when you look into how it works with different shield values. The gating invulnerability is two fixed amounts depending on if the shields were partially or fully recharged, but the amount of shields in question does not have any effect on it. Having more shields does not help increase the invulnerability period, and having more also means that shields take longer to recharge. <strong>So having more shields effectively punishes you</strong> with the gating period, <strong>since you wait longer to get the same benefit.</strong><br /><br />
+	Another issue with shields is that <strong>they're always less effective than building for armour.</strong> The lowest base armour value on any Warframe is 100, <strong>which is a 25% reduction, equal to the reduction value shields grant.</strong> The issue comes from<strong> shields not being able to scale their reduction value via any means</strong>, so the only way to get more eHP from shields is to add shields directly, and <strong>with such a minimal reduction value you don't get basically anything out of building for shields as a direct form of eHP, outside of shield-gating.</strong> There should be ways to <strong>increase the damage reduction applied to your shields</strong>, getting somewhere up to around 75% or more when fully modded for. <strong>This would allow shields to actually be sought after as a form of direct eHP, instead of only abusing them for shield-gating</strong>, meaning they can now compete with health/armour tanking on the shield-heavy Warframes present in the game.
+</p>
+
+<p>
+	<span style="color:#3498db;"><u><strong>The Fix:</strong></u></span>
+</p>
+
+<ul><li>
+		<strong>Shield gate now has a cooldown that only resets when out of combat for a short duration.</strong>
+
+		<ul><li>
+				<strong>shield gate is consumed</strong> upon shields being entirely depleted, <strong>it is only replenished once the recharge delay is met</strong>
+			</li>
+			<li>
+				<span style="color:#6699cc;">shields</span> are <strong>replenished instantly to 100</strong>% after being out of combat <em>(no damage taken)</em> for a short delay
+				<ul><li>
+						<strong>2.0s</strong> delay for partially depleted <span style="color:#6699cc;">shields</span>
+					</li>
+					<li>
+						<strong>4.0s</strong> delay for fully depleted <span style="color:#6699cc;">shields</span>
+					</li>
+					<li>
+						upon shield recharge delay being met shield-gates are active again, this is the only way to reset the gate<br />
+						once the <span style="color:#6699cc;">shields </span>have been depleted and the shield-gate "consumed"<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<b>Shield gating duration now scales depending on the amount of <span style="color:#6699cc;">max shields</span> and also in some instances, the current <span style="color:#6699ff;">over-shields </span>value.</b>
+		<ul><li>
+				shield gating has a <strong>base duration</strong> <strong>of 100ms</strong>
+				<ul><li>
+						shield gating duration increased by <strong>1ms for each point of max shields</strong>
+					</li>
+				</ul></li>
+			<li>
+				if <span style="color:#6699cc;">shields </span>are <strong>depleted in one damage instance</strong> then the duration is<br />
+				increased by <strong>1ms for each point of <span style="color:#6699ff;">over-shields</span> depleted</strong> (only if <span style="color:#6699ff;">over-shields</span> are active)
+			</li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><strong><u><em>Note:</em></u></strong><em> <strong>some outlier frames may need to be changed to work properly with these changes (Hildryn, Grendel), just as every frame would need to be looked at for armour issues as well.</strong></em></span>
+</p>
+
+<p>
+	This this would be a very large buff to shields overall, allowing you to benefit from increased shields, so the base duration of the gating should be lowered. This makes it so building shields no longer punishes you, and now actively rewards you with a potentially longer invulnerability period. This can find use on Warframes that only need short bursts of survivability, as opposed to up-front tankiness. You will be able to build for more shields, affording you a longer grace period when being bursted down with heavy damage suddenly. Much like with above, how armour received resistance changes to balance it more around the new design, shields will also receive an update to their resistances. This along with being able to increase the shield damage reduction means there are two ways to build for shields. <strong>Build solely for shield capacity for the gating duration on frames that just need short bursts of survivability, or build for reduction as well as capacity, allowing you to be an actual tank with plenty of eHP to absorb incoming fire.</strong>
+</p>
+
+<ul><li>
+		<strong>Shield resistance modifiers are being changed to be similar in design to the new armour resistances.</strong>
+	</li>
+</ul><p>
+	<strong><u>Shield Resistance Changes:</u></strong>
+</p>
+
+<ul><li>
+		<strong>Three unique shield types.</strong>
+
+		<ul><li>
+				<span style="color:#3498db;"><strong>Tenno Shields</strong></span>
+			</li>
+			<li>
+				<span style="color:#6666cc;"><strong>Shields</strong></span>
+			</li>
+			<li>
+				<span style="color:#66cccc;"><strong>Proto Shields</strong></span><br />
+
+			</li>
+		</ul></li>
+	<li>
+		<strong>Each shield type now has the following resistances (except for Tenno Shields, <span style="color:#cc3300;">-35%</span> across the board to incoming damage).</strong>
+		<ul><li>
+				<strong>0 x <span style="color:#cc3300;">-75%</span></strong>
+			</li>
+			<li>
+				<strong>2 x <span style="color:#cc3300;">-50%</span></strong>
+			</li>
+			<li>
+				<strong>2 x <span style="color:#cc3300;">-25%</span></strong>
+			</li>
+			<li>
+				<strong>4 x <span style="color:#f1c40f;">+0%</span></strong>
+				<ul><li>
+						<span style="color:#aaaaaa;">(void not counted here as it's the true neutral)</span>
+					</li>
+				</ul></li>
+			<li>
+				<strong>2 x <span style="color:#33cc33;">+25%</span></strong>
+			</li>
+			<li>
+				<strong>2 x <span style="color:#33cc33;">+50%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#33cc33;">+75%</span></strong>
+			</li>
+		</ul></li>
+</ul><p>
+	<img alt="unknown.png" class="ipsAttachLink_image" data-ratio="85.11" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844077388265553931/unknown.png" /><img alt="unknown.png" class="ipsAttachLink_image" data-ratio="85.11" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844078919707131924/unknown.png" /><img alt="unknown.png" class="ipsAttachLink_image" data-ratio="85.11" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844077774787313674/unknown.png" /></p>
+
+<p style="text-align:center;">
+	<span style="color:#cc3300;"><strong><u><em>Health Revised:</em></u></strong></span>
+</p>
+
+<p>
+	<strong>Much like with the above shield and armour resistance changes, </strong>I went through and standardized the health types.
+</p>
+
+<p>
+	<strong><u>Health Resistance Changes:</u></strong>
+</p>
+
+<ul><li>
+		<strong>Two unique health types per faction, one health type for fleshy units and one for inorganic health units.</strong>
+
+		<ul><li>
+				<strong>Tenno: <span style="color:#cc3333;">Tenno Flesh</span></strong>
+			</li>
+			<li>
+				<b>Grineer: <span style="color:#993333;">Cloned Flesh</span>, <span style="color:#ffcc99;">Machinery</span></b>
+			</li>
+			<li>
+				<strong>Corpus: <span style="color:#ff9999;">Flesh</span>, <span style="color:#003366;">Robotic</span></strong>
+			</li>
+			<li>
+				<strong>Infested: <span style="color:#663300;">Infested Flesh</span>,<span style="color:#663300;"> </span><span style="color:#666633;">Infested</span></strong><br />
+
+			</li>
+		</ul></li>
+	<li>
+		<strong>Each health type now has the following resistances (except for Tenno Flesh, <span style="color:#f1c40f;">+0%</span> across the board to incoming damage, no picture because duh).</strong>
+		<ul><li>
+				<strong>0 x <span style="color:#cc3300;">-75%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#cc3300;">-50%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#cc3300;">-25%</span></strong>
+			</li>
+			<li>
+				<strong>8 x <span style="color:#f1c40f;">+0%</span></strong>
+				<ul><li>
+						<span style="color:#aaaaaa;">(void not counted here as it's the true neutral)</span>
+					</li>
+				</ul></li>
+			<li>
+				<strong>2 x <span style="color:#33cc33;">+25%</span></strong>
+			</li>
+			<li>
+				<strong>1 x <span style="color:#33cc33;">+50%</span></strong>
+			</li>
+			<li>
+				<strong>0 x <span style="color:#33cc33;">+75%</span></strong>
+			</li>
+		</ul></li>
+</ul><p>
+	<img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088074136322098/unknown.png" /><img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088384720601088/unknown.png" /><img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088305666752532/unknown.png" /><img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088502450388992/unknown.png" /><img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088440672354334/unknown.png" /><img alt="unknown.png" data-ratio="85.14" style="width:350px;height:auto;" width="564" src="https://cdn.discordapp.com/attachments/824033346782494720/844088160787234846/unknown.png" /></p>
+
+<p style="text-align:center;">
+	<span style="color:#663366;"><strong><u><em>Enemy Scaling Revised:</em></u></strong></span>
+</p>
+
+<p>
+	<strong>Heavy Gunner:</strong>
+</p>
+
+<ul><li>
+		<strong>level 100;</strong>
+
+		<ul><li>
+				<strong>~<span style="color:#cc3300;">80,000</span></strong> health
+			</li>
+			<li>
+				<strong>~<span style="color:#f1c40f;">120,000</span></strong> armour
+				<ul><li>
+						<span style="color:#aaaaaa;"><strong>~200,000</strong></span> effective health
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	<strong>Corpus Tech:</strong>
+</p>
+
+<ul><li>
+		<strong>level 100;</strong>
+
+		<ul><li>
+				<strong>~<span style="color:#cc3300;">140,000</span></strong> health
+			</li>
+			<li>
+				<strong>~<span style="color:#3498db;">60,000</span></strong> shield
+				<ul><li>
+						<span style="color:#aaaaaa;"><strong>~200,000</strong></span> effective health
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	Now as you can see, with armour being re-made to function as another life pool, this allows incredibly simple balancing. Armour health and shields would all scale equally, and they all have a linear effect on effective health values. This means as long as their base level eHP values fall within the same ranges, they will now be equalized at all levels. This would mean all factions are cross balanced effectively, and no units randomly show up that suddenly need 20x more damage to kill. If you introduce new units, to balance them you simply make sure their effective health at their base levels falls within the appropriate range, for fodder, mid tier, or heavy units.
+</p>
+
+<p>
+	Removing armour in favour of falling back on the resistance types already in the game as a sort of pseudo armour will open up lots of design diversity. This opens up a new and much more unique second component to enemy design and balancing, and that is that they will <strong>not only be balancing specific enemies among a faction around their base values alone</strong>, but also their <strong>percentage total of each type of their effective pools </strong>(total combined health, armour, and shield values) as a specific type. This would mean for some enemies even among the same faction, there would be greatly differing effective builds. An example of this is demonstrated below.
+</p>
+
+<ul><li>
+		<strong>Heavy Gunner:</strong> 40% <span style="color:#cc3300;">health </span>60% <span style="color:#996666;">ferrite </span><span style="color:#f1c40f;">armour</span>
+
+		<ul><li>
+				<span style="color:#aaaaaa;">optimal weaponry would be tuned for ferrite armour with some<br />
+				decent health resistance damage types or procs on it</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>Bombard:</strong> 20% <span style="color:#cc3300;">health </span>80% <span style="color:#42445f;">alloy</span> <span style="color:#f1c40f;">armour </span>
+		<ul><li>
+				<span style="color:#aaaaaa;">consider using weaponry tuned for alloy armour as a majority of<br />
+				this enemy's health is of that type, the health can be brute forced<br />
+				with any damage</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>Lancer:</strong> 60% <span style="color:#cc3300;">health </span>40% <span style="color:#996666;">ferrite </span><span style="color:#f1c40f;">armour</span>
+		<ul><li>
+				<span style="color:#aaaaaa;">unit is a roughly even breakup or ferrite and health and should<br />
+				be dealt with appropriately, you can build for either health or<br />
+				ferrite armour and then brute force the remaining pool, or do<br />
+				a hybridized health pool/armour pool build</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>Butcher:</strong> 80% <span style="color:#cc3300;">health</span> 20% <span style="color:#996666;">ferrite</span> <span style="color:#f1c40f;">armour</span>
+		<ul><li>
+				<span style="color:#aaaaaa;">consider using weaponry meant for healthy units</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>Scorpion:</strong> 50% <span style="color:#cc3300;">health </span>50% <span style="color:#996666;">ferrite </span><span style="color:#f1c40f;">armour</span>
+	</li>
+	<li>
+		<strong>Some new Grineer unit:</strong> 20% <span style="color:#cc3300;">health </span>40% <span style="color:#42445f;">alloy </span><span style="color:#f1c40f;">armour </span>40% <span style="color:#3498db;">shields</span>
+		<ul><li>
+				<span style="color:#aaaaaa;">consider bringing weapons tuned for dispatching shields and alloy armour<br />
+				and can ignore the health pool portion as it's a minority on this enemy</span>
+			</li>
+		</ul></li>
+</ul><p>
+	Along side tuning the specific unit base values, they can play with design like the example above to greatly increase the diversity of what you're rewarded for building for. This can be seen above in the case of the Bombard, it has a massive amount of it's <strong>effective pools</strong> as armour, so you would want to consider <strong>building for the armour to kill this enemy</strong>, since only 20% of it's effective health is actual health you don't need to worry about building around it, just the armour. You just build for armour bonuses, like in this case a radiation/corrosive build for the alloy, then <strong>brute force the small amount of remaining health</strong> the unit would have once you break it's armour bar. There will of course still be smaller fodder units, and these will not need to be considered as heavily as they're just much weaker over all than the "heavy" units that will show up, so you are able to effectively just brute force most fodder units without any thought. Despite the Grineer faction still being primarily armoured, playing with giving their units differing percentage break downs of their total effective pools. This means even among factions there is a great diversity to builds, and you will potentially even consider bringing differing builds on all equipped weapons to deal with the differing enemy types through out the missions as they pop up.<strong> This is a much healthier, more engaging, and over-all more rewarding enemy design.</strong><br /><br />
+	To effectively balance the enemy factions like this you would need to first and most importantly rework their scaling entirely. Enemies will be balanced off of their base values as well as considering the breakup of pool types as percentages. The following is a graph of the current health, armour, and shield scaling. These formulas <strong>all need to be made equal, otherwise no matter what enemies will not be balanced against one another at all levels of play. </strong>If health armour and shield scaling are to remain separate formulas, despite them all working as effective health pools, enemies would still differ in strength as levels change. If you keep the current shield scaling then a <strong>shielded unit with 66% health and 33% shields would have roughly 80% health 20% shields around level 100. </strong>This is very poor design, meaning you need to worry less about shields than health, even on heavily shielded units.
+</p>
+
+<p style="text-align:center;">
+	<img alt="latest.png" class="ipsImage" data-ratio="56.25" height="975" width="1200" src="https://cdn.discordapp.com/attachments/824033346782494720/836134852620451851/latest.png" /></p>
+
+<p style="text-align:center;">
+	<font color="#aaaaaa"><i>current enemy level scaling for health, shields, and armour</i></font>
+</p>
+
+<p>
+	Along with being made to have <strong>equal level scaling</strong>, the <strong>scaling multiplier should be increased drastically.</strong> Currently a <strong>level 9,999 Corpus Tech only has 1,150,000 effective health</strong>, this enemy can be easily <strong>killed by just a few headshots</strong> with quite a few different weapons in the game, even <strong>without external buffs.</strong> This shows just how weak enemy scaling really is, and since armour scaling is being removed and now armour affects ehp in the same way that shields and health do,<strong> effective health ranges should be roughly equal across the board at all levels.</strong> Once they are equalized, and the scaling is level across the board, then scaling can be brought up drastically. <strong>Scaling should be made linear at the very least, and increased by about 10x what it currently is</strong>, this would bring the effective health values at level 9,999, which should be considered a tough level to compete at, to a healthy level which could then be further tweaked if needed.
+</p>
+
+<p>
+	With current base values across factions, they're balanced to have <strong>base level "fodder" enemies between 100-200 ehp.</strong> For the <strong>heavier units, they seem to be sitting around 800 ehp.</strong> These should be these <strong>target values considered when adjusting the base values of enemies or adding new ones.</strong> With the effective health insanity that is the armour damage reduction gone, the game will be much easier to balance.
+</p>
+
+<p style="text-align:center;">
+	<strong><span style="color:#cc66ff;"><u><em>Status 3.0 / Status Efficacy:</em></u></span></strong>
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<u><strong>Suggested Core Changes;</strong></u>
+</p>
+
+<ul><li>
+		<strong>Condition Overload: </strong>damage against the target is increased by (40 * n)%.
+
+		<ul><li>
+				now a universal mod, <strong><em>can be used on any weapon type</em></strong>
+			</li>
+			<li>
+				<span style="color:#aaaaaa;">n = number of unique status procs affecting target</span><br />
+
+			</li>
+		</ul></li>
+	<li>
+		Procs are split into two types, <strong>buff &amp; debuff</strong> procs, or <strong>damage</strong> procs.
+		<ul><li>
+				<strong>Status Efficacy:</strong> fire-rate affects how powerful your <strong>debuff</strong> procs are.<br />
+
+			</li>
+		</ul></li>
+	<li>
+		Procs are no longer affected by <strong><span style="color:#e67e22;">critical hits</span></strong>.<br />
+
+	</li>
+	<li>
+		Status procs apply <strong><em>before</em></strong> the direct hit damage of any attack is calculated.
+		<ul><li>
+				<span style="color:#aaaaaa;">this means situations where you are building for aoe (area of effect) procs, like electricity, one-shotting the enemy with raw damage will no longer mean the proc has no effect</span><br />
+
+			</li>
+		</ul></li>
+	<li>
+		Status duration mods changed, "<strong>status duration</strong>" is now "<strong>status damage</strong>".
+	</li>
+</ul><p>
+	There is also a very <strong>specific issue that is related to melee</strong>, and that is the <strong>Condition Overload</strong> mod. This is a mod that is core to all melee builds due to the sheer raw power that it grants, and it ends up <strong>taking up a slot in every melee build</strong> while also significantly <strong>boosting the power of melee weapons above that of guns</strong> and other weapon types. To address these issues I suggest that <strong>Condition Overload</strong> be changed from additive base damage, to a separate multiplier. Now condition overload is an optional mod to boost status weapons, <strong>meaning it is no longer a mandatory mod that replaces other base damage mods, rendering them obsolete in most cases.</strong> Along with this it will of course also be made a <strong>"universal"</strong> mod, allowing it to be applied to <strong>any weapon in the game. </strong>This means <strong>weapons outside of the melee class will actually be able to compete in power.</strong>
+</p>
+
+<p style="text-align:center;">
+	<span style="color:#ff99ff;"><u><strong>Status Efficacy: The Issues</strong></u></span>
+</p>
+
+<p>
+	<span style="color:#ff6666;"><strong><u>Debuff Procs:</u></strong></span><br />
+	For the following calculations this is assuming equal status chance on the weapons being compared.
+</p>
+
+<ul><li>
+		<strong>10.0 fire-rate</strong>
+
+		<ul><li>
+				10 applications per second
+			</li>
+			<li>
+				<strong>1 second</strong> to fully stack any debuff proc
+			</li>
+		</ul></li>
+	<li>
+		<strong>5.0 fire-rate</strong>
+		<ul><li>
+				5 applications per second
+			</li>
+			<li>
+				<strong>2 seconds</strong> to fully stack any debuff proc
+			</li>
+		</ul></li>
+	<li>
+		<strong>2.0 fire-rate</strong>
+		<ul><li>
+				2 applications per second
+			</li>
+			<li>
+				<strong>5 seconds</strong> to fully stack any debuff proc
+			</li>
+		</ul></li>
+</ul><p>
+	<span style="color:#ff6666;"><u><strong>Damage Procs:</strong></u></span><br />
+	For the following calculations, to simplify things I will only count the damage from the first damage tick of the damage procs, and of course assuming equal DPS among all weapons. I will be using electricity as the damage proc in question, like most procs in the game it deals 50% of your modded damage per tick.
+</p>
+
+<ul><li>
+		<strong>10.0 fire-rate</strong>
+	</li>
+	<li>
+		<strong>10 damage:</strong> 100 damage per second
+		<ul><li>
+				10 procs per second, 5 damage per tick
+			</li>
+			<li>
+				<strong>50 damage per second from electricity procs</strong>
+			</li>
+		</ul></li>
+	<li>
+		<strong>5.0 fire-rate</strong>
+	</li>
+	<li>
+		<strong>20 damage:</strong> 100 damage per second
+		<ul><li>
+				5 procs per second, 10 damage per tick
+			</li>
+			<li>
+				<strong>50 damage per second from electricity procs</strong>
+			</li>
+		</ul></li>
+	<li>
+		<strong>2.0 fire-rate</strong>
+	</li>
+	<li>
+		<strong>50 damage:</strong> 100 damage per second
+		<ul><li>
+				2 procs per second, 50 damage per tick
+			</li>
+			<li>
+				<strong>50 damage per second from electricity procs</strong>
+			</li>
+		</ul></li>
+</ul><p>
+	<strong>So, now for a real world example, I will be using Opticor Vandal and Burston Prime. </strong>I have chosen these weapons as they have equal status chances, but vastly differing rates of fire and DPS values.
+</p>
+
+<p>
+	<span style="color:#ff6666;"><b><u>Real World Comparison:</u></b></span><br /><br />
+	Opticor Vandal: <strong>651 DPS</strong><br />
+	Burston Prime: <strong>306 DPS</strong><br /><br />
+	Now we add a simple max rank Infected Clip (+90% toxin), and <strong>include the DPS of the toxin procs.</strong><br /><br />
+	Opticor Vandal: <strong>3035 DPS</strong><br />
+	Burston Prime: <strong>1428 DPS</strong><br /><br />
+	3035 / 651 = <strong>4.66x</strong><br />
+	1428 / 306 = <strong>4.67x</strong><br /><br />
+	These two values denoting effective DPS increase are ~0.28% apart, this would be due to very minor rounding.<br />
+	Now, we take those same two weapons, base DPS.<br />
+	Once again we simply add a few mods, rank 2 Infected Clip (+45% toxin) + rank 2 Cryo Rounds (+45% cold), so you get the same 90% elemental increase Infected Clip would grant, just as viral instead. We then<strong> account for the DPS of the viral procs this time, and calculate effective increase.</strong><br /><br />
+	Opticor Vandal: <strong>1824 DPS</strong><br />
+	Burston Prime: <strong>3265 DPS</strong><br /><br />
+	1824 / 651 = <strong>2.80x</strong><br />
+	3265 / 306 = <strong>10.67x</strong><br /><br /><strong>Building for Toxin (a damage proc) on Opticor Vandal is 2.03x more effective for increasing your DPS as opposed to how effective building for viral</strong>, a debuff proc, would be. Despite having a solid status chance of 30%, being more than viable for any status builds, it is rewarded much more for building for damage procs as opposed to debuff procs (even when comparing the damage proc to viral, <strong>a super over-tuned debuff proc that drastically needs a nerf</strong>).<br /><br /><strong>Building for Viral (a debuff) on Burston Prime is 2.64x more effective for a DPS increase than building for Toxin</strong>, a damage proc, would be. Much like the above, it's a weapon with 30% status chance, perfectly viable for any status builds. Due to it's high rate of fire, it's now rewarded a significant deal more for building with a debuff proc in mind, than it would be for building directly for damage status procs.<br /><br /><span style="color:#bdc3c7;"><em>(a status build does not mean exclusively status, just that it incorporates status procs in some way, hybrids fit this as well, which Opticor Vandal is)</em></span><br /><br />
+	Among all status types, the only stat that dictates their effective increase from damage procs is the status chance stat. For debuff procs however, this also hinges on a weapon's effective rate of fire. This means on slower firing weapons, it's always more effective to increase your DPS via damage procs than it would be from debuff procs, assuming the weapon can proc status reliably enough for a status build to matter.<br /><br />
+	All weapons of an equal status chance benefit the same amount from building for damage procs, however they do not benefit the same from debuffs. <strong>I believe this should be standardized, so the only true stat that affects how strong building for any types of status procs on a weapon would be is the actual status chance value itself. </strong><strong>The only stat that should have an effect on how useful building for status procs is, should be the status chance value itself, it should not matter what type of proc.</strong> Having status chance as the only stat affecting the efficiency of building for damage procs, while having other factors in play for debuff procs, means lots of weapons are instead punished or rewarded for building one type of proc or the other. On slow firing weapons damage procs are better because the debuffs don't give nearly as much of an effective increase that a damage proc would. For faster firing weapons, the opposite is the case, you want to build more with debuff procs in mind due to how they have a much stronger effect on your weapon's power.<br /><br /><strong>Most games, unlike Warframe, just like how damage procs are a function of dps, debuff procs are as well</strong>, they're not applied as a "chance". <strong>In these games you deal status damage</strong>, so say with viral, you would apply viral damage every hit like normal, but <strong>this damage would also build towards a "proc", once the damage threshold is reached then a debuff proc is applied. </strong>This type of system<strong> balances debuff procs in the same way damage procs are balanced, a function of a weapon's total damage per second.</strong> Warframe's system is unique, and I think many players would agree they like it's unique system, but the power divide exists because of this, and the fact that there is no properly implemented solution. DE has attempted to implement a minor fix for this, with last year's status update they made debuff procs apply non-linearly, they made the first proc bonus of debuffs much stronger than the rest of the procs up to their cap. I will elaborate on this below.
+</p>
+
+<p>
+	<span style="color:#999966;"><u><strong>Viral:</strong></u></span>
+</p>
+
+<ul><li>
+		<strong>1 stack:</strong> +100% incoming damage to health
+
+		<ul><li>
+				<span style="color:#999999;">first proc grants 100% extra damage to health</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>2 stacks: </strong>+125% incoming damage to health
+		<ul><li>
+				<span style="color:#999999;">second proc and all subsequent procs up to the cap only grant 25% damage to health, four times less effective than the initial proc</span>
+			</li>
+		</ul></li>
+	<li>
+		<strong>3 stacks: </strong>+150% incoming damage to health
+	</li>
+	<li>
+		<strong>4 stacks:</strong> +175% incoming damage to health
+	</li>
+	<li>
+		<strong>5 stacks:</strong> +200% incoming damage to health
+	</li>
+</ul><p>
+	DE implemented this as an attempt to balance the slow and high fire-rate debuff power discrepancy, however this only exaggerated the issue. Now, since the first proc is more powerful, and high fire-rate weapons apply their debuffs in shorter intervals, they benefit from this first proc bonus more easily than slow firing weapons do. It was an attempt to fix the clear debuff proc power divide but fell short and did not solve the issue in the slightest. <strong>So now that I've gotten all the issues out of the way, allow me to introduce you to status efficacy, Warframe's solution to the debuff proc imbalance.</strong>
+</p>
+
+<p style="text-align:center;">
+	<span style="color:#cc33ff;"><u><strong>Status Efficacy: The Fixes</strong></u></span>
+</p>
+
+<p>
+	<strong>Buffs/debuffs are things like viral</strong> and corrosive, whereas <strong>damage buffs would be things such as Electricity</strong> or Heat. A new feature dubbed <strong>status efficacy</strong> is to be added, this feature is an <strong>"efficacy</strong> <strong>multiplier"</strong> which is based on any <strong>weapon's base fire-rate.</strong> For charged weapons the charge rate affects it, as well as how fully completed the charge was, and for melee they're just affected by the attack speed. This multiplier serves as a bonus to the power of <strong>debuff</strong> procs, converting debuff procs to <strong>"partial procs".</strong> Partial procs will <strong>only be for debuffs</strong>, partial procs means if you get a viral proc, with a weapon that has an efficacy of 0.5, you now only add <strong>half a viral proc</strong>. These of course can stack as they do now, so having <strong>two half procs adds to a full viral proc</strong>, however incomplete/decimal partial procs have no effect and will not be shown in the status bar UI above health bars. Having partial procs does not mean you can not fully cap a status, it just means you <strong>apply debuffs slower/quicker</strong> based on the efficacy multiplier for said weapon.
+</p>
+
+<p>
+	<span style="color:#ff9999;"><u><strong>Partial Procs Application:</strong></u></span>
+</p>
+
+<ul><li>
+		<strong>1 proc:</strong> affected by 1 stack of debuff proc
+	</li>
+	<li>
+		<strong>1.7 procs:</strong> affected by 1 stack of debuff proc
+	</li>
+	<li>
+		<strong>2 procs:</strong> affected by 2 stacks of debuff proc
+	</li>
+	<li>
+		<b>2.5 procs: </b>affected by 2 stacks of debuff proc
+	</li>
+</ul><p>
+	<img alt="unknown_1.png" data-ratio="66.87" width="1200" src="https://cdn.discordapp.com/attachments/824033346782494720/842572030393581608/unknown_1.png" /><br />
+	As you can see by the graph above, the more frequently a weapon is able to shoot, the lower it's status efficacy will be, but <strong>what is status efficacy?</strong> Status efficacy will be a value that serves as a multiplier for <strong>debuffing </strong>status procs. This stat serves to equalize the power discrepancy between status procs on slow weapons, as currently if you compare any slower weapon to say, a beam, it will absolutely pale in comparison. This multiplier will be based solely on the weapon's base fire-rate, charge-rate, or attack speed in the case of melee weapons. The reason it should be based off of the <strong>base values</strong> of these stats is to encourage <strong>build diversity</strong>, not punishing you for adding more. This keeps room to make more <strong>status reliant builds</strong> by adding plenty more fire-rate and status chance, without directly reducing the power of your status procs in the process.
+</p>
+
+<ul><li>
+		<b>Dependant on weapon's base fire-rate in the case of fire-arms.</b>
+
+		<ul><li>
+				<span style="color:#999999;">due to charged weapons functioning differently, their effective fire-rate<br />
+				will be calculated with <strong>(fire-rate / [charge speed * fire-rate + 1])</strong></span>
+			</li>
+		</ul></li>
+	<li>
+		<b>Dependant on weapon's base attack speed for melee weapons.</b>
+	</li>
+</ul><p>
+	<span style="color:#ff9900;"><u><strong>With Efficacy:</strong></u></span>
+</p>
+
+<p>
+	Using <strong>Boltor Prime</strong> (base fire-rate of 10.0), <strong>Exergis </strong>(base fire-rate of 3.33), <strong>Opticor Vandal</strong> (base charge-rate of 0.6s, fire-rate of 2.0), <strong>Rakta Cernos </strong>(base charge-rate of 0.25s, fire-rate of 1.0)
+</p>
+
+<p>
+	<em><span style="color:#999999;"><span style="background-color:#ffffff;font-size:14px;">For my comparisons I am assuming all weapons have 100% status chance, as comparing weapons of different status chances completely invalidates the comparison. The reasoning for me choosing the weapons I did was simple, I wanted to demonstrate that this still functions properly for charged weapons, and for Boltor Prime it was because a flat 10.0 fire-rate makes for clean math.</span></span></em>
+</p>
+
+<ul><li>
+		<strong>Boltor Prime:</strong>
+
+		<ul><li>
+				<strong>10.0 fire-rate = 0.5x efficacy</strong>
+			</li>
+			<li>
+				<strong>~<span style="color:#cc3300;">0.50</span>x</strong> status efficacy
+			</li>
+			<li>
+				50% decreased debuff proc effectiveness
+				<ul><li>
+						applies<span style="color:#cc3300;"> </span><span style="color:#6666cc;">0.5 </span>debuff procs per proc (two procs to apply a single debuff stack)
+					</li>
+				</ul></li>
+			<li>
+				<strong>0.1s per shot, 0.5 stacks per procs, 5 stacks per second. 20 procs to cap a debuff status. 2.0s to fully stack viral.</strong><br />
+
+			</li>
+		</ul></li>
+	<li>
+		<strong>Exergis:</strong>
+		<ul><li>
+				<strong>3.33 fire-rate = 1.5x efficacy</strong>
+			</li>
+			<li>
+				<strong>~<span style="color:#33cc33;">1.50</span>x</strong> status efficacy
+			</li>
+			<li>
+				50% increased debuff proc effectiveness
+				<ul><li>
+						applies<span style="color:#cc3300;"> </span><span style="color:#6666cc;">1.5 </span>debuff procs per proc (two procs to apply three debuff stacks)
+					</li>
+				</ul></li>
+			<li>
+				<strong>~0.30s per shot, 1.5 stacks per procs, 5 stacks per second. 7 procs to cap a debuff status. ~2.1s to fully stack viral.</strong>
+				<ul><li>
+						<span style="color:#999999;">this would be equal to boltor at 2.0s exactly to cap a debuff<br />
+						but due to the fact of the fire-rate not being perfectly divisible<br />
+						it takes a fraction longer</span><br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<strong>Opticor Vandal:</strong>
+		<ul><li>
+				<strong>effective fire-rate</strong> = (2 / [0.6 * 2 + 1])<br /><strong>~0.909 fire-rate = ~5.5x efficacy</strong>
+			</li>
+			<li>
+				<strong>~<span style="color:#33cc33;">5.5</span>x</strong> status efficacy
+				<ul><li>
+						<span style="color:#aaaaaa;">for charged weapons the charge completion<br />
+						is multiplied by efficacy for every shot</span>
+					</li>
+				</ul></li>
+			<li>
+				450% increased debuff proc effectiveness at full charge
+				<ul><li>
+						applies <span style="color:#6666cc;">5.5</span> procs per proc (one proc to apply 5 debuff stacks)
+					</li>
+					<li>
+						<span style="color:#aaaaaa;">a half charged shot would have it's efficacy multiplied<br />
+						by 0.5 (50% charged) resulting in a 2.75x efficacy multiplier</span>
+					</li>
+				</ul></li>
+			<li>
+				<strong>1.1s per shot, 5.5 stacks per proc, 5 stacks per second. Two procs to cap a debuff status. 2.2s to fully stack viral.</strong>
+				<ul><li>
+						<span style="color:#999999;">this would be equal to boltor at 2.0s even to cap a debuff<br />
+						but due to the fact it takes longer than a full second to fire<br />
+						a shot it will in practice take a fraction longer</span><br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<strong>Rakta Cernos:</strong>
+		<ul><li>
+				<strong>effective fire-rate</strong> = (1 / [0.25 * 1 + 1])<br /><strong>~0.80 fire-rate = ~6.25x efficacy</strong>
+			</li>
+			<li>
+				<strong>~<span style="color:#33cc33;">6.25</span>x</strong> status efficacy
+				<ul><li>
+						<span style="color:#aaaaaa;">for charged weapons the charge completion<br />
+						is multiplied by efficacy for every shot</span>
+					</li>
+				</ul></li>
+			<li>
+				525% increased debuff proc effectiveness at full charge
+				<ul><li>
+						applies <span style="color:#6666cc;">6.25</span> procs per proc (one proc to apply 6 debuff stacks)
+					</li>
+					<li>
+						<span style="color:#aaaaaa;">a half charged shot would have it's efficacy multiplied<br />
+						by 0.5 (50% charged) resulting in a 3.125x efficacy multiplier</span>
+					</li>
+				</ul></li>
+			<li>
+				<strong>1.25s per shot, 6.25 stacks per proc, 5 stacks per second. Two procs to cap a debuff status. 2.5s to fully stack viral.</strong>
+				<ul><li>
+						<span style="color:#999999;">this would be equal to boltor at 2.0s even to cap a debuff<br />
+						but due to the fact it takes longer than a full second to fire<br />
+						a shot it will in practice take a fraction longer</span>
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	<strong>Since this change directly addresses the non-linear per proc scaling of debuff procs, with the implementation of status efficacy DE would change all debuff procs to scale linearly. Every viral proc is 32.5% bonus, not 100% for the first proc, it would be changed to 32.5% per proc to keep the same bonus at 10 stacks. Corrosive could be changed to 8% per stack from 26% first and 6% subsequent, etc etc.</strong>
+</p>
+
+<p>
+	These changes mean weapons like snipers and bows are no longer left behind when it comes to using debuff status procs and benefitting from them. As it is right now, charged weapons and weapons with low fire-rate fail to keep up to weapons like beams, shotguns, and some other status monsters. This is due to their low status procs per second, even when comparing two weapons with equal status chances and differing fire-rates. This status efficacy mechanic directly accounts for this weakness, without actually changing the base status of a weapon, since it relies entirely on base fire-rate and only increases how powerful procs are <strong>when</strong> you get them, but doesn't increase your frequency of said procs.
+</p>
+
+<p style="text-align:center;">
+	<span style="color:#cc3399;"><u><strong>Status Proc Changes:</strong></u></span>
+</p>
+
+<p>
+	To compliment the above status changes, I've also gone through and done a tune up to each and every status proc in the game. <strong>With this rework the design goal was to never have anything wasted, as with current status debuff procs are capped at 10 stacks.</strong> Debuff procs having caps as opposed to how damage procs don't means <strong>you're punished for getting more procs than you need to upkeep 10 stacks of a debuff.</strong> As I said, my goal is to <strong>never have anything wasted</strong>, so in favour of this I opted to <strong>entirely remove hard caps from debuff procs.</strong> Considering this, high status proc weapons would be incredibly overpowered, being able to stack 100 viral procs very quickly and having 2,500% extra damage to health. With this I <strong>shifted to a soft cap for procs</strong>, meaning they will never be wasted, but <strong>each proc beyond the soft cap of 10 will be reduced by an amount.</strong> The formula and some quick math for how these procs scale is as follows.
+</p>
+
+<ul><li>
+		<strong>Soft Cap Proc Effectiveness Formula</strong>
+
+		<ul><li>
+				<strong>0.92ⁿ</strong>
+
+				<ul><li>
+						8% reduction in effectiveness for each proc past the soft cap
+					</li>
+					<li>
+						<span style="color:#aaaaaa;">n = number of procs past soft cap (procs - 10)</span>
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	Now for an example of how this would affect one of the debuff procs. (rounded values for the sake of the viewer's eyes)
+</p>
+
+<ul><li>
+		<span style="color:#999966;"><strong>Viral: </strong></span><strong>25% bonus damage per proc</strong>
+
+		<ul><li>
+				<strong>5 procs: 125% damage bonus</strong><br />
+
+			</li>
+			<li>
+				<strong>10 procs: 250% damage bonus</strong>
+				<ul><li>
+						11th proc adds <strong>23.00% damage</strong>
+					</li>
+					<li>
+						12th proc adds <strong>21.16% damage</strong>
+					</li>
+					<li>
+						13th proc adds <strong>19.47% damage</strong>
+					</li>
+					<li>
+						14th proc adds <strong>17.91% damage</strong>
+					</li>
+					<li>
+						15th proc adds <strong>16.48% damage</strong><br />
+
+					</li>
+				</ul></li>
+			<li>
+				<strong>15 procs:</strong> <strong>348.01% damage bonus</strong>
+				<ul><li>
+						without the soft cap this would be a <strong>375% bonus</strong><br />
+
+					</li>
+				</ul></li>
+			<li>
+				<strong>49th viral proc</strong> grants less than 1% bonus damage<br />
+
+			</li>
+			<li>
+				<strong>9th proc past cap has ~50% effectiveness</strong>
+			</li>
+			<li>
+				<strong>17th proc past cap has ~25% effectiveness</strong>
+			</li>
+			<li>
+				<strong>28th proc past cap has ~10% effectiveness</strong>
+			</li>
+			<li>
+				<strong>56th proc past cap has ~1% effectiveness (for viral this would mean 0.25% damage bonus)</strong>
+			</li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><strong><u><em>Note:</em></u><em> the damage values seen in these reworked procs is the same as the current damage over time, just split up into four ticks per second. The only damage over time value that was changed at all in these notes from the current function would be slash. The combined elements also currently do not scale with elemental modifiers at all and should, so some of them also had this small part added so they would be in-line with the other procs and scale similarly.</em></strong></span>
+</p>
+
+<ul><li>
+		<u><strong>Impact:</strong></u> this is typically regarded as the meme status, not really contributing in any way, sure it CC's enemies, but in the current meta where CC doesn't really matter and it's all about damage and one-shots, it leaves much to be desired. That said though! This proc is already unique, and I believe the direction of it is good, except the execution was definitely flopped. The main issue with this status as it is has to do with the health threshold associated with the mercy finisher. This status staggers and then builds towards a finisher which is fun and cool, but it can only currently force a finisher on enemies <em><strong>below 5% hp</strong></em>. This is incredibly bad, not only does this mean you're basically never getting them because you're almost always dealing &gt;5% of the enemies max hp in one shot. This also means it would simply be easier to just put one more bullet in them to turn them into a corpse instead of having to run up and hit X on the prompt, since they're already below 5% hp. This could be addressed by removing the hp threshold entirely, and just making it roll for the finisher without the hp threshold as well. This would mean in 10 impact procs you'd have a guaranteed mercy finisher, which is a guaranteed kill, which could definitely be overpowered. To address this you would simply reduce the finisher chance from 10% to ~2%, make it so subsequent direct damage after proccing impact has a chance to force a finisher, and the numbers could be more finely tuned from there. These changes would make the finisher from impact procs actually prevalent, and with some of the fancy parazon mods we have these days, could definitely make for some interesting builds that play into the Parazon and it's functions.
+
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc staggers.</strong>
+				<ul><li>
+						airborne enemies will be knocked to ground
+					</li>
+				</ul></li>
+			<li>
+				<strong>Every proc has (2 * n)% chance to force a Mercy Finisher on the target.</strong>
+				<ul><li>
+						direct damage to an enemy with any number of impact procs has the<br />
+						aforementioned chance to force a finisher (regardless of procs or damage type, damage procs can not trigger this)
+					</li>
+					<li>
+						<span style="color:#aaaaaa;">n = number of impact procs affecting target</span>
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>... slash and puncture are similar but unique in that one ignores all damage type modifiers with it's procs, and the other increases your modifier values when attacking said target, both effective for dealing with armoured units just with different approaches</em></span>
+</p>
+
+<ul><li>
+		<u><strong>Puncture:</strong></u> as the name would imply, is meant to puncture armour. Currently for some reason it reduces the target's damage output, this can seem convenient but in actual practice does not find much use. In an attempt to bring this more in-tune with how puncture <em>should</em> feel (as in, it punctures), I opted to make it reduce the targets damage type modifiers. I originally thought of allowing the damage to bypass armour in some way, but I feel that bypassing shields and armour is an unhealthy mechanic if added to a specific proc. Lowering the resistance values will allow you to greatly increase your direct hit damage against armoured units, and due to the way this works as well as all of the previously explained armour changes, this is just as effective for breaking through armour at level 9,999 as level 100 so long as you have the damage output.
+
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<b>Procs have a duration of 6 seconds.</b>
+			</li>
+			<li>
+				<strong>Every proc creates a small visual marker around the point of impact called a "breaking point".</strong>
+				<ul><li>
+						breaking points can overlap and will stack
+					</li>
+					<li>
+						breaking points visual takes from <span style="color:#ff0000;">e</span><span style="color:#ff6600;">n</span><span style="color:#ffcc99;">e</span><span style="color:#66ffcc;">r</span><span style="color:#9966cc;">g</span><span style="color:#ff00ff;">y</span> colour
+					</li>
+					<li>
+						no cap on how many breaking points there can be
+					</li>
+				</ul></li>
+			<li>
+				<b>Targeting a breaking point grants bonus effects to your attack.</b>
+				<ul><li>
+						attacks will have punch through when targeting breaking points (for that enemy only)
+					</li>
+					<li>
+						damage has a +(3 * n)% bonus to all damage type modifiers
+						<ul><li>
+								this means your procs change the damage type modifiers such as the <span style="color:#cc3300;">-75%</span> that<br /><span style="color:#9966ff;">electricity</span> suffers against <span style="color:#42445f;">alloy </span>to <span style="color:#cc3300;">-72%</span> with a single proc, then <span style="color:#cc3300;">-69%</span> with two procs
+							</li>
+							<li>
+								<span style="color:#aaaaaa;">n = number of breaking points your bullet hits at the point of impacting the enemy</span><br />
+
+							</li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<u><strong>Slash:</strong></u> with the aforementioned changes to armour and how it works, slash is going to be changed a fair amount. Slash is typically regarded as overpowered, this is only due to the severe amount of effective health the armour damage reduction can grant at higher levels. Since armour will no longer have a scaling damage reduction, slash will no longer be the only proc type you really need. However since each damage proc needs to have a unique component, I believe slash should in some form keep it's armour bypass. It will ignore all type damage type modifiers for the damage over time procs it inflicts, allowing it to be a sort of universal damage over time effect that doesn't excel in any particular area.
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<b>Procs have a duration of 6 seconds.</b>
+			</li>
+			<li>
+				<strong>Every proc triggers a damage over time effect called "bleed".</strong>
+				<ul><li>
+						12.5% base damage * (1 + slash modifier) per tick
+					</li>
+					<li>
+						4 ticks per second
+					</li>
+					<li>
+						proc damage ignores damage type modifiers
+						<ul><li>
+								this means your damage is not affected by damage type modifiers such as<br />
+								the <span style="color:#cc3300;">-75%</span> that <span style="color:#9966ff;">electricity</span> suffers against <span style="color:#42445f;">alloy</span>
+							</li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>... up next is the base elements, void is technically one as well but also unique in that it can't be added via any normal means and can't be combined, for this reason i excluded void from having a damaging component to it's procs, however to keep it standardized, all base elements, aside from void as i just explained, will have a damage component to them</em></span>
+</p>
+
+<ul><li>
+		<span style="color:#ff9933;"><u><strong>Heat:</strong></u></span> has a unique stacking function that I believe it should keep, but since armour is being reworked it's armour strip component will need to be taken out. The damage over time effect is being shifted to 4 ticks per second, as all damage over time procs in this update are.
+
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+				<ul><li>
+						procs do not have individual timer, they are combined together and the duration is refreshed<br />
+						for subsequent procs
+					</li>
+				</ul></li>
+			<li>
+				<strong>Every proc triggers a damage over time effect called "burn".</strong>
+				<ul><li>
+						12.5% base damage * (1 + <span style="color:#ff9933;">heat </span>modifier) per tick
+					</li>
+					<li>
+						4 ticks per second
+					</li>
+					<li>
+						causes target to panic, effectively stunning them
+					</li>
+					<li>
+						subsequent procs add their damage to the damage of the existing <span style="color:#ff9933;">heat </span>proc<br />
+						and refresh it's duration (effectively infinite scaling with continual procs)<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#66ccff;"><u><strong>Cold:</strong></u></span> cold status procs are quite unique in their nature of crowd control, however they are incredibly underpowered and need lots to be considered good and sit among the rest. The slow should to be changed to a 10% slow to enemies, this of course can stack up to 10 times. Once the enemy reaches 10 stacks they will be encased in ice, the next source of damage while they are at 10 stacks will shatter the ice. The next incoming source of damage will be multiplied and shatter the ice. Upon shattering and damaging the main target, they will revert back to 4 cold procs (40% slow) with a full six second duration, and will shoot out 7 small ice fragments/icicles. On impact these icicles will deal damage and then shatter, leaving behind a chilly zone. Since this proc resets upon 10 stacks, it will never be truly be capped on stacks, meaning consecutive procs are never wasted, which is a healthy mechanic to have and it would put cold procs in a very good spot cementing it among the other base elemental procs.
+		<ul><li>
+				<strong>Stack cap of 10.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc adds a stack of the "frost" debuff to the target.</strong>
+				<ul><li>
+						enemies are slowed by (10 * n)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of frost stacks affecting target</span>
+							</li>
+						</ul></li>
+					<li>
+						at 10 stacks enemies are encased in ice and afflicted with "<span style="color:#99ccff;">permafrost</span>"
+					</li>
+				</ul></li>
+			<li>
+				<strong>Shooting a target afflicted by permafrost shatters the ice, dealing damage and sending out icicles.</strong>
+				<ul><li>
+						the damage source to shatter the ice is multiplied by (1 + [2 * <span style="color:#66ccff;">cold </span>modifier])
+					</li>
+					<li>
+						upon shattering resets target to 5 <span style="color:#66ccff;">cold </span>procs
+					</li>
+					<li>
+						upon shattering shoots out 2 small icicles, each dealing 50% of the weapon's base damage * (1 + <span style="color:#66ccff;">cold </span>modifier) in a 0.75 meter radius on contact
+						<ul><li>
+								upon collision with terrain or an enemy, these icicles create a frost zone
+								<ul><li>
+										frost zones have a radius of 0.75 meters
+									</li>
+									<li>
+										frost zones have a duration of 6 seconds
+									</li>
+									<li>
+										frost zones add 0.25 <span style="color:#66ccff;">cold </span>procs to enemies for each quarter of a second they stand in them<br />
+
+									</li>
+								</ul></li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#9966ff;"><u><strong>Electricity:</strong></u></span> electricity is already quite a solid proc type, being an area of effect as well as having an electricity multiplier scaling component. All damage status procs should have a unique component to them, except electricity's isn't the only area of effect damage proc. In it's current iteration electricity procs just deal damage in a radius around the target, while this is nice, it's quite bland and could stand to have some more flare added, it also functions exactly like gas does in this way. Similar to how in real life electricity is known for arcing between things, I believe instead of essentially just dealing damage in a circle, it should be changed to sort of form tethers/arcs between enemies that can damage any enemies caught in them. This would make it more reliable with it's area effect since it arcs between enemies instead of just being stuck to the main target.
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc triggers a damage over time effect called "shock".</strong>
+				<ul><li>
+						deals 12.5% base damage * (1 + <span style="color:#9966ff;">electricity </span>modifier) per tick
+					</li>
+					<li>
+						4 ticks per second
+					</li>
+					<li>
+						stuns all targets
+					</li>
+					<li>
+						every proc creates an arc of <span style="color:#9966ff;">electricity </span>to a random enemy within 4 * (1 + <strong>[</strong>2 * <span style="color:#9966ff;">electricity </span>modifier<strong>]</strong>) meters
+						<ul><li>
+								arc beam has a radius of 0.3 * (1 + [<span style="color:#9966ff;">electricity </span>modifier * 0.3]) meters
+							</li>
+							<li>
+								any targets caught in the arc will be inflicted the damage
+							</li>
+							<li>
+								there is no limit to number of arcs, but only one can exist between any two specific enemies
+							</li>
+							<li>
+								when choosing an arc target it will prioritize those furthest away (to maximize beam length and potential to hit multiple enemies)<br />
+
+							</li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<strong><span style="color:#339933;"><u>Toxin:</u></span> </strong>with the removal of toxin bypassing shields, there is lots to be changed and added. Due to toxins only being able to affect organic things, I was thinking of some form of health based damage bonus for toxin. I was thinking of how old viral reduced max hp by a percentage, and really liked this mechanic. However the way old viral functioned was quite poorly balanced, only being a single stack proc that refreshes. I opted to take the old viral effect and squash it down, making it infinitely stacking along-side all other statuses in this update. By this I mean reducing the enemy's max health by a small amount per stack, on top of the damage over time you inflict.
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc triggers a damage over time effect called "poison".</strong>
+				<ul><li>
+						12.5% base damage * (1 + <span style="color:#339933;">toxin </span>modifier) per tick
+					</li>
+					<li>
+						4 ticks per second
+					</li>
+				</ul></li>
+			<li>
+				<b>Every proc adds a stack of the "weakness" debuff.</b>
+				<ul><li>
+						decay reduces the enemy's current and max <span style="color:#cc3300;">health </span>by 5% per stack
+						<ul><li>
+								enemy <span style="color:#cc3300;">health </span>= current * (0.95ⁿ)
+								<ul><li>
+										<span style="color:#aaaaaa;">n = number of toxin procs affecting target</span><br />
+
+									</li>
+								</ul></li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#ffcc99;"><u><strong>Void:</strong></u></span> is honestly a very interesting one. It's neat and has a unique mechanic, essentially making mini Mag bubbles. I love this effect and think it definitely deserves to stay, but Void lacks something else that makes it special, and the procs don't scale beyond one, which is slightly frustrating. Despite not being able to get void damage from almost any sources, it still deserves to be a properly balanced effect. I believe the part of the void and how it decays things is quite neat, such as it's effects on Sentients and those described from the horrors among the Zariman Ten Zero. Much like how there are now sort of status sub-sections, there's the base elements all being damage with a unique component, and then corrosive magnetic viral for the three respective pool types, I wanted to mimic the effects of toxin but for armour and shields. You may say that the reducing it by a percentage and increasing damage output (toxin vs viral) are effectively similar, but they do have unique interactions with things such as percentage health damage, as well as being able to synergize well together.
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc triggers a bullet attractor around the impacted area.</strong>
+				<ul><li>
+						bullet attractor absorbs all bullet that enter
+					</li>
+				</ul></li>
+			<li>
+				<strong>Every proc adds a stack of "void decay".</strong>
+				<ul><li>
+						decay reduces the enemy's current and max <span style="color:#f1c40f;">armour</span> and <span style="color:#3498db;">shields </span>by 5% per stack
+						<ul><li>
+								enemy <span style="color:#f1c40f;">armour</span> &amp; <span style="color:#3498db;">shields</span> = current * (0.95ⁿ)
+								<ul><li>
+										<span style="color:#aaaaaa;">n = number of void procs affecting target</span>
+									</li>
+								</ul></li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>... there are sort of "subsections" to the damage types, next up we have the 3 main pool type debuffers with their niche regeneration effects</em></span>
+</p>
+
+<ul><li>
+		<span style="color:#999966;"><u><strong>Viral:</strong></u></span> is currently the be all end all in the meta. Despite having the same scaling as magnetic procs do for increasing damage, magnetic procs only apply to shields, which only a small chunk of the enemies in the game even have. Every enemy has health, but few have shields, this makes viral much more prevalent for use, and is the main reason it's so incredibly popular. Along with magnetic, the scaling of this proc should be adjusted to be linear, giving the same damage bonus for each consecutive proc, up to it's cap of 10. This would be done, like above, by lowering the single proc damage bonus from 100% to 25%, shifting to 10 stack bonus to 250% and bringing this status more in-line with the rest in terms of balance. Even with the numbers changed, however, there is still one glaring issue with this status proc, it can't stack beyond 10. I believe it should have the cap removed entirely allowing viral procs to not be capped in their effectiveness, while also making it much more balanced with the rest of the damage system.
+
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc applies one stack of the "illness" debuff.</strong>
+				<ul><li>
+						increases all incoming damage to the target's <span style="color:#cc3300;">health</span> by (25 * n)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of viral procs affecting target</span>
+							</li>
+						</ul></li>
+				</ul></li>
+			<li>
+				<strong>Every proc grants the Tenno the "resilient" buff.</strong>
+				<ul><li>
+						regenerate (3.0 + (5 * <span style="color:#339933;">toxin </span>modifier) + 1% of max <span style="color:#cc3300;">health </span>per second for 4 + (5 * <span style="color:#66ccff;">cold </span>modifier) seconds.
+					</li>
+					<li>
+						this buff cannot stack, subsequent procs will refresh the duration<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#99cc33;"><u><strong>Corrosive:</strong></u></span> much like some of the other statuses, due to the depth of changes to the core balance system, corrosive essentially needs a complete re-write. This will be a simple one though, basically bringing it in line with some of the other generic debuff statuses, just this one works for armour!
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc applies one stack of the "corrode" debuff.</strong>
+				<ul><li>
+						increases all incoming damage to the target's <span style="color:#f1c40f;">armour </span>by (25 * n)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of corrosive procs affecting target</span>
+							</li>
+						</ul></li>
+				</ul></li>
+			<li>
+				<strong>Every proc grants the Tenno the "mending" buff.</strong>
+				<ul><li>
+						regenerate 3.0 + (5 * <span style="color:#339933;">toxin </span>modifier) + 1% of max <span style="color:#f1c40f;">armour </span>per second for 4 + (5 * <span style="color:#9966ff;">electricity </span>modifier) seconds.
+					</li>
+					<li>
+						this buff cannot stack, subsequent procs will refresh the duration<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#0099cc;"><u><strong>Magnetic:</strong></u></span> magnetic is an incredibly strong status for shielded enemies, it's issues come from the fact that it does absolutely nothing if an enemy has no shields. Now, thinking on how magnetic procs affect us, the Tenno, they drain our energy. Since enemies don't work off of energy, draining their energy isn't really an option, but granting us energy is definitely a possibility. I think with a sort of energy regeneration effect from magnetic, this would allow it to have a niche roll in loadouts as well as maintain it's already good strength against shields. This as well as making the procs scale linearly as opposed to 100% from the first proc and 25% from each subsequent proc, with consideration of the earlier mentioned enemy design changes, magnetic should be relevant and actually see use in much content, especially corpus.
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc applies one stack of the "static" debuff.</strong>
+				<ul><li>
+						increases all incoming damage to the targets <span style="color:#3498db;">shields </span>by (25 * n)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of magnetic procs affecting target</span>
+							</li>
+						</ul></li>
+					<li>
+						pauses natural <span style="color:#3498db;">shield </span>regeneration effects on the target
+					</li>
+				</ul></li>
+			<li>
+				<strong>Every proc grants the Tenno the "leech" buff.</strong>
+				<ul><li>
+						regenerate 1.0 + (2 * <span style="color:#9966ff;">electricity </span>modifier) <span style="color:#3366cc;">energy</span><span style="color:#ccffff;"> </span>per second for 4 + (5 * <span style="color:#66ccff;">cold </span>modifier) seconds.
+					</li>
+					<li>
+						this buff cannot stack, subsequent procs will refresh the duration
+					</li>
+				</ul></li>
+		</ul></li>
+</ul><p style="text-align:center;">
+	<span style="color:#aaaaaa;"><em>... and now we have the damage procs, one of which is also a form of debuff and crowd control</em></span>
+</p>
+
+<ul><li>
+		<span style="color:#00cc99;"><u><strong>Gas:</strong></u></span> needs to have have it's damage output buffed, as it is it's just too weak. Some other issues with it are how the radius of the gas clouds scales, and the fact that they follow around the enemy that it's procced on. As it's a combined element, this does open it up to the potential of having both toxin scaling and heat scaling, which allows for many neat things to be done. The radius of the gas could be reliant on the heat mod scaling, while the damage of the procs would have the toxin scaling added back in like gas had before. This would increase the damage output of the status, bringing it in-line with the other damage procs, making it much more useful, as it's current version is vastly out damaged by every other proc in the game. If gas had the damage component scaling with elemental mods again, then it would be a fantastic status already. The proc radius scaling with stacks is not great, it punishes you on weapons that only apply a single high damage proc. This should be removed in favour of the radius scaling off of your heat mods, adding an interesting new component to this combined element. The lingering gas clouds should also be set in place where they are spawned, as opposed to following the enemy around. Then as enemies step into or out of clouds their UI will reflect how many clouds are currently damaging them.
+
+		<ul><li>
+				<strong>No stack cap.</strong>
+			</li>
+			<li>
+				<strong>Procs have a duration of 6 seconds.</strong>
+			</li>
+			<li>
+				<strong>Every proc triggers a stationary gas cloud that deals damage to all enemies inside of it.</strong>
+				<ul><li>
+						12.5% base damage * (1 + <span style="color:#339933;">toxin </span>modifier) per tick
+					</li>
+					<li>
+						4 ticks per second
+					</li>
+					<li>
+						clouds have a radius of (3 + <span style="color:#ff9933;">heat </span>modifier) meters<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#996666;"><u><strong>Blast:</strong></u></span> blast procs should trigger an immediate damage instance in a radius from the hit position. Now if we are to compare it to the damage over time elements, with total damage per proc of 3.0x your weapons <em>modded base damage</em>, contrasting their damage over time nature this would be an instantaneous damage instance, so the numbers should definitely be lower to make up for that as you don't have to wait. In addition to this, blast would be made to scale with elemental mods of both heat and cold, heat would affect the radius of the explosion, and cold would increase the damage scaling. The numbers I feel should be somewhere right around 0.625x your weapon's <em>modded base damage</em>, which is the equivalent of five damage ticks from a damage over time effect, which takes just over a second.
+		<ul><li>
+				<strong>No stacking.</strong>
+			</li>
+			<li>
+				<strong>Procs have no duration.</strong>
+			</li>
+			<li>
+				<strong>Every proc deals immediate damage in the area surrounding the target.</strong>
+				<ul><li>
+						deals 62.5% of base damage * (1 + <span style="color:#66ccff;">cold </span>modifier)
+					</li>
+					<li>
+						blast radius of (3 + <span style="color:#ff9933;">heat </span>modifier) meters<br />
+
+					</li>
+				</ul></li>
+		</ul></li>
+	<li>
+		<span style="color:#666699;"><u><strong>Radiation:</strong></u></span> the first issue I would address with radiation, is making the damage bonus scaling for enemies linear, this would reduce it from 550% to a 500% damage increase total, which is still a very large damage buff, especially considering all the armour and scaling changes. For this reason I believe it should also be lowered to 25% per stack, and should effectively force aggro for nearby enemies. Moving on from that, radiation is a strong element, has a fun and unique effect, but it's capped by 10 stacks, as some others are. I believe to address this, the radiation procs could serve as a form of damage. To do this radiation procs would be made to create a damaging aura around the afflicted enemy, this aura would absorb all damage the enemy has taken while affected and projects this outward. The aura radius could scale with the heat modifier, and the damage multiplier to the aura would be affected by electricity.
+		<ul><li>
+				<b>No stack cap.</b>
+			</li>
+			<li>
+				<b>Procs have a duration of 6 seconds.</b>
+			</li>
+			<li>
+				<b>Every proc applies one stack of the "confusion" debuff.</b>
+				<ul><li>
+						confusion makes the target faction neutral, they can receive damage<br />
+						from and deal damage to anything
+					</li>
+					<li>
+						forces the nearest unit(s) to attack the target
+						<ul><li>
+								taunt affects the nearest <em>n</em> units within 8 + (n / 5) meters
+								<ul><li>
+										<span style="color:#aaaaaa;">n = number of radiation procs affecting target</span>
+									</li>
+								</ul></li>
+						</ul></li>
+					<li>
+						increases outgoing and incoming damage from would be allies by (25 * n)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of radiation procs affecting target</span>
+							</li>
+						</ul></li>
+				</ul></li>
+			<li>
+				<strong>Irradiated enemies absorb incoming damage and project it outward in a damaging aura.</strong>
+				<ul><li>
+						while an enemy is irradiated, all incoming damage is stored
+					</li>
+					<li>
+						deals 25% of stored damage per tick
+						<ul><li>
+								<span style="color:#aaaaaa;">all damage dealt to target is stored, this includes critical<br />
+								hits as well as damage from status procs</span>
+							</li>
+						</ul></li>
+					<li>
+						4 ticks per second
+					</li>
+					<li>
+						aura has a radius of (3 + <span style="color:#ff9933;">heat </span>modifier) meters
+					</li>
+					<li>
+						aura damage is increased by (10 * n * <strong>[</strong>1 + <span style="color:#9966ff;">electricity </span>modifier<strong>]</strong>)%
+						<ul><li>
+								<span style="color:#aaaaaa;">n = number of radiation procs affecting target</span>
+							</li>
+						</ul></li>
+				</ul></li>
+		</ul></li>
+</ul><p>
+	<strong><u>Conclusion:</u></strong>
+</p>
+
+<p>
+	Well, that was a lot to take in. I have spent plenty of time doing math, pondering, and coming up with ideas for all of this. I've taken feedback from many people, and this is what I was able to churn out. There may be some slight issues with this balancing but those can of course be tweaked once implemented and tested, I am not a dev from DE so I am not able to implement and test these numbers and tweaks on my own. I don't really know what to put here, brain is kinda dead, took a bit to write. Hope y'all enjoyed reading, looking forward to any and all feedback. Thanks to anyone who made it to the end, you taking the time to read this means a lot to me! Feedback is very appreciated, I love this game and want to see it thrive. Seeing these changes implemented in any form (especially the main offenders like armour and enemy scaling) would be absolutely fantastic.
+</p>]]></description><guid isPermaLink="false">1257785</guid><pubDate>Wed, 07 Apr 2021 11:57:42 -0500</pubDate></item><item><title>What is the gameplay purpose of forma polarity?</title><link>https://forums.warframe.com/topic/1266227-what-is-the-gameplay-purpose-of-forma-polarity/</link><description><![CDATA[<p>
+	<strong>TLDR</strong>: AFAICT the only thing forma polarization does is promote build lock in, which is, IMO, a Bad Game Mechanic.
+</p>
+
+<p>
+	I'm sure forma polarization has been discussed before, but I feel strongly enough about it I want to add my $0.02 to the probably enormous pile.
+</p>
+
+<p>
+	I don't understand why forma polarization is in the game. To the best of my ability to tell, the only purpose it serves is to lock in builds and prevent build experimentation and build flexibility. For instance, I have a Frost build that maximizes armor for high HP bubbles. I can't swap Chilling Globe for an armor mod without reformaing a slot. Why should I need to do that? I understand not wanting to allow swapping builds during a mission, but preventing build modification between missions doesn't seem like a good game mechanic.
+</p>
+
+<p>
+	This type of issue has been around forever - OG WOW priests and warriors can tell you all about it because group builds and solo builds were completely different and respeccing over and over got really expensive. It was anti player fun then and it still is now.
+</p>
+
+<p>
+	Possible alternatives (ordered by my personal preference):
+</p>
+
+<p>
+	Note: Due to their relative scarcity, umbra formas are different beasts and should keep the current system. The alternatives below shouldn't affect umbra formas IMO.
+</p>
+
+<p>
+	<strong>1) Get rid of polarity altogether.</strong><br />
+	This seems extreme at first glance, but really it's not a big deal in the long run. It doesn't enable any new builds and it still requires the same number of forma for any given build. It just means that it's easy to experiment with builds and you can optimize multiple builds in different configuration slots, whereas currently you can often only optimize one build and other builds are gimped or outright impossible.
+</p>
+
+<p>
+	<strong>2) Add Universal Forma to the game</strong><br />
+	Universal Forma would be basically the same thing as Aura forma, except they work for any slot other than the aura slot. IMO they'd be easier to get and cheaper to make than Aura forma - maybe 2 forma for one universal forma.
+</p>
+
+<p>
+	<strong>3) Allow forma to apply to individual configurations</strong><br />
+	In other words, when you apply a forma you should be able to choose which configurations the forma alters, just like applying a Helminth power to a warframe.
+</p>
+
+<p>
+	<strong>EDIT: 4) Stack forma instead of replace</strong>
+</p>
+
+<p>
+	E.g. If you forma a slot with D and then reforma with -, the slot now fits both D and - polarity. Credit goes to @quxier for this option.
+</p>
+
+<p>
+	To sum up, I'd really like to see the removal of build lock in from the game, and I think the options given above are all all feasible means of doing so. Thanks for your consideration.
+</p>]]></description><guid isPermaLink="false">1266227</guid><pubDate>Tue, 01 Jun 2021 14:51:32 -0500</pubDate></item><item><title>Nightwave; pay to skip</title><link>https://forums.warframe.com/topic/1197291-nightwave-pay-to-skip/</link><description><![CDATA[<p>
+	You all know this problem. There is again this nightwave challenge which you really hate. (play x railjack missions| Do a capture mission in less than x seconds| get x rare mods) But you have to do it otherwise you will fall behind with the rewards or even won't get them.
+</p>
+
+<p>
+	So here is my idea. Pay to skip. I think 1$ per 1000 nightwave points are fair enough.
+</p>
+
+<p>
+	On this way can everyone enjoy nightwave without wasting time on missions he/ she don't like. And think about all the money which can DE earn
+</p>
+
+<p>
+	<em>For the one who didn't realise it. It's sarcasm. So please give me all the nightwave memes you can find.</em>
+</p>]]></description><guid isPermaLink="false">1197291</guid><pubDate>Sat, 30 May 2020 15:48:04 -0500</pubDate></item><item><title>Request - More Ordis Idle Chatter?</title><link>https://forums.warframe.com/topic/1266607-request-more-ordis-idle-chatter/</link><description><![CDATA[<p style="text-align:center;">
+	I love Ordis. At first I didn't, but he has since grown on me. However, after doing all of my story quests, I'm worried that I won't hear any new Ordis dialogue again.
+</p>
+
+<p style="text-align:center;">
+	I like laughing at "Everything in <em>Ordis</em>, Operator?" as much as I want to bypass his fault <s><strong>myself</strong></s>, but I was wondering if our favorite Ship Cephalon will ever get any <em><u>new</u></em> idle dialogue?
+</p>
+
+<p style="text-align:center;">
+	I'd love it if there's just a little bit more variety in what he says all the time. What do you guys think? Am I <u><strong>wrong</strong></u><strong>?</strong> (<strong><em>egad!</em></strong>)
+</p>]]></description><guid isPermaLink="false">1266607</guid><pubDate>Fri, 04 Jun 2021 17:19:54 -0500</pubDate></item><item><title>Blessings Made Me Play Less... A Fix?</title><link>https://forums.warframe.com/topic/1263880-blessings-made-me-play-less-a-fix/</link><description><![CDATA[<p>
+	Before True Masters' blessings were released, I would look forward to start my morning in my favorite game - Warframe of course, with a few fissures or nightmare missions on the map.
+</p>
+
+<p>
+	Now? I start my morning by moving my character to Earth Strata relay to stay there for 2-3 hours until it picks up a random resource, affinity and damage blessings, which sometimes happens within 5-10 minutes, but sometimes takes hours. I just don't want to start missions knowing I would only get 75% of rewards and that a blessing might come any minute and I'd be enjoying it 100% rather than 75%. <span class="ipsEmoji">😒</span>
+</p>
+
+<p>
+	This would inevitably result in less players playing missions as they would just camp in vain in Earth Strata Relay waiting to be filled up with blessings. So it looks like a feature that was intended to make players be more active and play more in fact.... did the reverse and turned people away from the missions, and got them afk-ing Strata Relay instead.
+</p>
+
+<p>
+	Is there a fix? (other than removing this feature) - How about adding "blessing receptor beacon" for your character in a relay of your choice that would stay there for 3 hours and transmit to you any blessings cast within that relay, even if you're playing missions (rather than afk-ing in that relay in vain). Blessing receptor beacon could just be a 3 hour-long self-blessing obtained by just interacting with the Blessing Altar by player of any Mastery Rank (including MR 30 players too). Interacting again would work just as any blessing - refresh the duration (and anchor you to the current relay if it's a different one). Now I get back my mornings again in my favorite game without having to afk in a relay. <span class="ipsEmoji">😁</span>
+</p>]]></description><guid isPermaLink="false">1263880</guid><pubDate>Fri, 14 May 2021 12:49:35 -0500</pubDate></item><item><title>Increase the range and precision of mouse sensitivity scaling</title><link>https://forums.warframe.com/topic/1257642-increase-the-range-and-precision-of-mouse-sensitivity-scaling/</link><description><![CDATA[<p>
+	TL;DR: Please increase the precision and range of the Mouse Sensitivity scale. People coming from tactical shooters / prefer lower mouse sensitivity like me find it really annoying to be forced to play on high sensitivity or low FoV/Dpi.
+</p>
+
+<p>
+	Please look at Zemo's comments on page 2 and 3 as He brings up some very interesting numbers about the Sensitivity slider and the fact it is a logarithmic curve (In his own words: Changing your sensitivity from 0 to 1 changes the distance needed to turn 360 degrees by the same amount as going from 19 to 100).
+</p>
+
+<p>
+	I played a lot of warframe during the beta and when it first came out. Since then I have played it off and on, but the limit on mouse sensitivity has always made if hard for me to get back into. Since I played Warframe, I played over 1000 hours of Counter Strike and that has really shaped the sensitivity I prefer in games. I have the sensitivity on 0 on every scale and it still is at least 4x too high. I was looking through the forums to see if there was an easy fix to lower sensitivity and the only ones I found were lowering the FoV (which makes me feel kinda sick) and changing my mouses DPI, however I don't think these are good solutions as lowering DPI means your sensitivity in menus is much slower than your used to and it is a pain to do every time you open/close the game (not to mention people that come from tactical shooters and already play on 800 or 400 DPI and can't really lower it much or at all). I think this is a problem that lots of other people coming from tactical shooters and other games that encourage low sensitivity face as well (based off of other posts I saw when looking for a fix).
+</p>
+
+<p>
+	I would love to see an increase in the range of sensitivity scaling so that I can get the sensitivity low enough to feel comfortable. I also think increasing the precision to allow decimals would be good as it would make it more possible to find the exact sensitivity you want.
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>]]></description><guid isPermaLink="false">1257642</guid><pubDate>Tue, 06 Apr 2021 08:40:48 -0500</pubDate></item><item><title>In-Game Competition</title><link>https://forums.warframe.com/topic/1266485-in-game-competition/</link><description><![CDATA[<p>
+	By default, in every game I have ever played that had it, I was a PvP-focused player. I'm well aware of Warframe's unfortunate relationship with PvP and quite frankly I don't see a bright future for it unless it gets an overhaul; I'm not here to preach for that though. I'm here to get a taste of that same glory, even if it's a much smaller bite of the cake. That could be a unique ranking system that is PvE related via constant leaderboards with meaningful prizes, automatized profile comparisons when you peep someone's info, or an entirely new and permanent PvE game mode that allows for a more competitive environment.
+</p>
+
+<p>
+	I've noticed bits of this surfacing with leaderboards during events that I thoroughly enjoyed, but it's not enough, I'd want something permanent with monthly or yearly cycles, All that introduced to what makes up the majority of the playerbase, PvE players. Now, I know that is generally not what PvE is about, so I compiled a subjective pro and cons list.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<strong>Pros (Granted)</strong>
+</p>
+
+<p>
+	<strong>- </strong>Competition adds an extra layer of "feeling rewarded" for completion. Imagine seeing your name on top of a meaningful and constant leaderboard or having a shiny achievement on your profile, cool eh?
+</p>
+
+<p>
+	<strong>- </strong>People who have burned out on game content and have little to do in the game unless an event or something new is added, would have a reason to play more regularly.
+</p>
+
+<p>
+	<strong>- </strong>Bragging rights. Hopefully innocent, but meaningful.
+</p>
+
+<p>
+	<strong>Cons (Avoidable)</strong>
+</p>
+
+<p>
+	<strong>- </strong>Might be meaningless to a certain type of players who don't want to compete.
+</p>
+
+<p>
+	<strong>- </strong>If implemented wrong or unjust, it could (by rule of thumb for anything that involves competition) result in toxicity amongst people that do compete.
+</p>
+
+<p>
+	<strong>Remedying Potential Cons</strong>
+</p>
+
+<p>
+	<strong>- </strong>Do not make it so people feel missed out, don't give out rewards you can't otherwise get, it should all be about bragging rights, with extra rewards on top, but not too extra. I'd be okay with competing for just my name to show up on a list, and my profile to document my progress on that. Maybe a free [insert reward] of my choice if I'm in the top 10?
+</p>
+
+<p>
+	- Make it specific to a certain game mode (Like ESO) so that people who don't want anything to do with it can just avoid it entirely. Doesn't even have to be a solo game mode necessarily, would even incentivize people to get a 4-man group together and strategize, which surely is a nice and refreshing thing to do after a near-effortless farming session.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	For what that actual game mode should be...  that's totally up for debate, as are the rewards and the leaderboard system, which is where my fellow players' inputs would be necessary and highly appreciated down below. I do have ideas of my own, but I'd like to see if people are even positive about the addition first.
+</p>]]></description><guid isPermaLink="false">1266485</guid><pubDate>Thu, 03 Jun 2021 16:49:14 -0500</pubDate></item><item><title>hows about making the infested k drive buyable from market</title><link>https://forums.warframe.com/topic/1266194-hows-about-making-the-infested-k-drive-buyable-from-market/</link><description><![CDATA[<p>
+	title says all.  deimos is horrible.  i have 618 of 619 items. please add infested k drive to market to buy. give us a bone
+</p>]]></description><guid isPermaLink="false">1266194</guid><pubDate>Tue, 01 Jun 2021 10:28:27 -0500</pubDate></item><item><title><![CDATA[I am confused about Yareli and the overall art & story direction of the game [Spoilers for Second Dream and Sevagoth questline]]]></title><link>https://forums.warframe.com/topic/1266121-i-am-confused-about-yareli-and-the-overall-art-story-direction-of-the-game-spoilers-for-second-dream-and-sevagoth-questline/</link><description><![CDATA[<p>
+	To preface this, this post isn't about Yareli's kit or mechanics. I'll just say that DE has done a tremendous job with this medium, and I like that they're experimenting with K-drives in normal missions.<br /><br />
+	I'm more concerned about the overall art/story direction the game has been heading towards<br /><br /><u>tldr; It's a bit too much pandering at this point, I think. I do hope Warframe regains its tighter focus on the narrative and art design.</u><br />
+
+</p>
+
+<ul><li>
+		Clash in preexisting context and newer warframe designs<br />
+
+	</li>
+</ul><p>
+	Warframe (the game) has pitted us against waves of transhuman factions in dark corridors, deserted landscapes and sterile space environments. When the sounds of ballistic weaponry and laser bolts weren't punctuating the air, there was always an eerie electronic tune humming in the oppressive silence, to remind you of how alien this world has become (props to the sound design for this). It was mysterious and depressive. A lone weapon in the dark invoking otherworldly powers, holding reality in its perilous grip.<br /><br />
+	Warframes themselves aren't much kinder either. They are supposed to be heavily corrupted organisms formed from an invasive and traumatic procedure. We've all played the Second Dream, The War Within, The New War. A child with autism sacrificing himself to keep vigil against a dark threat. A man forced to kill his firstborn at the whims of a cruel creator. There is a dark history behind the Warframes, these super-weapons built to be the last line of defense against existential threats in a hyper distant reality. So where does the warframe in a cute blue dress that surfboards and draws water hearts fit into this?<br /><br /><span>Between the warframe that turns the game into a rave party and disengages the basic combat loop of use gun shoot enemy(octavia) and the focus on family drama in what's supposed to be the heart of a devastating ultravirus (Heart of Deimos), I find that the game has lost its footing and the original reason why it was such a fascinating sci-fantasy medium. Its tight focus on mysterious futuristic or deteriorated corridors and dark individuals, now juxtaposed with brightly coloured and increasingly contemporary skins and designs. Appeal to human emotions and personal experiences are good and helpful in humanising environments, but when the actual story elements and art design take a backseat in favour of these qualities, the juxtaposition is violent and immersion breaking.</span><br />
+
+</p>
+
+<ul><li>
+		Clash in preexisting themes and newer approach to writing
+	</li>
+</ul><p>
+	<br /><span>Here's an example to further elaborate what I found to be a problematic approach to writing in Warframe:<br />
+	I played Sevagoth questline not too long ago. The premise was mysterious and tense; an ethereal ship untethered from reality responding to call signs. With my preexisting experience and knowledge of the game these questions came into my mind: Would there be more about the void? How has Sevagoth been affected by this? These questions served to hook me into the narrative and encouraged me to actively participate. All suspense related to the void and Sevagoth was promptly shattered by a sequence involving me pressing 2 and 4 to a person singing about their personal tragedy for 2min30s. Sevagoth gets unceremoniously jettisoned into space a minute after, and I'm no longer compelled by the narrative or any detail it had to offer after its conclusion.</span><br />
+
+</p>
+
+<ul><li>
+		<span>Conclusion</span>
+	</li>
+</ul><p>
+	<br />
+	It's a bit too much pandering at this point, I think. It's very similar to Dr.Who storytelling. Too much visceral cute/sexy designs, too much appeal to human emotion, not enough substance to appreciate. It comes off as disingenuous at times, and I'm not sure how I feel about it.<br /><br />
+	To reiterate, I do hope Warframe regains its tighter focus on the narrative and art design.<br /><br />
+	I'm happy to discuss this and talk about it. Covid has ruined many plans for a lot of us, DE included, so its understandable if they are finding difficulty in producing content. What do you think?
+</p>]]></description><guid isPermaLink="false">1266121</guid><pubDate>Mon, 31 May 2021 22:14:41 -0500</pubDate></item><item><title>Combo Killer Mod Anti-Synergy with Thrown Glaives</title><link>https://forums.warframe.com/topic/1234482-combo-killer-mod-anti-synergy-with-thrown-glaives/</link><description><![CDATA[<p>
+	I'm not sure exactly what the intention is with the new Combo Killer mod. For those that don't know, some context: It's a new Baro mod (currently available) that increases combo duration and allows secondary kills to reset combo decay on glaives.
+</p>
+
+<p>
+	For players like me, who like to throw glaives <em>and explode them</em> in the middle of a group of enemies, this mod is useless. The glaive explosion counts as a heavy attack, so it drains your combo counter. There's not much point in increased or reset combo duration if your attacks drain the combo counter anyway.
+</p>
+
+<p>
+	It appears this mod is designed for people who use glaives as a regular melee weapon, instead of throwing them.
+</p>
+
+<p>
+	If this is the intention, then that's fine <span>:) </span>
+</p>
+
+<p>
+	<span>But, if this was intended to be used by people who throw glaives (and explode them), then the mod is not achieving its goal.</span>
+</p>]]></description><guid isPermaLink="false">1234482</guid><pubDate>Fri, 06 Nov 2020 10:21:46 -0600</pubDate></item><item><title>An alternative to kick system, Matchmaking Blacklist.</title><link>https://forums.warframe.com/topic/1164501-an-alternative-to-kick-system-matchmaking-blacklist/</link><description><![CDATA[<p>
+	Say You were just having the usual warframe fun and then suddenly “this guy” jumps in and ruins your fun and everyone else on the squad. Be it by trolling, sending death threats, etc. You decided to ignore that person and endure his annoyance until the misssion ends. <br>
+
+</p>
+
+<p>
+	You fired up another game. But suddenly “this guy” joins your game again. You’re starting to lose your patience and getting frustated. So, you left the game and find another one. But wait! They joined your game and this time now they are two of them! You have enough of it and started to use your typing skill to make another vote kick request on the forums which has been rejected by the community numerous times. <br>
+
+</p>
+
+<p>
+	Wait! Before you start making another vote kick thread number #999999999999999 that will be eventually rejected by everyone due to how abusive it is. How about we propose a some sort matchmaking blacklist instead? This is how it works. <br>
+
+</p>
+
+<p>
+	1. Guy joins in, ruins your fun and everyone else.
+</p>
+
+<p>
+	2. You add them to your backlist, but it won’t kick said player from the squad.
+</p>
+
+<p>
+	3. And there you go! That player will never join your future games ever again. This also works if you are not the host. The player that has been blacklisted by a client will prevent them to join the host’s game your playing at. The Player that has been blacklisted will remain on the list for 1 week. After that, it will be removed from the list automatically. You can still add them again after 1 week time limit if you wish to still not play with that player.
+</p>
+
+<p>
+	4. Found another one of these players? Repeat step 1-3.
+</p>
+
+<p>
+	The system that proposed is abuse free. You won’t suffer the dreaded kick system that’s being abused by a bad host (Payday 2 anyone?). Where the host kicks everyone at the end of missions, preventing squad members from receiving their rewards.
+</p>
+
+<p>
+	A Fellow user named <a contenteditable="false" data-ipshover="" data-ipshover-target="https://forums.warframe.com/profile/848502-birdframe_prime/?do=hovercard" data-mentionid="848502" href="https://forums.warframe.com/profile/848502-birdframe_prime/" rel="">@Birdframe_Prime</a> issues a good fix for blacklist bombing workaround
+</p>
+
+<blockquote class="ipsQuote" data-ipsquote="" data-ipsquote-contentapp="forums" data-ipsquote-contentclass="forums_Topic" data-ipsquote-contentcommentid="11342292" data-ipsquote-contentid="1164501" data-ipsquote-contenttype="forums" data-ipsquote-timestamp="1580312672" data-ipsquote-userid="848502" data-ipsquote-username="Birdframe_Prime">
+	<div class="ipsQuote_citation">
+		6 hours ago, Birdframe_Prime said:
+	</div>
+
+	<div class="ipsQuote_contents">
+		<p>
+
+		</p>
+
+		<p>
+			Simple fix; you can only 'black list' somebody that you've actually played with in the last few games. You can't block somebody if you haven't played with them, plus in-game chat will/should actually kick you if you start the name-and-shame game, whether you're the injured party or a troll, and I think that the mods already do. So it purely becomes something that you can just choose for yourself and only affects your own game play.
+		</p>
+	</div>
+</blockquote>
+
+<p>
+	<br>
+
+</p>]]></description><guid isPermaLink="false">1164501</guid><pubDate>Mon, 27 Jan 2020 05:05:05 -0600</pubDate></item><item><title>With the whole thing about guns vs melee, I think DE should let us use all our mastered items on the Simulacrum without the necessity to build them.</title><link>https://forums.warframe.com/topic/1266291-with-the-whole-thing-about-guns-vs-melee-i-think-de-should-let-us-use-all-our-mastered-items-on-the-simulacrum-without-the-necessity-to-build-them/</link><description><![CDATA[<div style="max-width:800px;">
+	<div style="color:rgb(215,218,220);">
+		<p>
+			Just as simple: You build a new weapon (or warframe), you use it until level 30 (or 40) and you will have always available to use it in the Simulacrum, whether if you have it in your inventory or not. This could also be a good incentive to use more than the 500 existing items in the game and reach MR 30.
+		</p>
+
+		<p>
+			And since we're talking about the Simulacrum (an experiment room where you test your equipment), I personally think that we should have the following things at our disposal:
+		</p>
+
+		<p>
+			Infinite mod capacity to test any build.
+		</p>
+
+		<p>
+			A DPS meter (<a href="https://terraria.fandom.com/wiki/DPS_Meter" rel="external nofollow">similar to Terraria</a>).
+		</p>
+
+		<p>
+			Have the option to see how much health, shield and armor an enemy of X level has.
+		</p>
+
+		<p>
+			Enemy modifiers (either from Sorties, Nightmare missions or Steel Path).
+		</p>
+
+		<p>
+			Be able to test Archwings (and their respective enemies) and Necramechs in the Simulacrum.
+		</p>
+
+		<p>
+			Some people may ask "what does all this have to do with the gun vs melee topic?" Simple. By having all the mastered weapons available in the Simulacrum, you will be able to compare their effectiveness (especially with the DPS meter), and this could also be a useful tool for DE.
+		</p>
+
+		<p>
+			Personally, I reached a point where I would rather spend my time by testing all the weapons and warframes that I used since 2013 just to know their effectiviness (and besides, I don't remember how good or bad they are). But I don't have enough resources, slots, nor time.
+		</p>
+
+		<p>
+
+		</p>
+
+		<p>
+
+		</p>
+	</div>
+</div>]]></description><guid isPermaLink="false">1266291</guid><pubDate>Wed, 02 Jun 2021 06:10:22 -0500</pubDate></item><item><title>Unpopular Opinion: Rolling Guard + Decaying Dragon Key + Shield Gate Meta is Dumb and Shouldn't Exist</title><link>https://forums.warframe.com/topic/1262520-unpopular-opinion-rolling-guard-decaying-dragon-key-shield-gate-meta-is-dumb-and-shouldnt-exist/</link><description><![CDATA[<p>
+	Title. Supporting points:
+</p>
+
+<ul><li>
+		Rolling Guard, Decaying Dragon Key and Shield Gate are all fine on their own, but their combined effects make things lame.
+	</li>
+	<li>
+		Decaying Dragon Key should be a handicap, not a keystone to making us invincible.
+		<ul><li>
+				I understand and support using it to reduce Shields on a frame for certain purposes, such as building Chroma's damage faster or leaning on Rage/Adrenaline.
+			</li>
+		</ul></li>
+	<li>
+		The combination of these features results in the technically-tankiest build not using any Health or Armor mods and actively hindering its Shields.
+	</li>
+	<li>
+		You are invulnerable as long as you roll every handful of seconds and <em>that's it</em>. Low-effort highest-output invalidates pretty much every other option.
+	</li>
+	<li>
+		The synergy isn't fun outside of its effectiveness and is too strong to ignore.
+	</li>
+</ul>]]></description><guid isPermaLink="false">1262520</guid><pubDate>Tue, 04 May 2021 13:01:41 -0500</pubDate></item><item><title>Syndicates and adding a way to be able to be friends with them all</title><link>https://forums.warframe.com/topic/1266395-syndicates-and-adding-a-way-to-be-able-to-be-friends-with-them-all/</link><description><![CDATA[<p>
+	Yes I know already there is ways to build up rep with more then 2 syndicates this is not for that.
+</p>
+
+<p>
+	Would love to see a mission/quest, something even with plat, a way to befriend all the syndicates.
+</p>
+
+<p>
+	Why not have the prerequisite that you have to have been max rank with them all and then you get a quest to allow you to be able to build rep with whom ever you want.
+</p>
+
+<p>
+	Maybe I might be missing some lore that might be way these syndicates hate each other but hey if they can let you build rep with them after you were max rank with their enemy, I'm sure there is a way around this.
+</p>
+
+<p>
+	Maybe this is just the completionist in me but I hate seeing I am not max rank with everyone. Also sick of new mods and items being added and not being able to get them unless you trade.
+</p>
+
+<p>
+	Let me know what your thoughts are on this.
+</p>]]></description><guid isPermaLink="false">1266395</guid><pubDate>Wed, 02 Jun 2021 23:42:19 -0500</pubDate></item><item><title>Update 29.10.0: Command Intrinsic Feedback Megathread (Read First Post!)</title><link>https://forums.warframe.com/topic/1253289-update-29100-command-intrinsic-feedback-megathread-read-first-post/</link><description><![CDATA[<p>
+	Greetings Tenno!
+</p>
+
+<p>
+	Update 29.10.0: Corpus Proxima &amp; The New Railjack is live and we are looking to hear your thoughts on this new, improved, and more deadly Railjack experience!
+</p>
+
+<p>
+	With this update, we are taking a slightly different approach to how we communicate known bugs, fixed bugs, and other feedback submitted by you, the community! To see a list of known bugs and fixed issues, please check out our new Trello Board: [<a href="https://trello.com/b/K34ACrAu" rel="external nofollow">Trello Link!</a>]
+</p>
+
+<p>
+	You will also be able to see notifications of changes and fixes by joining our official Discord Channel, found here: [<a href="https://discord.gg/CBgxpxkMRZ" rel="external nofollow">Discord Link!</a>]
+</p>
+
+<p>
+	Please use this thread to let us know your feelings on the following:
+</p>
+
+<ul><li>
+		The New Command Intrinsic
+	</li>
+	<li>
+		Crew Members (AI, Equipment, Cosmetics)
+	</li>
+	<li>
+		Competency Points
+	</li>
+	<li>
+		Command Intrinsic Abilities
+	</li>
+</ul><p>
+	If you want to let us know your feedback, please make sure that you do so in a civil and constructive manner. If you like something, let us know! If you did not like an aspect of The Corpus Proxima &amp; The New Railjack, then tell us what it is, and what you would change to make it better!
+</p>
+
+<p>
+	If you have encountered a bug with any of the new content items, be sure to submit a bug report over on our <a href="https://forums.warframe.com/topic/1253146-update-29100-corpus-proxima-bug-hunting-megathread-read-first-post/%20" rel="">Bug-Hunting Megathread!</a>
+</p>]]></description><guid isPermaLink="false">1253289</guid><pubDate>Tue, 16 Mar 2021 17:29:53 -0500</pubDate></item><item><title>Mutagen Mass</title><link>https://forums.warframe.com/topic/1266488-mutagen-mass/</link><description><![CDATA[<p>
+	When mutagen mass appears in invasions, it's typically only in quantities of 1 or, if you're lucky, 2. Compared to the 3 fieldron and detonite injectors. Meanwhile weapons can require as many as 10 mutagen masses. But that's when they appear - very rarely compared to the other clantech resources.
+</p>
+
+<p>
+	So I'd like to suggest the following changes:
+</p>
+
+<p>
+	1. Make Mutagen Mass appear in batches of 3, like its parallel resources
+</p>
+
+<p>
+	2. Increase the frequency with with Mutagen Mass appears. Maybe not as often as Fieldron and Detonite Injectors even still, but more often than current would still be nice. When it does pop up, it (unsurprisingly) disappears very fast - suggesting many players are shorter on this resource compared to the other two resources.
+</p>]]></description><guid isPermaLink="false">1266488</guid><pubDate>Thu, 03 Jun 2021 17:06:55 -0500</pubDate></item><item><title>Could we please get another use for riven slivers?</title><link>https://forums.warframe.com/topic/1265896-could-we-please-get-another-use-for-riven-slivers/</link><description><![CDATA[<p>
+	I'm sitting on almost 21 years worth of riven slivers here. These things are worse than worthless.
+</p>
+
+<p>
+	<img alt="UVKOlh8.jpg" class="ipsImage" data-ratio="49.30" height="175" width="355" src="https://i.imgur.com/UVKOlh8.jpg" /></p>
+
+<p>
+
+</p>]]></description><guid isPermaLink="false">1265896</guid><pubDate>Sun, 30 May 2021 04:52:29 -0500</pubDate></item><item><title>If Saryn is going to stay like this, let us Blacklist Frames for matchmaking</title><link>https://forums.warframe.com/topic/1254931-if-saryn-is-going-to-stay-like-this-let-us-blacklist-frames-for-matchmaking/</link><description><![CDATA[<p>
+	I know the Saryn discussions have been done to death and nerfing or changing her would end up on an uproar for half the community. <br />
+	But there are people in the game that actually likes to have fun while playing instead just mindlessly grinding, and one Saryn player completely sucks the fun out of the game when you are there doing nothing for 10 minutes. I'm at the point where I just leave the session if there is a Saryn player, that's why I suggest just adding Frames Blacklist to keep both sides of the community happy.
+</p>]]></description><guid isPermaLink="false">1254931</guid><pubDate>Mon, 22 Mar 2021 15:13:27 -0500</pubDate></item><item><title><![CDATA[Devstream 155 & Lich Cycle Feedback]]></title><link>https://forums.warframe.com/topic/1266057-devstream-155-lich-cycle-feedback/</link><description><![CDATA[<p>
+	Thanks for the devstream, I'm <i>very</i> encouraged that you're working on melee versus guns balancing, keep it up! In the discussion and presentation of Liches and Sisters of Parvos, there was a change that I was really hoping to see:
+</p>
+
+<p>
+	<strong>The problem</strong>: Grind time for a given specific Kuva weapon is rapidly increasing, and shifting heavily to the most boring and repetitive part of the experience: the Larvaling.
+</p>
+
+<p>
+	After the update, we will have 19 Kuva weapons in total. Let's say I want the new Kuva Hek. In any given mission where I kill a Larvaling I have a 1/19 chance of getting the weapon I want. To have a 90% chance of getting the weapon, I need to run the mission a whopping 43 times!
+</p>
+
+<p>
+	Then, keep in mind that 10% of players will need to keep going after the 43rd run. The last time I decided to get a Kuva weapon, I spent ~20% of the time farming murmurs, stabbing the Lich to rank 5, and then finishing the job. The remaining ~80% of my time was spent hunting Larvalings until I got the weapon I wanted.
+</p>
+
+<p>
+	I don't mind grinding the murmurs, because at least I'm making progress on each run. I don't mind guessing the requiem combination, because with each attempt I get closer to the correct one. What I do mind is repeating the same capture mission dozens of times and making exactly zero progress toward my goal.
+</p>
+
+<p>
+	Please reconsider this part of the Lich / Sisters system.
+</p>]]></description><guid isPermaLink="false">1266057</guid><pubDate>Mon, 31 May 2021 14:39:43 -0500</pubDate></item><item><title>Unpopular Gamemodes</title><link>https://forums.warframe.com/topic/1266088-unpopular-gamemodes/</link><description><![CDATA[<p>
+	<strong><u>Intro</u></strong>
+</p>
+
+<p>
+	Something DE seems to be doing lately is trying to get players to play unpopular gamemodes like the granum void, orphix missions, void storms, etc. They seem to believe the problem is that they aren't rewarding enough, and to some degree this is true. However personally, the majority of why <strong>I myself</strong> don't play these is because they aren't fun.
+</p>
+
+<p>
+	To make a gamemode more popular, its not enough to just give it more rewards, you need to rework the gamemode, fix it, make changes to it. The reason why people aren't playing them is because as they are currently, they fail to interest players.
+</p>
+
+<p>
+	You can make granum void reward umbra forma and legendary cores at every rotation 100% of the time, so long as its no more then a glorified extermination mission, I'm not interested in playing it. As long as the enemies as so durable it takes heavy spam frames like ember, saryn, revenant, and so on to make any progress, I'm not interested.
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<strong><u>Surveys</u></strong>
+</p>
+
+<p>
+	One thing I defiantly recommend that DE does, is create surveys for players. Its become very clear with recent updates, especially with corpus proxima, that DE no longer knows what their players want. One way is to just make forum posts with built in surveys, or links to surveys, though personally i think this would be the least effective method.
+</p>
+
+<p>
+	Instead I think they should add something to the orbiter, that has surveys on it. This way DE can control and collect a lot more specific data. How are MR 8 and below liking the free roam areas, do MR 16 and above enjoy railjack, you get the point. You could even give players small rewards this way like 5k credits, or 400 endo.
+</p>
+
+<p>
+	Just as a side note, i have noticed more player created surveys on the forums.<br />
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<b><u>Test Clusters</u></b>
+</p>
+
+<p>
+	Something that I hope they didn't forget about is the <strong>test clusters</strong> just sitting around in their back pocket. This is <b>the best</b> way to find out if players will like something or not... have players play it. It was a great success for testing steel path's difficulty, not so much deimos, but I still want to see and hear about future use of the test clusters.
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<b><u>Making Changes to Gamemodes</u></b>
+</p>
+
+<p>
+	Something DE seems to be avoiding at all costs is making any sort of actual changes to the gamemodes that aren't reward based. The reason i don't play railjack isn't because its boring, its because they're just normal missions now. The reason I don't play void storms is because they are an unnecessary amount of extra effort for the same reward as doing something easier like void fissures. The reason i don't play orphix mission is because they disable everything you have and force you into specific gear like necramechs.
+</p>
+
+<p>
+	Simply put, changing or adding rewards isn't enough to make these gamemodes more popular, changes to how they operate <strong>need</strong> to be made. For 1, enable warframe usage in orphix missions, the paracesis is a melee weapon specifically designed to fight sentients, which we can't use because no warframes allowed. The umbral mods have extra defense and damage against sentients, which we can't use because no warframes allowed.
+</p>
+
+<p>
+	Something a lot of players wanted for void storms is the ability to crack 2 relics. If it were up to me, you would be able to crack 2 relics in void storms and pick 1 reward between the 2 of them. This would still keep balance as you are still getting just as much from the missions as you ware now, your just increasing the reward pool in more things you can potentially get.
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<u><strong>Summery/TLDR</strong></u>
+</p>
+
+<p>
+	To sum up, I think DE needs to actually make fundamental changes to these gamemodes to make them more interesting for players, simply giving them better rewards isn't enough. DE also needs to start taking steps to understand what their players want in warframe, what they enjoy, etc. Surveys and test clusters are 2 great ways to do this.
+</p>]]></description><guid isPermaLink="false">1266088</guid><pubDate>Mon, 31 May 2021 17:21:09 -0500</pubDate></item><item><title>Will DE ever stream Tennocon directly to the relay?</title><link>https://forums.warframe.com/topic/1266445-will-de-ever-stream-tennocon-directly-to-the-relay/</link><description><![CDATA[<p>
+	They probably can do this just like how the clan advertising is probably a way to test for an auction house the countdown we usually see in relays during the Famoria for example could be something like a window of the live twitch chat. It could come with us explaining things if the relay teleported us like last year. You could do in game games and everything
+</p>]]></description><guid isPermaLink="false">1266445</guid><pubDate>Thu, 03 Jun 2021 10:24:18 -0500</pubDate></item><item><title>Fixing warframe again, this time rank 10 command intrinsic</title><link>https://forums.warframe.com/topic/1266446-fixing-warframe-again-this-time-rank-10-command-intrinsic/</link><description><![CDATA[<p>
+	De will never implements any of my fixes even though I’ve thought them out and people generally seem to like them. But here we go.
+</p>
+
+<p>
+	Passives can be trained at ticker at level 5
+</p>
+
+<p>
+	At level 10 you can tell them to interact with things like the forge basically the commands can get more precise
+</p>
+
+<p>
+	another thing they could do is use the artillery or allow the pilot to get the artillery as long as it killed the movement but eh
+</p>]]></description><guid isPermaLink="false">1266446</guid><pubDate>Thu, 03 Jun 2021 10:25:32 -0500</pubDate></item><item><title>Upcoming Command 10 Intrinsic: Please let us upgrade our existing crew</title><link>https://forums.warframe.com/topic/1266045-upcoming-command-10-intrinsic-please-let-us-upgrade-our-existing-crew/</link><description><![CDATA[<p>
+	I got really attached to my existing crew, especially my Engineer who is acting First Mate on my ship.
+</p>
+
+<p>
+	There's no way I'm replacing her. There's probably a lot of Tenno who feel similarly to their crew, each with ther own experiences with that system.<br />
+	Some for attachment reasons, others because they checked Ticker every day for weeks to get the perfect combination of stats.
+</p>
+
+<p>
+	"Just hire new ones lol" pretty much invalidates all that.
+</p>
+
+<p>
+	Maybe allow us to perform "Elite Training" for a resource fee (just like with Ticker's new hires) to coax out a new trait and stat increase to bring them up to speed with Elite Crewmates.
+</p>]]></description><guid isPermaLink="false">1266045</guid><pubDate>Mon, 31 May 2021 13:52:39 -0500</pubDate></item><item><title>Slight impact rework idea</title><link>https://forums.warframe.com/topic/1266413-slight-impact-rework-idea/</link><description><![CDATA[<p>
+	Greetings people,
+</p>
+
+<p>
+
+</p>
+
+<p>
+	like the thread name says, there was an impact rework idea wandering through my mind for months now. I never bothered posting it before because i wasn't sure how would people react to it, but with recent announce by DE that they're planning to buff primaries, that idea resurfaced back to my mind. After presenting that idea to my alliance mates last night and consulting with them, i got a positive feedback and finally got courage to post it.
+</p>
+
+<p>
+	Without further ado, here's the idea i had:
+</p>
+
+<p>
+	<strong>Impact</strong> is split into two versions, <strong>weak impact</strong> and <strong>strong impact</strong>. Weak impact is procced by weapons, which doesn't have impact damage type as their primary damage type (Baza, Pandero, Nikana...) and strong impact is procced by weapons with impact damage type as their primary damage type (Arca Plasmor, Sonicor, Ankyros) and Warframe abilities which does that damage type.
+</p>
+
+<p>
+	Impact will proc a new mechanic called "<strong>Bruising</strong>".
+</p>
+
+<p>
+	  <strong>Bruising</strong>: On a first proc of impact damage, hit spot would be marked similar how Banshee's Sonar marks the weak points when cast and color of that spot would match the weapons energy color. Each consecutive impact proc on marked spot would deal increased damage. Weaker impact would have damage increased by a smaller amounts while strong impact would have damage increased by a larger amount.
+</p>
+
+<p>
+	<em>An example</em>: First weak impact hit, which mark an enemy deals 100 damage, second hit deals 105, third hit deals 110 and so on. Might sound low, but on fast hitting weapons, like Baza for example, those numbers can easily stack up. Strong impact could have higher increase, 100 into 125 into 150 etc. To make slower weapons and less used ones (I'm looking at you Sobek and Ankyros) more rewarding to use.
+</p>
+
+<p>
+	Hitting a mark with melee weapons would be a bit tricky, so my initial idea was to make melee impact procs on melee permanently shatter enemy armor by percentage until it's completely removed, making the enemy permanently armorless BUT that could make corrosive element obsolete, so my thought about melee impact proc is to mark the targets either original weak spot or random spot and each melee impact proc would be count as it hit the target in that spot.
+</p>
+
+<p>
+	To make things more interesting, and incorporate gun play with melee play is to make shooting a melee procced spot with a gun/pistol deal more damage and vice versa. Would be nice seeing more people use that mechanics and use guns along the melee.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	Why would we need this impact change?
+</p>
+
+<p>
+	-At the moment, impact is still not in a very good spot and judging my be own experience, proccing impact on a enemy and staggering it only makes me miss couple of shots because of that awkward movement the enemy makes while being staggered.
+</p>
+
+<p>
+	As a clan member said, it would be fun mechanic to make an improvised "weak spot" on a enemy on demand that would make taking down tougher enemies a bit easier.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	To go a bit further, a whole "IPS" rework idea was in my head but i only gave impact most though and i doubt developers would bother with reworking the whole IPS aspect of the game.
+</p>
+
+<p>
+	For curious, here's that idea:
+</p>
+
+<p>
+	<strong>Puncture:</strong> Basically, it will do what current slash does, only damage is physical and not true. The more procs of puncture the target have, the more they will bleed and lose portions of their HP more quicker.
+</p>
+
+<p>
+	<strong>Slash:</strong> Slash will have a new mechanic: "<strong>Wounding</strong>" which is split into two: <strong>Flesh wound</strong> and <strong>deep wound</strong>. Each slash will proc a flesh wound debuff on the target. Proccing added elemental damage on the weapon would have their damage increased. When the target gets 10 flesh wound stacks on, those stacks would disappear and a new deep wounds debuff would take place instead of it. Target would take even greater damage from the elemental damage our weapon do with addition to taking increased damage from physical damage, puncture and impact.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<u>What you guys think about this idea? Would you enjoy it if developers reworked the impact in this way or i wasted my time posting it? </u>
+</p>
+
+<p>
+	Looking forward to your criticims.
+</p>
+
+<p>
+
+</p>
+
+<p>
+	<em>Disclaimer: I am new to forums, so if i posted this in wrong section, can someone of the mods move it to correct section? Also, english is not my first language, so i apologize in advance for typing mistakes. </em>
+</p>
+
+<p>
+
+</p>]]></description><guid isPermaLink="false">1266413</guid><pubDate>Thu, 03 Jun 2021 04:32:10 -0500</pubDate></item><item><title>cross-save for the next-gen?</title><link>https://forums.warframe.com/topic/1266408-cross-save-for-the-next-gen/</link><description><![CDATA[<pre dir="ltr" style="background-color:#f8f9fa;border:none;color:#202124;font-size:28px;padding:2px .14em 2px 0px;text-align:left;">
+<span lang="en" xml:lang="en">Sorry for the question but do you know anything about cross-save between playstation and xbox? </span></pre>
+
+<pre dir="ltr" style="background-color:#f8f9fa;border:none;color:#202124;font-size:28px;padding:2px .14em 2px 0px;text-align:left;">
+<span lang="en" xml:lang="en">I WANT TO PLAY WARFRAME WITH OLD PLAYSTATION ACCOUNT (the one I'm typing with) ON XBOX</span></pre>]]></description><guid isPermaLink="false">1266408</guid><pubDate>Thu, 03 Jun 2021 03:42:33 -0500</pubDate></item></channel></rss>
