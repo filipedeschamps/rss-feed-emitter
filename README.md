@@ -16,7 +16,10 @@
   </a>
   <a href="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter">
   <img src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter" style="max-width:100%;">
-</a>
+  </a>
+  <a href="https://gitter.im/rss-feed-emitter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
+    <img src="https://badges.gitter.im/rss-feed-emitter/community.svg" alt="Gitter Community" />
+  </a>
 </p>
 
 <p align="center">
