@@ -35,10 +35,10 @@ const feeds = [
     name: 'The New York Times',
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
   },
-  {
-    name: 'Reddit',
-    url: 'https://www.reddit.com/.rss',
-  },
+  // {
+  //   name: 'Reddit',
+  //   url: 'https://www.reddit.com/.rss',
+  // },
   {
     name: 'Milliyet Gazetesi',
     url: 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml',
@@ -46,6 +46,10 @@ const feeds = [
   {
     name: 'CNN',
     url: 'http://rss.cnn.com/rss/edition.rss',
+  },
+  {
+    name: 'Warframe PC Updates',
+    url: 'https://forums.warframe.com/forum/3-pc-update-notes.xml',
   },
 ];
 
