@@ -102,6 +102,7 @@ class FeedEmitter extends EventEmitter {
    * @typedef {Object} UserFeedConfig
    * @property {(string|string[])} url Url string or string array. Cannot be null or empty
    * @property {Number} refresh Refresh cycle duration for the feed.
+   * @property {string} [eventName] Event name for a new feed item. Default "new-item".
    */
 
   /**
