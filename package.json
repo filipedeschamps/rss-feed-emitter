@@ -48,7 +48,7 @@
     "nyc": "^14.1.1"
   },
   "dependencies": {
-    "feedparser": "1.1.4",
+    "feedparser": "2.2.10",
     "request": "^2.88.2"
   },
   "nyc": {
