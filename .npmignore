@@ -6,3 +6,5 @@
 .nvmrc
 content
 test
+.idea/
+.github/

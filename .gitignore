@@ -29,3 +29,5 @@ node_modules
 
 # Distribution files
 dist
+
+.idea/
