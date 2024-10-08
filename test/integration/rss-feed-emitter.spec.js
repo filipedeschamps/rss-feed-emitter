@@ -29,7 +29,7 @@ const feeds = [
   },
   {
     name: 'The Huffington Post',
-    url: 'http://www.huffingtonpost.com/feeds/index.xml',
+    url: 'https://chaski.huffpost.com/us/auto/vertical/arts',
   },
   {
     name: 'The New York Times',
@@ -41,7 +41,7 @@ const feeds = [
   // },
   {
     name: 'Milliyet Gazetesi',
-    url: 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml',
+    url: 'https://www.milliyet.com.tr/rss/rssnew/gundem.xml',
   },
   {
     name: 'CNN',
