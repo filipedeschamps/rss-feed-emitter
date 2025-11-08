@@ -52,79 +52,10 @@
     "feedparser": "1.1.4",
     "request": "^2.88.2"
   },
-  "nyc": {
-    "skip-full": true,
-    "all": true,
-    "instrument": true,
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "include": [
-      "src/**/*"
-    ]
-  },
   "engines": {
     "node": ">=8.16.2"
   },
   "release": {
     "branch": "master"
-  },
-  "eslintIgnore": [
-    "**/*{.,-}min.js"
-  ],
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "parserOptions": {
-      "sourceType": "script"
-    },
-    "rules": {
-      "valid-jsdoc": [
-        "error",
-        {
-          "requireReturn": false,
-          "requireReturnDescription": false,
-          "preferType": {
-            "String": "string",
-            "Number": "number",
-            "Boolean": "boolean",
-            "Function": "function",
-            "object": "Object",
-            "date": "Date",
-            "error": "Error"
-          },
-          "prefer": {
-            "return": "returns"
-          }
-        }
-      ],
-      "strict": [
-        "error",
-        "safe"
-      ],
-      "linebreak-style": "off",
-      "no-restricted-syntax": [
-        "off"
-      ],
-      "no-await-in-loop": "off",
-      "import/no-unresolved": 0,
-      "no-param-reassign": 0,
-      "complexity": [
-        "error",
-        10
-      ],
-      "arrow-parens": [
-        "error",
-        "always"
-      ]
-    }
-  },
-  "mocha": {
-    "spec": "test/**/*.spec.js",
-    "exit": true,
-    "slow": 1000,
-    "normal": 400,
-    "retries": 4,
-    "reporter": "min"
   }
 }
