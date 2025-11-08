@@ -27,7 +27,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    needs: lint
+    needs: [lint, coverage]
     strategy:
       max-parallel: 1
       fail-fast: false
@@ -52,7 +52,7 @@ jobs:
     # preserve name for actions name checking
     name: Coverage (16.x)
     runs-on: ubuntu-latest
-    needs: lint
+    needs: [lint]
     if: github.repository == 'filipedeschamps/rss-feed-emitter'
     steps:
       - uses: actions/checkout@v5
