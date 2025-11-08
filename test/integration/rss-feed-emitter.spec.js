@@ -53,7 +53,6 @@ const feeds = [
   },
 ];
 
-
 describe('RssFeedEmitter (integration)', () => {
   describe('#on', () => {
     let feeder;

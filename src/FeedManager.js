@@ -45,7 +45,6 @@ class FeedManager {
     data.items.sort(sortBy('date'));
   }
 
-
   /**
    * Truncated feed data fetched from web
    * @typedef {Object} FeedTrunc
