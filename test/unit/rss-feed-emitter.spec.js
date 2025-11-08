@@ -147,7 +147,7 @@ describe('RssFeedEmitter (unit)', () => {
       });
     });
 
-    it('does emits a subsequent load event', (done) => {
+    it('emits a subsequent load event', (done) => {
       nock('https://forums.waframe.com')
         .get('/feeds/latest')
         .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-1.xml'))
@@ -183,7 +183,7 @@ describe('RssFeedEmitter (unit)', () => {
         console.error(`total emissions: ${totalEmissions}`);
       });
 
-      // setTimeout(done, 1000);
+      setTimeout(done, 1000);
     });
   });
 
