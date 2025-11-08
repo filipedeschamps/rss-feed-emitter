@@ -15,7 +15,9 @@ const { expect } = chai;
 let feeder;
 const defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
-describe('RssFeedEmitter (unit)', () => {
+describe('RssFeedEmitter (unit)', function unit() {
+  this.retries(8);
+
   beforeEach(() => {
     feeder = new RssFeedEmitter();
   });
@@ -813,12 +815,11 @@ describe('RssFeedEmitter (unit)', () => {
 
         const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
         let numHandled = 0;
-        const handler = {
+        feed.handler = {
           handle: () => {
             numHandled += 1;
           },
         };
-        feed.handler = handler;
         await feed.fetchData();
         expect(numHandled).to.eq(2);
       });

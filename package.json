@@ -8,8 +8,9 @@
     "test": "test/**/*.spec.js"
   },
   "scripts": {
-    "test": "nyc mocha \"test/**/*.spec.js\" --exit",
-    "coverage": "npm test && nyc report --reporter=text-lcov | npx coveralls",
+    "test": "nyc mocha",
+    "coverage": "npm test && npm run cov:gen | npx coveralls",
+    "cov:gen": "nyc report --reporter=text-lcov",
     "lint": "eslint src/ test/",
     "lint:fix": "eslint src/ test/ --fix",
     "prepublishOnly": "npm run build:types",
@@ -50,13 +51,6 @@
   "dependencies": {
     "feedparser": "1.1.4",
     "request": "^2.88.2"
-  },
-  "nyc": {
-    "all": true,
-    "instrument": true,
-    "include": [
-      "src/**/*"
-    ]
   },
   "engines": {
     "node": ">=8.16.2"

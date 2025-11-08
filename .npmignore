@@ -3,6 +3,11 @@
 .editorconfig
 .eslintignore
 .eslintrc
+.mocharc.json
+.nycrc.json
 .nvmrc
 content
 test
+.idea/
+.github/
+.nyc_output/

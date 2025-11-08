@@ -110,7 +110,7 @@ class Feed {
    * the feed item list. If there is, we know it's
    * not a new item.
    * @public
-   * @param {FeedItem} item item specitics
+   * @param {FeedItem} item item specifics
    * @returns {FeedItem}      the matched element
    */
   findItem(item) {

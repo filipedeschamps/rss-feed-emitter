@@ -1,0 +1,12 @@
+{
+  "skip-full": true,
+  "all": true,
+  "instrument": true,
+  "reporter": [
+    "lcov",
+    "text"
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

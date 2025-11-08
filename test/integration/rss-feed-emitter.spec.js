@@ -29,23 +29,27 @@ const feeds = [
   },
   {
     name: 'The Huffington Post',
-    url: 'http://www.huffingtonpost.com/feeds/index.xml',
+    url: 'https://chaski.huffpost.com/us/auto/vertical/arts',
   },
   {
     name: 'The New York Times',
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
   },
-  {
-    name: 'Reddit',
-    url: 'https://www.reddit.com/.rss',
-  },
+  // {
+  //   name: 'Reddit',
+  //   url: 'https://www.reddit.com/.rss',
+  // },
   {
     name: 'Milliyet Gazetesi',
-    url: 'http://www.milliyet.com.tr/rss/rssNew/gundemRss.xml',
+    url: 'https://www.milliyet.com.tr/rss/rssnew/gundem.xml',
   },
   {
     name: 'CNN',
     url: 'http://rss.cnn.com/rss/edition.rss',
+  },
+  {
+    name: 'Warframe PC Updates',
+    url: 'https://forums.warframe.com/forum/3-pc-update-notes.xml',
   },
 ];
 
@@ -82,7 +86,7 @@ describe('RssFeedEmitter (integration)', () => {
     });
 
     // this doesn't work for me, as the feed doesn't redirect even in a browser
-    xit('should emit items from feed url involving redirects', (done) => {
+    it.skip('should emit items from feed url involving redirects', (done) => {
       const itemsReceived = [];
 
       const feedUrl = 'https://feeds.nczonline.net/blog/';

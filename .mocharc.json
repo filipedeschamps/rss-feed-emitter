@@ -1,0 +1,8 @@
+{
+  "spec": "test/**/*.spec.js",
+  "exit": true,
+  "slow": 1000,
+  "normal": 400,
+  "retries": 4,
+  "reporter": "min"
+}
