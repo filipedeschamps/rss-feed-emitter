@@ -96,7 +96,6 @@ class FeedEmitter extends EventEmitter {
     this.skipFirstLoad = options.skipFirstLoad;
   }
 
-
   /**
    * UserFeedConfig typedef
    * @typedef {Object} UserFeedConfig

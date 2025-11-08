@@ -7,7 +7,6 @@ const RssFeedEmitter = require('../../src/FeedEmitter');
 const RssFeedError = require('../../src/FeedError');
 const Feed = require('../../src/Feed');
 
-
 process.env.NOCK_OFF = false;
 
 const { expect } = chai;
@@ -733,7 +732,6 @@ describe('RssFeedEmitter (unit)', function unit() {
       .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
       .get('/feeds/news')
       .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
-
 
     it('should be a Function', () => {
       expect(feeder.destroy).to.be.a('function');
