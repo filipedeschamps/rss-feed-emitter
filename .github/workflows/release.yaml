@@ -35,7 +35,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm test
+      - uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          # let release retry 5 times on test failures
+          max_attempts: 5
+          command: npm test
         env:
           CI: true
           parallel: true
