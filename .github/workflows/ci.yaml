@@ -3,10 +3,14 @@ on:
   pull_request:
     branches:
       - master
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
-    name: Lint
+    # preserve name for actions name checking
+    name: Lint (16.x)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,7 +49,8 @@ jobs:
           CI: true
           parallel: true
   coverage:
-    name: Coverage
+    # preserve name for actions name checking
+    name: Coverage (16.x)
     runs-on: ubuntu-latest
     needs: lint
     if: github.repository == 'filipedeschamps/rss-feed-emitter'
