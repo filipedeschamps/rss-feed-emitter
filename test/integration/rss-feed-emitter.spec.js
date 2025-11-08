@@ -86,7 +86,7 @@ describe('RssFeedEmitter (integration)', () => {
     });
 
     // this doesn't work for me, as the feed doesn't redirect even in a browser
-    xit('should emit items from feed url involving redirects', (done) => {
+    it.skip('should emit items from feed url involving redirects', (done) => {
       const itemsReceived = [];
 
       const feedUrl = 'https://feeds.nczonline.net/blog/';

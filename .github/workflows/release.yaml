@@ -8,19 +8,15 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/checkout@v5
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
       - name: Run linters
         run: npm run lint
   test:
@@ -30,14 +26,14 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        node-version: [8.x, 12.x, 14.x, 16.x]
+        node-version: [8.x, 12.x, 14.x, 16.x, 18.x, 20.x, 22.x, 24.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+      - run: npm ci
       - run: npm test
         env:
           CI: true
@@ -46,16 +42,14 @@ jobs:
     name: Coverage
     runs-on: ubuntu-latest
     needs: lint
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v5
+      - name: Use Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
       - run: npm test
         env:
           CI: true
@@ -63,23 +57,19 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
   release:
     name: Release
-    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     needs: [lint, test, coverage]
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2.7.0
+        uses: cycjimmy/semantic-release-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          semantic_version: 17
           branches: |
             ['master']
