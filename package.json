@@ -54,8 +54,5 @@
   },
   "engines": {
     "node": ">=8.16.2"
-  },
-  "release": {
-    "branch": "master"
   }
 }

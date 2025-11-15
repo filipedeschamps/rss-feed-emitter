@@ -13,10 +13,35 @@ const { expect } = chai;
 
 let feeder;
 const defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
+const firstTitles = [
+  'Gauss Augment Ability "Mach Drift: Using Slide on Sharp Turns"',
+  'Ability to recast Warcry as Valkyr',
+  'Loki Rework',
+  'Is Frost just outdated?',
+  'A little Gara love please ??',
+  'Invert Tap/Hold Abilities. Gara Shattered Lash Missing',
+  'A suggestion for Vaubans Bastille/Vortex',
+  'Operation: Orphix Venom - Lavos Feedback Megathread (Read First Post)',
+  'Gauss Mach Rush Augment',
+  'Chroma needs a rework',
+  'Nidus parasitic link idea, involving mutation stacks',
+  'Wukong - Celestial Twin - Kuva Ogris - doesn\'t shoot weapon, only in melee range.',
+  'Ivara - Prowling + Bullet Jumping | Give us this combination back',
+  'Nidus 2, and power strengh',
+  'Hydroid suggestions (Revision 2)',
+  'My Rework to Excalibur',
+  'Improving Teleporting Abilities',
+  'Equinox Night Form is Terrible and not just because Gloom Makes it Irrelevant.',
+  'Equinox Day/Night metamorphosis toggle in non combat areas',
+  'Gara QoL changes',
+  'Volt\'s \'Awakening\' [Cinematic] Shock When?!',
+  'Brilliant idea about Splinter Storm',
+  'Nyx Augment/Reworks',
+  'Frost rework',
+  'suggestion : Frost rework ideas',
+];
 
-describe('RssFeedEmitter (unit)', function unit() {
-  this.retries(8);
-
+describe('RssFeedEmitter (unit)', () => {
   beforeEach(() => {
     feeder = new RssFeedEmitter();
   });
@@ -104,13 +129,11 @@ describe('RssFeedEmitter (unit)', function unit() {
     });
   });
 
-  describe('when instantiated with skipFirstLoad option', () => {
-    it('does not emit an initial load event', (done) => {
-      nock('https://www.nintendolife.com/')
+  describe('skipFirstLoad option', () => {
+    it('does not emit an initial load event', () => {
+      nock('https://www.nintendolife.com')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
-        .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
@@ -122,11 +145,45 @@ describe('RssFeedEmitter (unit)', function unit() {
       feeder.on('initial-load:https://nintendolife.com/feeds/latest', () => {
         expect(false).to.eq(true);
       });
-      feeder.on('new-item', (item) => {
-        if (item.title === 'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More') {
-          done();
-        }
+    });
+
+    it('emits a subsequent load event', (done) => {
+      nock('https://forums.waframe.com')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-1.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-2.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-3.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-4.xml'))
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+
+      feeder = new RssFeedEmitter({ skipFirstLoad: true });
+
+      feeder.add({
+        url: 'https://forums.waframe.com/feeds/latest',
+        refresh: 1000,
       });
+
+      feeder.on('initial-load:https://forums.waframe.com/feeds/latest', () => {
+        expect(false).to.eq(true);
+      });
+
+      let totalEmissions = 0;
+
+      feeder.on('new-item', (item) => {
+        totalEmissions += 1;
+        expect(firstTitles).to.not.include.members([item.title]);
+        if (totalEmissions === 27) {
+          done();
+          feeder.destroy();
+        }
+        console.error(`total emissions: ${totalEmissions}`);
+      });
+
+      setTimeout(done, 1000);
     });
   });
 
@@ -174,11 +231,10 @@ describe('RssFeedEmitter (unit)', function unit() {
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
-        url: 'https://www.nintendolife.com/feeds/latest',
-      });
-
-      feeder.add({
-        url: 'https://www.nintendolife.com/feeds/news',
+        url: [
+          'https://www.nintendolife.com/feeds/latest',
+          'https://www.nintendolife.com/feeds/news',
+        ],
       });
 
       expect(feeder.list).to.have.property('length', 2);
@@ -221,7 +277,6 @@ describe('RssFeedEmitter (unit)', function unit() {
 
     it('should update feed when "url" already exists in feed list', () => {
       const notDefaultRefresh1 = 120000;
-
       const notDefaultRefresh2 = 240000;
 
       nock('https://www.nintendolife.com/')

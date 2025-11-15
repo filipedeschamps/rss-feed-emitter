@@ -94,6 +94,14 @@ class FeedEmitter extends EventEmitter {
      * @type {boolean}
      */
     this.skipFirstLoad = options.skipFirstLoad;
+
+    /**
+     * Map of emitted event urls grouped by event.
+     * This is to help prevent overlapping/dupe events in a single event name
+     * Each entry set clears at the same interval as the most recently applied feed.
+     * @type {Object}
+     */
+    this.emittedUrlsPerEvent = {};
   }
 
   /**
@@ -193,6 +201,14 @@ class FeedEmitter extends EventEmitter {
       this.removeFromFeedList(feedInList);
     }
 
+    if (!this.emittedUrlsPerEvent[feed.eventName]) {
+      this.emittedUrlsPerEvent[feed.eventName] = {
+        timeout: setTimeout(() => {
+          this.emittedUrlsPerEvent[feed.eventName].urls = [];
+        }, feed.refresh),
+        urls: [],
+      };
+    }
     this.addToFeedList(feed);
   }
 
@@ -230,6 +246,7 @@ class FeedEmitter extends EventEmitter {
   createSetInterval(feed) {
     const feedManager = new FeedManager(this, feed);
     feedManager.getContent(true);
+
     return setInterval(feedManager.getContent.bind(feedManager), feed.refresh);
   }
 
@@ -246,6 +263,28 @@ class FeedEmitter extends EventEmitter {
     feed.destroy();
     const pos = this.feedList.findIndex((e) => e.url === feed.url);
     this.feedList.splice(pos, 1);
+  }
+
+  /**
+   * Override emit to check if emitted event has already
+   *  been emitted on the same event
+   *  **WARNING:** This is a very limited scope implementation
+   *     If we ever need to emit more than one thing at once, we should expand this
+   * @param  {string} event event name to emit
+   * @param  {Object} data  event data/args
+   * @returns {boolean}       [description]
+   */
+  emit(event, data) {
+    // should only get triggered by initial-load, which we don't want to muck up memory with
+    if (!this.emittedUrlsPerEvent[event]) {
+      return super.emit(event, data);
+    }
+
+    if (this.emittedUrlsPerEvent[event].urls.includes(data.link)) {
+      return false;
+    }
+    this.emittedUrlsPerEvent[event].urls.push(data.link);
+    return super.emit(event, data);
   }
 }
 
