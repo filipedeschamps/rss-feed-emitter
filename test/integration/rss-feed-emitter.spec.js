@@ -28,10 +28,6 @@ const feeds = [
     url: 'http://www.theguardian.com/world/rss',
   },
   {
-    name: 'The Huffington Post',
-    url: 'https://chaski.huffpost.com/us/auto/vertical/arts',
-  },
-  {
     name: 'The New York Times',
     url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
   },
@@ -39,10 +35,6 @@ const feeds = [
   //   name: 'Reddit',
   //   url: 'https://www.reddit.com/.rss',
   // },
-  {
-    name: 'Milliyet Gazetesi',
-    url: 'https://www.milliyet.com.tr/rss/rssnew/gundem.xml',
-  },
   {
     name: 'CNN',
     url: 'http://rss.cnn.com/rss/edition.rss',
