@@ -1,7 +1,7 @@
 'use strict';
 
 const FeedParser = require('feedparser');
-const request = require('request');
+const fetch = require('node-fetch');
 const FeedError = require('./FeedError');
 const FeedItem = require('./FeedItem'); // eslint-disable-line no-unused-vars
 
@@ -152,9 +152,10 @@ class Feed {
   /**
    * Fetch the data for this feed
    * @public
+   * @async
    * @returns {Promise} array of new feed items
    */
-  fetchData() {
+  async fetchData() {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       const items = [];
@@ -181,26 +182,21 @@ class Feed {
    * @param  {FeedParser} feedparser feedparser instance to use for parsing a retrieved feed
    */
   get(feedparser) {
-    request
-      .get({
-        url: this.url,
-        headers: {
-          'user-agent': this.userAgent,
-          accept: ALLOWED_MIMES.join(','),
-        },
-      })
-      .on('response', (res) => {
-        if (res.statusCode !== RESPONSE_CODES.OK) {
-          const err = new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url);
-          Error.captureStackTrace(err);
-          this.handleError(err);
-        }
-      })
-      .on('error', () => {
-        this.handleError(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
-      })
-      .pipe(feedparser)
-      .on('end', () => {});
+    const req = fetch(this.url, {
+      headers: {
+        'user-agent': this.userAgent,
+        accept: ALLOWED_MIMES.join(','),
+      },
+    });
+    req.then((res) => {
+      if (res.status !== RESPONSE_CODES.OK) {
+        this.handleError(new FeedError(`This URL returned a ${res.status} status code`, 'fetch_url_error', this.url));
+      } else {
+        res.body.pipe(feedparser);
+      }
+    }, (err) => {
+      this.handleError(new FeedError(`Cannot connect to ${this.url}: ${err.message}`, 'fetch_url_error', this.url));
+    });
   }
 
   /**
