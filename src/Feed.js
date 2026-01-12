@@ -209,7 +209,7 @@ class Feed {
       (err) => {
         this.handleError(new FeedError(`Cannot connect to ${this.url}: ${err.message}`, 'fetch_url_error', this.url));
         resolve([]);
-      },
+      }
     );
   }
 

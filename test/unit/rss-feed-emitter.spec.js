@@ -401,7 +401,7 @@ describe('RssFeedEmitter (unit)', () => {
         },
         {
           url: 'https://www.nintendolife.com/feeds/news',
-        },
+        }
       );
 
       expect(list).to.have.property('length', 2);
@@ -504,13 +504,13 @@ describe('RssFeedEmitter (unit)', () => {
         itemsReceived.push(item);
         if (itemsReceived.length === totalLength) {
           expect(itemsReceived[19].title).to.equal(
-            'Feature: Super Mario Maker’s Weekly Course Collection - 20th November',
+            'Feature: Super Mario Maker’s Weekly Course Collection - 20th November'
           );
           expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
           expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
           expect(itemsReceived[20].date.toISOString()).to.equal('2015-11-20T15:30:00.000Z');
           expect(itemsReceived[28].title).to.equal(
-            'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More',
+            'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More'
           );
           expect(itemsReceived[28].date.toISOString()).to.equal('2015-11-21T18:00:00.000Z');
 
@@ -603,7 +603,7 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('message', 'This URL returned a 404 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
           expect(error.toString()).to.eq(
-            'fetch_url_error : This URL returned a 404 status code\nhttps://www.nintendolife.com/feeds/zelda',
+            'fetch_url_error : This URL returned a 404 status code\nhttps://www.nintendolife.com/feeds/zelda'
           );
           feeder.destroy();
           done();
@@ -628,7 +628,7 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('message', 'This URL returned a 500 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
           expect(error.toString()).to.eq(
-            'fetch_url_error : This URL returned a 500 status code\nhttps://www.nintendolife.com/feeds/link',
+            'fetch_url_error : This URL returned a 500 status code\nhttps://www.nintendolife.com/feeds/link'
           );
           feeder.destroy();
           feeder.destroy();
