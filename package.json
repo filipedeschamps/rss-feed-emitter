@@ -21,7 +21,7 @@
     "lint:fix": "biome check --write src/ test/",
     "format": "biome format --write .",
     "prepublishOnly": "npm run build:types",
-    "build:types": "npx -p typescript tsc -p tsconfig.declaration.json"
+    "build:types": "npx -p typescript tsc -p tsconfig.declaration.json && node .github/scripts/patch-types.js"
   },
   "repository": {
     "type": "git",

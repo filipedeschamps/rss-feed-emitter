@@ -1,8 +1,4 @@
-import { EventEmitter } from "events";
-import Feed = require("./Feed");
-import FeedItem = require("./FeedItem");
-import FeedError = require("./FeedError");
-
+export = FeedEmitter;
 /**
  * MAIN CLASS
  * This is where we extend from TinyEmitter and absorve
@@ -152,9 +148,11 @@ declare class FeedEmitter extends EventEmitter {
      */
     emit(event: string, data: any): boolean;
 }
-
 declare namespace FeedEmitter {
-    export { Feed, FeedItem, FeedError };
+    export { Feed, FeedItem, FeedError, FeedManager };
 }
-
-export = FeedEmitter;
+import { EventEmitter } from "events";
+import Feed = require("./Feed");
+import FeedItem = require("./FeedItem");
+import FeedError = require("./FeedError");
+import FeedManager = require("./FeedManager");

@@ -5,6 +5,7 @@ const { EventEmitter } = require('events');
 const FeedError = require('./FeedError');
 const FeedManager = require('./FeedManager');
 const Feed = require('./Feed');
+const FeedItem = require('./FeedItem');
 
 /**
  * Default UserAgent string
@@ -292,3 +293,9 @@ class FeedEmitter extends EventEmitter {
 }
 
 module.exports = FeedEmitter;
+
+// Export helper classes for TypeScript users and advanced use cases
+module.exports.Feed = Feed;
+module.exports.FeedItem = FeedItem;
+module.exports.FeedError = FeedError;
+module.exports.FeedManager = FeedManager;
