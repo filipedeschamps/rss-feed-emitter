@@ -1,12 +1,13 @@
-.travis.yml
 .codeclimate.yml
 .editorconfig
 .mocharc.json
 .nycrc.json
 .nvmrc
 biome.json
+.releaserc.yaml
+tsconfig.declaration.json
 content
-test
+test/
 .idea/
 .github/
 .nyc_output/
