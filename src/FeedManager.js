@@ -1,9 +1,6 @@
 'use strict';
 
-/* eslint-disable class-methods-use-this */
-
-// eslint-disable-next-line no-nested-ternary
-const sortBy = (key) => (a, b) => ((a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0));
+const sortBy = (key) => (a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0);
 
 /**
  * Management class for feeds

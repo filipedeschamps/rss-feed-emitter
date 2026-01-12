@@ -4,6 +4,12 @@
   "description": "Super RSS News Feed aggregator written in Node.js and ES6",
   "main": "src/FeedEmitter.js",
   "types": "types/FeedEmitter.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/FeedEmitter.d.ts",
+      "require": "./src/FeedEmitter.js"
+    }
+  },
   "directories": {
     "test": "test/**/*.spec.js"
   },
@@ -11,8 +17,9 @@
     "test": "nyc mocha",
     "coverage": "npm test && npm run cov:gen | npx coveralls",
     "cov:gen": "nyc report --reporter=text-lcov",
-    "lint": "eslint src/ test/",
-    "lint:fix": "eslint src/ test/ --fix",
+    "lint": "biome check src/ test/",
+    "lint:fix": "biome check --write src/ test/",
+    "format": "biome format --write .",
     "prepublishOnly": "npm run build:types",
     "build:types": "npx -p typescript tsc -p tsconfig.declaration.json"
   },
@@ -35,25 +42,21 @@
   },
   "homepage": "https://github.com/filipedeschamps/rss-feed-emitter#readme",
   "devDependencies": {
+    "@biomejs/biome": "^2.3.11",
     "@types/chai": "^4.2.11",
     "@types/feedparser": "^2.2.3",
     "@types/form-data": "^2.5.0",
     "@types/node-fetch": "^2.6.13",
-    "@types/request": "^2.48.4",
-    "chai": "3.4.0",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.20.2",
-    "mocha": "^7.2.0",
-    "nock": "11.7.2",
-    "nyc": "^14.1.1"
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2",
+    "nock": "^13.5.6",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
     "feedparser": "^2.2.10",
     "node-fetch": "^2.7.0"
   },
   "engines": {
-    "node": ">=8.16.2"
+    "node": ">=16.0.0"
   }
 }

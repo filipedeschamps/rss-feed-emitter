@@ -29,7 +29,10 @@ const checkFeed = (feed) => {
  */
 const checkUrl = (feed) => {
   if (!feed.url || !(typeof feed.url === 'string' || Array.isArray(feed.url))) {
-    throw new FeedError('Your configuration object should have an "url" key with a string or array value', 'type_error');
+    throw new FeedError(
+      'Your configuration object should have an "url" key with a string or array value',
+      'type_error',
+    );
   }
 };
 

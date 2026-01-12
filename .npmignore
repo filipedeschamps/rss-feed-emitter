@@ -1,11 +1,10 @@
 .travis.yml
 .codeclimate.yml
 .editorconfig
-.eslintignore
-.eslintrc
 .mocharc.json
-.nycrc.json
+.nycrc
 .nvmrc
+biome.json
 content
 test
 .idea/

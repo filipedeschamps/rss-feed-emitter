@@ -4,10 +4,6 @@ ratings:
   paths:
   - "src/**.js"
 plugins:
-  eslint:
-    enabled: true
-    config:
-      config: ./.eslintrc
   duplication:
     enabled: false
     checks:
