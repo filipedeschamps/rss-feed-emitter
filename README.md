@@ -1,24 +1,27 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/filipedeschamps/rss-feed-emitter/master/content/logo.gif">
+  <img alt="Logo" src="https://raw.githubusercontent.com/filipedeschamps/rss-feed-emitter/master/content/logo.gif">
 </p>
 
 <h1 align="center">RSS Feed Emitter</h1>
 
 <p align="center">
-  <a href="https://travis-ci.com/filipedeschamps/rss-feed-emitter">
-    <img src="https://travis-ci.com/filipedeschamps/rss-feed-emitter.svg?branch=master">
+  <a href="https://github.com/filipedeschamps/rss-feed-emitter/actions/workflows/release.yaml">
+    <img alt="Release" src="https://github.com/filipedeschamps/rss-feed-emitter/actions/workflows/release.yaml/badge.svg">
   </a>
   <a href='https://coveralls.io/github/filipedeschamps/rss-feed-emitter'>
     <img src='https://coveralls.io/repos/github/filipedeschamps/rss-feed-emitter/badge.svg' alt='Coverage Status' />
   </a>
   <a href="https://www.npmjs.com/package/rss-feed-emitter">
-    <img src="https://badge.fury.io/js/rss-feed-emitter.svg">
+    <img alt="NPM Package" src="https://badge.fury.io/js/rss-feed-emitter.svg">
   </a>
   <a href="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter">
   <img src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/filipedeschamps/rss-feed-emitter" style="max-width:100%;">
   </a>
   <a href="https://gitter.im/rss-feed-emitter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
     <img src="https://badges.gitter.im/rss-feed-emitter/community.svg" alt="Gitter Community" />
+  </a>
+  <a href="https://github.com/semantic-release/semantic-release">
+    <img src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release" alt="semantic-release: angular" />
   </a>
 </p>
 

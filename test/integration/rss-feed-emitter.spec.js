@@ -57,9 +57,13 @@ describe('RssFeedEmitter (integration)', () => {
   describe('#on', () => {
     let feeder;
 
-    beforeEach(() => { feeder = new RssFeedEmitter(); });
+    beforeEach(() => {
+      feeder = new RssFeedEmitter();
+    });
 
-    afterEach(() => { feeder.destroy(); });
+    afterEach(() => {
+      feeder.destroy();
+    });
 
     feeds.forEach(({ name, url }) => {
       it(`should emit items from "${name}"`, (done) => {
@@ -101,10 +105,6 @@ describe('RssFeedEmitter (integration)', () => {
         expect(itemsReceived.length).to.be(expectedlength);
         done();
       });
-    });
-
-    afterEach(() => {
-      feeder.destroy();
     });
   });
 });

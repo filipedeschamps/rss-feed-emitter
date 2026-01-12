@@ -25,7 +25,7 @@ const firstTitles = [
   'Gauss Mach Rush Augment',
   'Chroma needs a rework',
   'Nidus parasitic link idea, involving mutation stacks',
-  'Wukong - Celestial Twin - Kuva Ogris - doesn\'t shoot weapon, only in melee range.',
+  "Wukong - Celestial Twin - Kuva Ogris - doesn't shoot weapon, only in melee range.",
   'Ivara - Prowling + Bullet Jumping | Give us this combination back',
   'Nidus 2, and power strengh',
   'Hydroid suggestions (Revision 2)',
@@ -34,7 +34,7 @@ const firstTitles = [
   'Equinox Night Form is Terrible and not just because Gloom Makes it Irrelevant.',
   'Equinox Day/Night metamorphosis toggle in non combat areas',
   'Gara QoL changes',
-  'Volt\'s \'Awakening\' [Cinematic] Shock When?!',
+  "Volt's 'Awakening' [Cinematic] Shock When?!",
   'Brilliant idea about Splinter Storm',
   'Nyx Augment/Reworks',
   'Frost rework',
@@ -42,7 +42,19 @@ const firstTitles = [
 ];
 
 describe('RssFeedEmitter (unit)', () => {
+  before(() => {
+    nock.disableNetConnect();
+  });
+
+  after(() => {
+    nock.restore();
+    nock.enableNetConnect();
+  });
+
   beforeEach(() => {
+    nock.cleanAll();
+    nock.restore();
+    nock.activate();
     feeder = new RssFeedEmitter();
   });
 
@@ -92,7 +104,8 @@ describe('RssFeedEmitter (unit)', () => {
   });
 
   describe('when instantiated with userAgent option', () => {
-    const definedUserAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36';
+    const definedUserAgent =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36';
 
     beforeEach(() => {
       feeder = new RssFeedEmitter({ userAgent: definedUserAgent });
@@ -148,7 +161,7 @@ describe('RssFeedEmitter (unit)', () => {
     });
 
     it('emits a subsequent load event', (done) => {
-      nock('https://forums.waframe.com')
+      nock('https://forums.warframe.com')
         .get('/feeds/latest')
         .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-1.xml'))
         .get('/feeds/latest')
@@ -163,11 +176,11 @@ describe('RssFeedEmitter (unit)', () => {
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
       feeder.add({
-        url: 'https://forums.waframe.com/feeds/latest',
+        url: 'https://forums.warframe.com/feeds/latest',
         refresh: 1000,
       });
 
-      feeder.on('initial-load:https://forums.waframe.com/feeds/latest', () => {
+      feeder.on('initial-load:https://forums.warframe.com/feeds/latest', () => {
         expect(false).to.eq(true);
       });
 
@@ -231,10 +244,7 @@ describe('RssFeedEmitter (unit)', () => {
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
-        url: [
-          'https://www.nintendolife.com/feeds/latest',
-          'https://www.nintendolife.com/feeds/news',
-        ],
+        url: ['https://www.nintendolife.com/feeds/latest', 'https://www.nintendolife.com/feeds/news'],
       });
 
       expect(feeder.list).to.have.property('length', 2);
@@ -329,6 +339,7 @@ describe('RssFeedEmitter (unit)', () => {
         itemsReceived.push(item);
         expect(feed.items.length).to.be.below(maxItemsLength);
         if (itemsReceived.length === maxItemsReceived) {
+          feeder.destroy();
           done();
         }
       });
@@ -384,11 +395,14 @@ describe('RssFeedEmitter (unit)', () => {
         .get('/feeds/news')
         .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
-      const list = feeder.add({
-        url: 'https://www.nintendolife.com/feeds/latest',
-      }, {
-        url: 'https://www.nintendolife.com/feeds/news',
-      });
+      const list = feeder.add(
+        {
+          url: 'https://www.nintendolife.com/feeds/latest',
+        },
+        {
+          url: 'https://www.nintendolife.com/feeds/news',
+        }
+      );
 
       expect(list).to.have.property('length', 2);
       expect(list[0]).to.have.property('refresh', defaultRefesh);
@@ -489,13 +503,18 @@ describe('RssFeedEmitter (unit)', () => {
       feeder.on('new-item', (item) => {
         itemsReceived.push(item);
         if (itemsReceived.length === totalLength) {
-          expect(itemsReceived[19].title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
+          expect(itemsReceived[19].title).to.equal(
+            'Feature: Super Mario Maker’s Weekly Course Collection - 20th November'
+          );
           expect(itemsReceived[19].date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
           expect(itemsReceived[20].title).to.equal('Feature: Memories of Court Battles in Mario Tennis');
           expect(itemsReceived[20].date.toISOString()).to.equal('2015-11-20T15:30:00.000Z');
-          expect(itemsReceived[28].title).to.equal('Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More');
+          expect(itemsReceived[28].title).to.equal(
+            'Nintendo Life Weekly: Huge Pokémon Reveal Next Month, Arguably the Rarest Nintendo Game, and More'
+          );
           expect(itemsReceived[28].date.toISOString()).to.equal('2015-11-21T18:00:00.000Z');
 
+          feeder.destroy();
           done();
         }
       });
@@ -531,6 +550,7 @@ describe('RssFeedEmitter (unit)', () => {
         if (itemsReceived.length === 20) {
           expect(item.title).to.equal('Feature: Super Mario Maker’s Weekly Course Collection - 20th November');
           expect(item.date.toISOString()).to.equal('2015-11-20T15:00:00.000Z');
+          feeder.destroy();
           done();
         }
       });
@@ -567,9 +587,7 @@ describe('RssFeedEmitter (unit)', () => {
     });
 
     it('"error" should be emitted when URL returns 404', (done) => {
-      nock('https://www.nintendolife.com/')
-        .get('/feeds/zelda')
-        .reply(404);
+      nock('https://www.nintendolife.com/').get('/feeds/zelda').reply(404);
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/zelda',
@@ -584,16 +602,17 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('name', 'fetch_url_error');
           expect(error).to.have.property('message', 'This URL returned a 404 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/zelda');
-          expect(error.toString()).to.eq('fetch_url_error : This URL returned a 404 status code\nhttps://www.nintendolife.com/feeds/zelda');
+          expect(error.toString()).to.eq(
+            'fetch_url_error : This URL returned a 404 status code\nhttps://www.nintendolife.com/feeds/zelda'
+          );
+          feeder.destroy();
           done();
         }
       });
     });
 
     it('"error" should be emitted when URL returns 500', (done) => {
-      nock('https://www.nintendolife.com/')
-        .get('/feeds/link')
-        .reply(500);
+      nock('https://www.nintendolife.com/').get('/feeds/link').reply(500);
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/link',
@@ -608,7 +627,11 @@ describe('RssFeedEmitter (unit)', () => {
           expect(error).to.have.property('name', 'fetch_url_error');
           expect(error).to.have.property('message', 'This URL returned a 500 status code');
           expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/link');
-          expect(error.toString()).to.eq('fetch_url_error : This URL returned a 500 status code\nhttps://www.nintendolife.com/feeds/link');
+          expect(error.toString()).to.eq(
+            'fetch_url_error : This URL returned a 500 status code\nhttps://www.nintendolife.com/feeds/link'
+          );
+          feeder.destroy();
+          feeder.destroy();
           done();
         }
       });
@@ -622,8 +645,9 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.on('error', (error) => {
         expect(error).to.have.property('name', 'fetch_url_error');
-        expect(error).to.have.property('message', 'Cannot connect to https://ww.cantconnecttothis.addres/feeed');
+        expect(error.message).to.match(/^Cannot connect to https:\/\/ww\.cantconnecttothis\.addres\/feeed/);
         expect(error).to.have.property('feed', 'https://ww.cantconnecttothis.addres/feeed');
+        feeder.destroy();
         done();
       });
     });
@@ -642,6 +666,7 @@ describe('RssFeedEmitter (unit)', () => {
         expect(error).to.have.property('name', 'invalid_feed');
         expect(error).to.have.property('message', 'Cannot parse https://www.nintendolife.com/feeds/mario XML');
         expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/mario');
+        feeder.destroy();
         done();
       });
     }).timeout(10000);
@@ -782,17 +807,17 @@ describe('RssFeedEmitter (unit)', () => {
   });
 
   describe('#destroy', () => {
-    nock('https://www.nintendolife.com/')
-      .get('/feeds/latest')
-      .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
-      .get('/feeds/news')
-      .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
-
     it('should be a Function', () => {
       expect(feeder.destroy).to.be.a('function');
     });
 
     it('should remove all feeds from the instance', () => {
+      nock('https://www.nintendolife.com/')
+        .get('/feeds/latest')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .get('/feeds/news')
+        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
         refresh: 2000,
@@ -862,29 +887,27 @@ describe('RssFeedEmitter (unit)', () => {
 
     describe('#handleError', () => {
       it('should handle errors if a handler is present', async () => {
-        nock('https://www.nintendolife.com/')
-          .get('/feeds/latest')
-          .reply(500);
+        nock('https://www.nintendolife.com').get('/feeds/latest').reply(500);
 
         const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
         let numHandled = 0;
         feed.handler = {
-          handle: () => {
+          handle: (_err) => {
             numHandled += 1;
           },
         };
         await feed.fetchData();
-        expect(numHandled).to.eq(2);
+        expect(numHandled).to.eq(1);
       });
 
       it('should throw errors if a handler is not present', () => {
-        nock('https://www.nintendolife.com/')
-          .get('/feeds/latest')
-          .reply(500);
+        nock('https://www.nintendolife.com/').get('/feeds/latest').reply(500);
 
         const feed = new Feed({ url: 'https://www.nintendolife.com/feeds/latest', refresh: 100 });
 
-        expect(() => { feed.handleError(new Error()); }).to.throw();
+        expect(() => {
+          feed.handleError(new Error());
+        }).to.throw();
       });
     });
   });

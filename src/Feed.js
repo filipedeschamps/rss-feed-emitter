@@ -1,9 +1,11 @@
 'use strict';
 
 const FeedParser = require('feedparser');
-const request = require('request');
+const fetch = require('node-fetch');
 const FeedError = require('./FeedError');
-const FeedItem = require('./FeedItem'); // eslint-disable-line no-unused-vars
+// FeedItem is used for JSDoc type annotations
+// biome-ignore lint/correctness/noUnusedVariables: Used for JSDoc type annotations
+const FeedItem = require('./FeedItem');
 
 /**
  * Map of specially handled error codes
@@ -57,19 +59,19 @@ class Feed {
      * Array of item
      * @type {FeedItem[]}
      */
-    this.items; // eslint-disable-line no-unused-expressions
+    this.items;
 
     /**
      * Feed url for retrieving feed items
      * @type {string}
      */
-    this.url; // eslint-disable-line no-unused-expressions
+    this.url;
 
     /**
      * Duration between feed refreshes
      * @type {number}
      */
-    this.refresh; // eslint-disable-line no-unused-expressions
+    this.refresh;
 
     /**
      * If the user has specified a User Agent
@@ -77,19 +79,19 @@ class Feed {
      * making requests, otherwise we use the default option.
      * @type {string}
      */
-    this.userAgent; // eslint-disable-line no-unused-expressions
+    this.userAgent;
 
     /**
      * event name for this feed to emit when a new item becomes available
      * @type {String}
      */
-    this.eventName; // eslint-disable-line no-unused-expressions
+    this.eventName;
 
     /**
      * Maximum history length
      * @type {number}
      */
-    this.maxHistoryLength; // eslint-disable-line no-unused-expressions
+    this.maxHistoryLength;
 
     /**
      * Track first load failing so skipFirstLoad can be honored on the first passing load
@@ -98,7 +100,10 @@ class Feed {
     this.failedFirstLoad = true;
 
     ({
-      items: this.items, url: this.url, refresh: this.refresh, userAgent: this.userAgent,
+      items: this.items,
+      url: this.url,
+      refresh: this.refresh,
+      userAgent: this.userAgent,
       eventName: this.eventName,
     } = data);
 
@@ -152,26 +157,30 @@ class Feed {
   /**
    * Fetch the data for this feed
    * @public
+   * @async
    * @returns {Promise} array of new feed items
    */
-  fetchData() {
-    // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve) => {
+  async fetchData() {
+    return new Promise((resolve) => {
       const items = [];
       const feedparser = new FeedParser();
+
       feedparser.on('readable', () => {
         const item = feedparser.read();
-        item.meta.link = this.url;
-        items.push(item);
+        if (item) {
+          item.meta.link = this.url;
+          items.push(item);
+        }
       });
       feedparser.on('error', () => {
         this.handleError(new FeedError(`Cannot parse ${this.url} XML`, 'invalid_feed', this.url));
+        resolve(items);
       });
       feedparser.on('end', () => {
         resolve(items);
       });
 
-      this.get(feedparser);
+      this.get(feedparser, resolve);
     });
   }
 
@@ -179,28 +188,29 @@ class Feed {
    * Perform the feed parsing
    * @private
    * @param  {FeedParser} feedparser feedparser instance to use for parsing a retrieved feed
+   * @param  {Function} resolve Promise resolve function to call on fetch error
    */
-  get(feedparser) {
-    request
-      .get({
-        url: this.url,
-        headers: {
-          'user-agent': this.userAgent,
-          accept: ALLOWED_MIMES.join(','),
-        },
-      })
-      .on('response', (res) => {
-        if (res.statusCode !== RESPONSE_CODES.OK) {
-          const err = new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url);
-          Error.captureStackTrace(err);
-          this.handleError(err);
+  get(feedparser, resolve) {
+    const req = fetch(this.url, {
+      headers: {
+        'user-agent': this.userAgent,
+        accept: ALLOWED_MIMES.join(','),
+      },
+    });
+    req.then(
+      (res) => {
+        if (res.status !== RESPONSE_CODES.OK) {
+          this.handleError(new FeedError(`This URL returned a ${res.status} status code`, 'fetch_url_error', this.url));
+          resolve([]);
+        } else {
+          res.body.pipe(feedparser);
         }
-      })
-      .on('error', () => {
-        this.handleError(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
-      })
-      .pipe(feedparser)
-      .on('end', () => {});
+      },
+      (err) => {
+        this.handleError(new FeedError(`Cannot connect to ${this.url}: ${err.message}`, 'fetch_url_error', this.url));
+        resolve([]);
+      }
+    );
   }
 
   /**

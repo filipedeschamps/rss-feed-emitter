@@ -1,5 +1,4 @@
-'use strict';
-
+export = FeedItem;
 /**
  * FeedItem for storing feed data
  * Note: This class is not directly instantiated. Feed items are created by feedparser
@@ -20,6 +19,20 @@
  * @property {Object} [enclosures] Enclosures
  * @property {Object} [meta] Metadata
  */
-class FeedItem {}
-
-module.exports = FeedItem;
+declare class FeedItem {
+    title?: string;
+    description?: string;
+    summary?: string;
+    date?: Date;
+    pubdate?: Date;
+    link?: string;
+    origlink?: string;
+    author?: string;
+    guid?: string;
+    comments?: string;
+    image?: any;
+    categories?: string;
+    enclosures?: any;
+    meta?: any;
+    [key: string]: any;
+}
