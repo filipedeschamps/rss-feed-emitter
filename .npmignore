@@ -2,7 +2,7 @@
 .codeclimate.yml
 .editorconfig
 .mocharc.json
-.nycrc
+.nycrc.json
 .nvmrc
 biome.json
 content
