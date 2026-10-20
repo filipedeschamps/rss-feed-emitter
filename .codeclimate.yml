@@ -7,7 +7,7 @@ plugins:
   eslint:
     enabled: true
     config:
-      config: ./.eslintrc
+      config: ./eslint.config.js
   duplication:
     enabled: false
     checks:

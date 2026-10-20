@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Generic feed error
  * @extends Error
@@ -34,4 +32,4 @@ class FeedError extends Error {
   }
 }
 
-module.exports = FeedError;
+export default FeedError;

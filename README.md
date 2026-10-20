@@ -5,8 +5,8 @@
 <h1 align="center">RSS Feed Emitter</h1>
 
 <p align="center">
-  <a href="https://travis-ci.com/filipedeschamps/rss-feed-emitter">
-    <img src="https://travis-ci.com/filipedeschamps/rss-feed-emitter.svg?branch=master">
+  <a href="https://github.com/filipedeschamps/rss-feed-emitter/actions/workflows/release.yaml">
+    <img src="https://github.com/filipedeschamps/rss-feed-emitter/actions/workflows/release.yaml/badge.svg?branch=master" alt="Release">
   </a>
   <a href='https://coveralls.io/github/filipedeschamps/rss-feed-emitter'>
     <img src='https://coveralls.io/repos/github/filipedeschamps/rss-feed-emitter/badge.svg' alt='Coverage Status' />
@@ -35,7 +35,7 @@ This is a fully functional module, but its source code and repository are also a
  0. How to manage your module in Github and npm
  0. ~~How to transpile your ES6 code into ES5~~ this went away in v3
  0. How to create automated unit and integration tests
- 0. How to integrate them with Travis CI and make the build break if tests didn't pass
+ 0. How to integrate them with GitHub Actions and make the build break if tests didn't pass
  0. How to automatically test your module against various versions of Node.js
  0. How to setup a code coverage tool and keep 100% coverage
  0. How to integrate the coverage results with Coveralls
@@ -49,13 +49,14 @@ If you're afraid to read the source code of the modules you use or to create you
 
 ## Features
 
- * Supports Node.js `8.x` up through the current version of node.js
+ * Supports Node.js `22.13` and newer (uses the native `fetch`)
+ * Native ES Modules, with a legacy CommonJS entry point and TypeScript declarations
+ * Supported Node.js `8.x` up to `20.x` until rss-feed-emitter version `3.x`
  * Supported Node.js  `4.x`, `5.x`, `6.x`, and `7.x` until rss-feed-emitter version `2.0.1`
  * Supported Node.js `0.10.x` and `0.12.x` until rss-feed-emmiter version `1.0.7`
  * 100% code coverage with unit and integration tests
  * Simple interface
  * Automatically manages feed history memory
- * Written in ES6
  * Special thanks to @TobiTenno for the complete rewrite!
 
 
@@ -70,6 +71,20 @@ $ npm install rss-feed-emitter
 
 
 ### Creating an instance
+
+The package is written as native ES Modules:
+
+```js
+import RssFeedEmitter from 'rss-feed-emitter';
+// named exports are also available
+import { FeedEmitter, FeedError } from 'rss-feed-emitter';
+
+const feeder = new RssFeedEmitter();
+```
+
+#### Legacy CommonJS
+
+`require()` keeps working and returns the same class (and the very same module instance) as `import`:
 
 ```js
 const RssFeedEmitter = require('rss-feed-emitter');
@@ -115,7 +130,7 @@ feeder.add({
 ### Listening to new items
 
 ```js
-feeder.on('new-item', function(item) {
+feeder.on('new-item', (item) => {
   console.log(item);
 })
 ```
@@ -128,7 +143,7 @@ feeder.add({
   eventName: 'nintendo'
 });
 
-feeder.on('nintendo', function(item) {
+feeder.on('nintendo', (item) => {
   console.log(item);
 });
 ```
@@ -144,13 +159,13 @@ feeder.add({
 });
 
 // this item will only be from the new items, not from old items.
-feeder.on('nintendo', function(item) {
+feeder.on('nintendo', (item) => {
   console.log(item);
 });
 ```
 
 ### Adding an 'error' handler
-Handle error events by printing to console. This handler is needed to prevent unhandled exceptions from crashing the processes.
+Errors are only delivered through the `'error'` event (the library never writes to the console by itself). This handler is needed to prevent unhandled exceptions from crashing the process.
 ```js
 feeder.on('error', console.error);
 ```

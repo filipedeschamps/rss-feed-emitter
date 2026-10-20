@@ -1,14 +1,8 @@
-'use strict';
-
-const chai = require('chai');
-const RssFeedEmitter = require('../../src/FeedEmitter');
-
-const { expect } = chai;
+import { expect } from 'chai';
+import RssFeedEmitter from '../../src/index.js';
 
 const expectedlength = 1;
 const refresh = 1000;
-
-process.env.NOCK_OFF = true;
 
 const feeds = [
   {
@@ -29,7 +23,7 @@ const feeds = [
   },
   {
     name: 'The Huffington Post',
-    url: 'https://chaski.huffpost.com/us/auto/vertical/arts',
+    url: 'https://chaski.huffpost.com/us/auto/vertical/world-news',
   },
   {
     name: 'The New York Times',
@@ -53,7 +47,10 @@ const feeds = [
   },
 ];
 
-describe('RssFeedEmitter (integration)', () => {
+describe('RssFeedEmitter (integration)', function integration() {
+  // real network requests, some feeds are slow to respond
+  this.timeout(15000);
+
   describe('#on', () => {
     let feeder;
 

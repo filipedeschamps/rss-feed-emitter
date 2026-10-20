@@ -1,8 +1,3 @@
-'use strict';
-
-/* eslint-disable class-methods-use-this */
-
-// eslint-disable-next-line no-nested-ternary
 const sortBy = (key) => (a, b) => ((a[key] > b[key]) ? 1 : ((b[key] > a[key]) ? -1 : 0));
 
 /**
@@ -95,7 +90,6 @@ class FeedManager {
    * @param  {FeedError} error handle error
    */
   onError(error) {
-    console.error(error.stack);
     this.instance.emit('error', error);
   }
 
@@ -125,4 +119,4 @@ class FeedManager {
   }
 }
 
-module.exports = FeedManager;
+export default FeedManager;

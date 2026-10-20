@@ -1,0 +1,15 @@
+{
+  "all": true,
+  "include": [
+    "src/**/*.js",
+    "src/**/*.cjs"
+  ],
+  "reporter": [
+    "lcov",
+    "text"
+  ],
+  "skip-full": true,
+  "exclude": [
+    "src/FeedItem.js"
+  ]
+}
