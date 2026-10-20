@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * FeedItem for storing feed data
  * @class
@@ -21,4 +19,4 @@
  */
 class FeedItem {}
 
-module.exports = FeedItem;
+export default FeedItem;

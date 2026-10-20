@@ -1,5 +1,8 @@
 {
-  "spec": "test/**/*.spec.js",
+  "spec": [
+    "test/**/*.spec.js",
+    "test/**/*.spec.cjs"
+  ],
   "exit": true,
   "slow": 1000,
   "normal": 400,

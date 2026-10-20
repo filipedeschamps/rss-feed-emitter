@@ -1,15 +1,13 @@
-'use strict';
+import { EventEmitter } from 'node:events';
 
-const { EventEmitter } = require('events');
-
-const FeedError = require('./FeedError');
-const FeedManager = require('./FeedManager');
-const Feed = require('./Feed');
+import FeedError from './FeedError.js';
+import FeedManager from './FeedManager.js';
+import Feed from './Feed.js';
 
 /**
  * Default UserAgent string
  * Since static stuff doesn't work in older versions, keep using global const
- * @type {String}
+ * @type {string}
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
@@ -108,7 +106,7 @@ class FeedEmitter extends EventEmitter {
    * UserFeedConfig typedef
    * @typedef {Object} UserFeedConfig
    * @property {(string|string[])} url Url string or string array. Cannot be null or empty
-   * @property {Number} refresh Refresh cycle duration for the feed.
+   * @property {number} refresh Refresh cycle duration for the feed.
    * @property {string} [eventName] Event name for a new feed item. Default "new-item".
    */
 
@@ -288,4 +286,4 @@ class FeedEmitter extends EventEmitter {
   }
 }
 
-module.exports = FeedEmitter;
+export default FeedEmitter;

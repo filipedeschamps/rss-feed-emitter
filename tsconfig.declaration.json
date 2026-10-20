@@ -1,23 +1,24 @@
 {
-  "inlcude": [
-    "src/**/*.js"
-  ],
-  "exclude": [
-    "test/**/*.js",
-    "types/**/*.*",
-    "types/**/**.d.ts",
-    "node_modules/**/*.*"
+  "include": [
+    "src/**/*.js",
+    "src/**/*.cjs"
   ],
   "compilerOptions": {
     "outDir": "./types",
+    "rootDir": "./src",
     "declaration": true,
-    "noEmit": false,
-    "allowJs": true,
     "emitDeclarationOnly": true,
-    "lib": ["ES6","ES7"],
-    "target": "ES2019",
-    "moduleResolution": "Node",
-    "module": "ES6",
+    "allowJs": true,
+    "checkJs": false,
+    "lib": [
+      "ES2023"
+    ],
+    "types": [
+      "node"
+    ],
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "useDefineForClassFields": true,
     "skipLibCheck": true
   }

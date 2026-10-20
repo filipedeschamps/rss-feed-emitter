@@ -1,9 +1,8 @@
-'use strict';
+import { Readable, pipeline } from 'node:stream';
+import FeedParser from 'feedparser';
+import FeedError from './FeedError.js';
 
-const FeedParser = require('feedparser');
-const request = require('request');
-const FeedError = require('./FeedError');
-const FeedItem = require('./FeedItem'); // eslint-disable-line no-unused-vars
+/** @import FeedItem from './FeedItem.js' */
 
 /**
  * Map of specially handled error codes
@@ -11,8 +10,6 @@ const FeedItem = require('./FeedItem'); // eslint-disable-line no-unused-vars
  */
 const RESPONSE_CODES = {
   OK: 200,
-  NOT_FOUND: 404,
-  ISE: 500,
 };
 
 /**
@@ -21,14 +18,14 @@ const RESPONSE_CODES = {
  * maximum history which is how many items the feed has
  * multiplied by this number below. So, if the feed have
  * 10 items, we will keep 30 items max in the history.
- * @type {Number}
+ * @type {number}
  */
 const historyLengthMultiplier = 3;
 
 /**
  * Default UserAgent string
  * Since static stuff doesn't work in older versions, keep using global const
- * @type {String}
+ * @type {string}
  */
 const DEFAULT_UA = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
 
@@ -81,7 +78,7 @@ class Feed {
 
     /**
      * event name for this feed to emit when a new item becomes available
-     * @type {String}
+     * @type {string}
      */
     this.eventName; // eslint-disable-line no-unused-expressions
 
@@ -93,7 +90,7 @@ class Feed {
 
     /**
      * Track first load failing so skipFirstLoad can be honored on the first passing load
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.failedFirstLoad = true;
 
@@ -152,55 +149,73 @@ class Feed {
   /**
    * Fetch the data for this feed
    * @public
-   * @returns {Promise} array of new feed items
+   * @returns {Promise<FeedItem[]>} array of new feed items
    */
   fetchData() {
-    // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve) => {
+    return new Promise((resolve) => {
       const items = [];
+      let settled = false;
+      const settle = () => {
+        if (settled) return;
+        settled = true;
+        resolve(items);
+      };
+
       const feedparser = new FeedParser();
       feedparser.on('readable', () => {
-        const item = feedparser.read();
-        item.meta.link = this.url;
-        items.push(item);
+        let item = feedparser.read();
+        while (item) {
+          // feedparser shares a single meta object across items and keeps
+          // mutating it while parsing, so each item gets its own copy
+          item.meta = { ...item.meta, link: this.url };
+          items.push(item);
+          item = feedparser.read();
+        }
       });
       feedparser.on('error', () => {
+        // pipeline() re-emits the same failure while tearing the streams down
+        if (settled) return;
         this.handleError(new FeedError(`Cannot parse ${this.url} XML`, 'invalid_feed', this.url));
+        settle();
       });
-      feedparser.on('end', () => {
-        resolve(items);
-      });
+      feedparser.on('end', settle);
 
-      this.get(feedparser);
+      this.get(feedparser).then((ok) => {
+        if (!ok) settle();
+      });
     });
   }
 
   /**
-   * Perform the feed parsing
+   * Perform the feed request and pipe the response body into the parser
    * @private
    * @param  {FeedParser} feedparser feedparser instance to use for parsing a retrieved feed
+   * @returns {Promise<boolean>} whether the response body was handed to the parser
    */
-  get(feedparser) {
-    request
-      .get({
-        url: this.url,
+  async get(feedparser) {
+    let res;
+    try {
+      res = await fetch(this.url, {
         headers: {
           'user-agent': this.userAgent,
           accept: ALLOWED_MIMES.join(','),
         },
-      })
-      .on('response', (res) => {
-        if (res.statusCode !== RESPONSE_CODES.OK) {
-          const err = new FeedError(`This URL returned a ${res.statusCode} status code`, 'fetch_url_error', this.url);
-          Error.captureStackTrace(err);
-          this.handleError(err);
-        }
-      })
-      .on('error', () => {
-        this.handleError(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
-      })
-      .pipe(feedparser)
-      .on('end', () => {});
+      });
+    } catch {
+      this.handleError(new FeedError(`Cannot connect to ${this.url}`, 'fetch_url_error', this.url));
+      return false;
+    }
+
+    if (res.status !== RESPONSE_CODES.OK) {
+      // drain the body so the underlying connection can be reused
+      await res.arrayBuffer().catch(() => {});
+      this.handleError(new FeedError(`This URL returned a ${res.status} status code`, 'fetch_url_error', this.url));
+      return false;
+    }
+
+    // pipeline forwards body stream failures to the parser's error handler
+    pipeline(Readable.fromWeb(res.body), feedparser, () => {});
+    return true;
   }
 
   /**
@@ -226,4 +241,4 @@ class Feed {
   }
 }
 
-module.exports = Feed;
+export default Feed;

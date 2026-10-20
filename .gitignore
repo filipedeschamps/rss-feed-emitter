@@ -31,3 +31,6 @@ node_modules
 dist
 
 .idea/
+
+# Generated type declarations (built on prepublish)
+types/

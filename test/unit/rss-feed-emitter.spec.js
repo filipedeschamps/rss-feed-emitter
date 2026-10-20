@@ -1,15 +1,8 @@
-'use strict';
-
-const chai = require('chai');
-const nock = require('nock');
-const path = require('path');
-const RssFeedEmitter = require('../../src/FeedEmitter');
-const RssFeedError = require('../../src/FeedError');
-const Feed = require('../../src/Feed');
-
-process.env.NOCK_OFF = false;
-
-const { expect } = chai;
+import path from 'node:path';
+import { expect } from 'chai';
+import nock from 'nock';
+import RssFeedEmitter, { FeedError as RssFeedError } from '../../src/index.js';
+import Feed from '../../src/Feed.js';
 
 let feeder;
 const defaultUserAgent = 'Node/RssFeedEmitter (https://github.com/filipedeschamps/rss-feed-emitter)';
@@ -42,6 +35,15 @@ const firstTitles = [
 ];
 
 describe('RssFeedEmitter (unit)', () => {
+  before(() => {
+    // never reach the real network from unit tests
+    nock.disableNetConnect();
+  });
+
+  after(() => {
+    nock.enableNetConnect();
+  });
+
   beforeEach(() => {
     feeder = new RssFeedEmitter();
   });
@@ -71,7 +73,7 @@ describe('RssFeedEmitter (unit)', () => {
         },
       })
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -108,7 +110,7 @@ describe('RssFeedEmitter (unit)', () => {
         },
       })
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -133,7 +135,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('does not emit an initial load event', () => {
       nock('https://www.nintendolife.com')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
@@ -150,15 +152,15 @@ describe('RssFeedEmitter (unit)', () => {
     it('emits a subsequent load event', (done) => {
       nock('https://forums.waframe.com')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-1.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/warframe-1.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-2.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/warframe-2.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-3.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/warframe-3.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/warframe-4.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/warframe-4.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
@@ -180,7 +182,6 @@ describe('RssFeedEmitter (unit)', () => {
           done();
           feeder.destroy();
         }
-        console.error(`total emissions: ${totalEmissions}`);
       });
 
       setTimeout(done, 1000);
@@ -226,9 +227,9 @@ describe('RssFeedEmitter (unit)', () => {
 
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/news')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
         url: [
@@ -247,9 +248,9 @@ describe('RssFeedEmitter (unit)', () => {
 
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/news')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
         url: ['https://www.nintendolife.com/feeds/latest', 'https://www.nintendolife.com/feeds/news'],
@@ -265,7 +266,7 @@ describe('RssFeedEmitter (unit)', () => {
 
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -282,7 +283,7 @@ describe('RssFeedEmitter (unit)', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
         .twice()
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ skipFirstLoad: true });
 
@@ -306,13 +307,13 @@ describe('RssFeedEmitter (unit)', () => {
     it('should always keep feed max history the number of feed items times 3', (done) => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-second-fetch.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-third-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-third-fetch.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-fourth-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-fourth-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -337,7 +338,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should apply default "userAgent" if none is provided in add or construction', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const list = feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -350,7 +351,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should respect constructed "userAgent" if none is provided in add', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ userAgent: 'testABC' });
       const list = feeder.add({
@@ -364,7 +365,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should respect provided "userAgent"', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder = new RssFeedEmitter({ userAgent: 'testABC' });
       const list = feeder.add({
@@ -380,9 +381,9 @@ describe('RssFeedEmitter (unit)', () => {
 
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/news')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       const list = feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -416,7 +417,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should emit provided custom events', (done) => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -447,7 +448,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('"new-item" should be emitted right after adding new feeds', (done) => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -470,9 +471,9 @@ describe('RssFeedEmitter (unit)', () => {
     it('"new-item" should emit only new items in the second fetch', (done) => {
       nock('https://www.nintendolife.com')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-second-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -504,7 +505,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('"new-item" should emit items in ascending order', (done) => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -539,7 +540,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('"new-item" should contain an Object with at minimum fields', (done) => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       const itemsReceived = [];
 
@@ -615,6 +616,10 @@ describe('RssFeedEmitter (unit)', () => {
     });
 
     it('"error" should be emitted when URL does not exist', (done) => {
+      nock('https://ww.cantconnecttothis.addres')
+        .get('/feeed')
+        .replyWithError('getaddrinfo ENOTFOUND ww.cantconnecttothis.addres');
+
       feeder.add({
         url: 'https://ww.cantconnecttothis.addres/feeed',
         refresh: 120000,
@@ -635,14 +640,19 @@ describe('RssFeedEmitter (unit)', () => {
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/mario',
-        refresh: 10,
+        refresh: 120000,
       });
 
+      let errorCalls = 0;
+
       feeder.on('error', (error) => {
-        expect(error).to.have.property('name', 'invalid_feed');
-        expect(error).to.have.property('message', 'Cannot parse https://www.nintendolife.com/feeds/mario XML');
-        expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/mario');
-        done();
+        if (errorCalls === 0) {
+          errorCalls += 1;
+          expect(error).to.have.property('name', 'invalid_feed');
+          expect(error).to.have.property('message', 'Cannot parse https://www.nintendolife.com/feeds/mario XML');
+          expect(error).to.have.property('feed', 'https://www.nintendolife.com/feeds/mario');
+          done();
+        }
       });
     }).timeout(10000);
   });
@@ -662,9 +672,9 @@ describe('RssFeedEmitter (unit)', () => {
     it('should list all registered feeds', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/news')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -698,9 +708,9 @@ describe('RssFeedEmitter (unit)', () => {
     it('should remove a feed from the list with a String containing the feed url', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
         .get('/feeds/news')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -723,7 +733,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should throw when called with a Number', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -739,7 +749,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should throw when called with an Array', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -753,7 +763,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should throw when called with an Object', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -769,7 +779,7 @@ describe('RssFeedEmitter (unit)', () => {
     it('should not throw when feed could not be found', () => {
       nock('https://www.nintendolife.com/')
         .get('/feeds/latest')
-        .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
+        .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'));
 
       feeder.add({
         url: 'https://www.nintendolife.com/feeds/latest',
@@ -784,9 +794,9 @@ describe('RssFeedEmitter (unit)', () => {
   describe('#destroy', () => {
     nock('https://www.nintendolife.com/')
       .get('/feeds/latest')
-      .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
+      .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-latest-first-fetch.xml'))
       .get('/feeds/news')
-      .replyWithFile(200, path.join(__dirname, '/fixtures/nintendo-news-first-fetch.xml'));
+      .replyWithFile(200, path.join(import.meta.dirname, '/fixtures/nintendo-news-first-fetch.xml'));
 
     it('should be a Function', () => {
       expect(feeder.destroy).to.be.a('function');
@@ -874,7 +884,7 @@ describe('RssFeedEmitter (unit)', () => {
           },
         };
         await feed.fetchData();
-        expect(numHandled).to.eq(2);
+        expect(numHandled).to.eq(1);
       });
 
       it('should throw errors if a handler is not present', () => {
