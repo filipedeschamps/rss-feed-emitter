@@ -4,6 +4,10 @@ on:
     branches:
       - master
 
+# least privilege by default, the release job asks for what it needs
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Lint
@@ -37,7 +41,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - uses: nick-fields/retry@v4
+      - uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
         with:
           timeout_minutes: 10
           # let release retry 5 times on test failures
@@ -61,7 +65,7 @@ jobs:
         env:
           CI: true
       - name: Coveralls
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329 # v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -69,6 +73,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     needs: [lint, test, coverage]
+    permissions:
+      contents: write # create tags and GitHub releases
+      issues: write # comment on released issues
+      pull-requests: write # comment on released pull requests
+      id-token: write # npm Trusted Publishing (OIDC) and provenance
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -79,10 +88,9 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v8.1.3
+        uses: cycjimmy/semantic-release-action@d9bf53a078bd2f86aaffaec796dbb3d28f1b6f34 # v8.1.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           branches: |
             ['master']
